@@ -1,34 +1,52 @@
 package hu.adatb.rbtl.view;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- * Az alkalmazás fõ ablakának felülete
- * @author Attila
+ * The main screen of the application.
+ * @author Attila Uhrin
  *
  */
 public class BookshopGUI extends JFrame implements ActionListener{
 
 	private JMenuBar mb;
+	
+	private JMenu file_menu;
+	private JMenuItem file_home, file_exit;
+	
 	private JMenu user_settings;
 	private JMenuItem user_register, user_login;
+	private JLabel screen_title, logo;
 	
 	public BookshopGUI() {
 		super();
 		setTitle(Labels.MAIN_TITLE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setLayout(new BorderLayout());
-		setSize(600, 400);
+		setSize(600, 500);
 		//setResizable(false);
 		
+		/*----------------MENUBAR----------------*/
 		mb = new JMenuBar();
+		
+		//FILE MENU
+		file_menu = new JMenu(Labels.FILE_MENU);
+		file_home = new JMenuItem(Labels.FILE_MENUITEM_HOME);
+		file_exit = new JMenuItem(Labels.FILE_MENUITEM_EXIT);
+		
+		file_home.addActionListener(this);
+		file_exit.addActionListener(this);
+		
+		file_menu.add(file_home);
+		file_menu.add(file_exit);
+		
+		//USER SETTINGS MENU
 		user_settings = new JMenu(Labels.USER_MENU);
 		user_register = new JMenuItem(Labels.USER_MENUITEM_REGISTER);
 		user_login = new JMenuItem(Labels.USER_MENUITEM_LOGIN);
@@ -38,19 +56,30 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		user_settings.add(user_register);
 		user_settings.add(user_login);
 		
-		mb.add(user_settings);
+		mb.add(file_menu);
+		mb.add(user_settings);		
+		
 		setJMenuBar(mb);
+		/*------------------------------------------------*/
+		
+		getContentPane().add(new WelcomeScreen());		
 		setVisible(true);
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand() == Labels.USER_MENUITEM_REGISTER){
-			System.out.println("signup");
-			//TODO implement sign up interface
+		if(e.getSource() == file_home){				//If the user clicked on the 'Home' menu item
+			getContentPane().removeAll();
+			getContentPane().add(new WelcomeScreen());
+			revalidate();
+		} else if (e.getSource() == file_exit) {	//If the user clicked on the 'Exit' menu item
+			System.exit(0);
+		} else if(e.getSource() == user_register){ 	//If the user clicked on the 'Sign up' menu item
+			getContentPane().removeAll();
+			getContentPane().add(new UserSignUpScreen(getContentPane()));
+			revalidate();
 		}
-		
 	}
 
 }
