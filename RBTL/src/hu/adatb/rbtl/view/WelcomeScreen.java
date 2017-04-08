@@ -16,6 +16,9 @@ public class WelcomeScreen extends JPanel {
 
 	private JLabel screen_title, logo;
 	
+	/**
+	 * {@link WelcomeScreen} default constructor
+	 */
 	public WelcomeScreen(){
 		super();
 		setLayout(new BorderLayout());

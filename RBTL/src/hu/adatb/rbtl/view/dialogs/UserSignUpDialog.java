@@ -1,47 +1,44 @@
-package hu.adatb.rbtl.view;
+package hu.adatb.rbtl.view.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
+import hu.adatb.rbtl.view.Labels;
 
 /**
- * The panel what we display as the Sign Up interface
+ * The sign up dialog where users can create new accounts
  * @author Attila Uhrin
  *
  */
-public class UserSignUpScreen extends JPanel implements ActionListener{
+public class UserSignUpDialog extends JDialog implements ActionListener{
 
-	private Container contentPane;
-	
-	private JLabel title;
 	private JPanel gridpanel, buttonpanel;
 	private JLabel label_name, label_email, label_password;
 	private JTextField input_name, input_email;
 	private JPasswordField input_password;
 	private JButton okbutton, cancelbutton;
 	
-	
-	public UserSignUpScreen(Container contentPane){
+	public UserSignUpDialog() {
 		super();
-		this.contentPane = contentPane;
 		setLayout(new BorderLayout());
-		
-		title = new JLabel(Labels.USER_SIGNUP_TITLE, SwingConstants.CENTER);
-		add(title, BorderLayout.NORTH);
+		setTitle(Labels.USER_SIGNUP_TITLE);
+		setSize(300, 200);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		
 		/*-----------Grid panel containing the labels and input fields-----------*/
 		gridpanel = new JPanel();
-		gridpanel.setLayout(new GridLayout(3, 2));
+		gridpanel.setLayout(new GridLayout(3, 2, 0, 10));
 		
 		label_name = new JLabel(Labels.USER_SIGNUP_NAME);
 		label_email = new JLabel(Labels.USER_SIGNUP_EMAIL);
@@ -76,17 +73,16 @@ public class UserSignUpScreen extends JPanel implements ActionListener{
 		
 		add(buttonpanel, BorderLayout.SOUTH);
 		/*--------------------------------------------------------------------*/
-	}
-
-
+		
+		setVisible(true);
+	}	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
-			contentPane.removeAll();
-			contentPane.add(new WelcomeScreen());
-			contentPane.revalidate();
+			dispose();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
 			//TODO implement writing to database
-		}		
+		}
 	}
 }
