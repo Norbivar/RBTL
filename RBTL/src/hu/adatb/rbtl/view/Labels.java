@@ -21,6 +21,7 @@ public class Labels {
 	public static final String USER_MENUITEM_REGISTER = "Sign up";
 	public static final String USER_MENUITEM_LOGIN = "Sign in";
 	public static final String USER_MENUITEM_SIGNOUT = "Sign out";
+	public static final String USER_MENUITEM_EDITPROFILE = "Edit profile";
 	
 	public static final String PRODUCTS_MENU = "Products";
 	public static final String PRODUCTS_MENUITEM_SEARCH = "Search products";
@@ -46,4 +47,18 @@ public class Labels {
 	public static final String USER_SIGNOUT_TITLE = "Sign out";
 	public static final String USER_SIGNOUT_SUCCESSFUL = "You signed out successfully.";
 	public static final String USER_SIGNOUT_ERROR = "There was an error while trying to log out. Please try again later.";
+	
+	//Search products
+	public static final String SEARCH_PRODUCTS_PANE_TITLE = "Search products";
+	public static final String SEARCH_PRODUCTS_CATEGORY = "Product category:";
+	public static final String SEARCH_PRODUCTS_TITLE = "Title:";
+	public static final String SEARCH_PRODUCTS_ISBN = "ISBN number:";
+	public static final String SEARCH_PRODUCTS_PAGES = "Number of pages:";
+	public static final String SEARCH_PRODUCTS_BINDING = "Type of binding:";
+	public static final String SEARCH_PRODUCTS_SIZE = "Size of book:";
+	public static final String SEARCH_PRODUCTS_PRICE = "Price:";
+	public static final String SEARCH_PDORUCTS_PUBLISHER = "Publisher:";
+	public static final String SEARCH_PRODUCTS_DATE_OF_PUBLISHING = "Date of publishing:";
+	public static final String SEARCH_PRODUCTS_OKBUTTON = "OK";
+	public static final String SEARCH_PRODUCTS_CANCELBUTTON = "Cancel";
 }

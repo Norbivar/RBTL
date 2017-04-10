@@ -24,7 +24,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenuItem file_home, file_exit;
 	
 	private JMenu user_settings;
-	private JMenuItem user_register, user_login, user_logout;
+	private JMenuItem user_register, user_login, user_logout, user_editprofile;
 	
 	private JMenu products;
 	private JMenuItem search_products, product_toplist;
@@ -49,6 +49,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		file_exit.addActionListener(this);
 		
 		file_menu.add(file_home);
+		file_menu.addSeparator();
 		file_menu.add(file_exit);
 		
 		//USER SETTINGS MENU
@@ -56,13 +57,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		user_register = new JMenuItem(Labels.USER_MENUITEM_REGISTER);
 		user_login = new JMenuItem(Labels.USER_MENUITEM_LOGIN);
 		user_logout = new JMenuItem(Labels.USER_MENUITEM_SIGNOUT);
+		user_editprofile = new JMenuItem(Labels.USER_MENUITEM_EDITPROFILE);
 		
 		user_register.addActionListener(this);
 		user_login.addActionListener(this);
 		user_logout.addActionListener(this);
+		user_editprofile.addActionListener(this);
 		
 		user_settings.add(user_register);
 		user_settings.add(user_login);
+		user_settings.add(user_editprofile);
+		user_settings.addSeparator();
 		user_settings.add(user_logout);
 		
 		//PRODUCTS MENU
@@ -104,9 +109,11 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			new UserLoginDialog();
 		} else if (e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
 			//TODO implement logging out
+		} else if (e.getSource() == user_editprofile){	//If the user clicked on the 'Edit profile' menu item
+			//TODO implement editing personal profile
 		} else if (e.getSource() == search_products){	//If the user clicked on the 'Search products' menu item
 			getContentPane().removeAll();
-			getContentPane().add(new ProductSearchScreen());
+			getContentPane().add(new ProductSearchScreen(getContentPane()));
 			revalidate();
 			//TODO implement browsing products
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item

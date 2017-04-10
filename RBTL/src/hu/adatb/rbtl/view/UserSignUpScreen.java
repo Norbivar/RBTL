@@ -23,7 +23,7 @@ public class UserSignUpScreen extends JPanel implements ActionListener{
 
 	private Container contentPane;
 	
-	private JLabel title;
+	private JLabel pane_title;
 	private JPanel gridpanel, buttonpanel;
 	private JLabel label_name, label_email, label_password;
 	private JTextField input_name, input_email;
@@ -36,8 +36,8 @@ public class UserSignUpScreen extends JPanel implements ActionListener{
 		this.contentPane = contentPane;
 		setLayout(new BorderLayout());
 		
-		title = new JLabel(Labels.USER_SIGNUP_TITLE, SwingConstants.CENTER);
-		add(title, BorderLayout.NORTH);
+		pane_title = new JLabel(Labels.USER_SIGNUP_TITLE, SwingConstants.CENTER);
+		add(pane_title, BorderLayout.NORTH);
 		
 		/*-----------Grid panel containing the labels and input fields-----------*/
 		gridpanel = new JPanel();
