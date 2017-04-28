@@ -29,17 +29,19 @@ public class Labels {
 	
 	//Sign up
 	public static final String USER_SIGNUP_TITLE = "Sign up";
-	public static final String USER_SIGNUP_NAME = "Full name:";
-	public static final String USER_SIGNUP_EMAIL = "E-mail:";
-	public static final String USER_SIGNUP_PASSWORD = "Password:";
+	public static final String USER_SIGNUP_NAME = "Full name: (max 64 characters)";
+	public static final String USER_SIGNUP_EMAIL = "E-mail: (max 64 characters)";
+	public static final String USER_SIGNUP_PASSWORD = "Password: (max 30 characters)";
 	public static final String USER_SIGNUP_OKBUTTON = "OK";
 	public static final String USER_SIGNUP_CANCELBUTTON = "Cancel";
+	public static final String USER_SIGNUP_SUCCESSFUL = "Registration succesful";
+	public static final String USER_SIGNUP_FAILED = "Registration failed";
 	
 	//Log in
 	public static final String USER_LOGIN_TITLE = "Log in";
 	public static final String USER_LOGIN_NAME = "Full name:";
-	public static final String USER_LOGIN_EMAIL = "E-mail:";
-	public static final String USER_LOGIN_PASSWORD = "Password:";
+	public static final String USER_LOGIN_EMAIL = "E-mail: (max 64 characters)";
+	public static final String USER_LOGIN_PASSWORD = "Password: (max 30 characters)";
 	public static final String USER_LOGIN_OKBUTTON = "OK";
 	public static final String USER_LOGIN_CANCELBUTTON = "Cancel";
 	
@@ -52,7 +54,7 @@ public class Labels {
 	public static final String SEARCH_PRODUCTS_PANE_TITLE = "Search products";
 	public static final String SEARCH_PRODUCTS_CATEGORY = "Product category:";
 	public static final String SEARCH_PRODUCTS_TITLE = "Title:";
-	public static final String SEARCH_PRODUCTS_ISBN = "ISBN number:";
+	public static final String SEARCH_PRODUCTS_ISBN = "ISBN number: (13 digits)";
 	public static final String SEARCH_PRODUCTS_PAGES = "Number of pages:";
 	public static final String SEARCH_PRODUCTS_BINDING = "Type of binding:";
 	public static final String SEARCH_PRODUCTS_SIZE = "Size of book:";

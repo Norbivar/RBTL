@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import hu.adatb.rbtl.model.beans.User;
+import hu.adatb.rbtl.view.BookshopGUI;
 import hu.adatb.rbtl.view.Labels;
 
 /**
@@ -22,17 +25,19 @@ import hu.adatb.rbtl.view.Labels;
  */
 public class UserSignUpDialog extends JDialog implements ActionListener{
 
+	private BookshopGUI gui;
 	private JPanel gridpanel, buttonpanel;
 	private JLabel label_name, label_email, label_password;
 	private JTextField input_name, input_email;
 	private JPasswordField input_password;
 	private JButton okbutton, cancelbutton;
 	
-	public UserSignUpDialog() {
+	public UserSignUpDialog(BookshopGUI gui) {
 		super();
+		this.gui = gui;
 		setLayout(new BorderLayout());
 		setTitle(Labels.USER_SIGNUP_TITLE);
-		setSize(300, 200);
+		setSize(400, 200);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
@@ -81,8 +86,19 @@ public class UserSignUpDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
 			dispose();
-		} else if (e.getSource() == okbutton){		//The ok button was clicked
-			//TODO implement writing to database
+		} else if (e.getSource() == okbutton){		//The ok button was clicked			
+			User user = new User(input_name.getText(), input_email.getText(), input_password.getPassword().toString());
+			if (gui.getController().registerUser(user)){
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_SIGNUP_SUCCESSFUL, 
+						Labels.USER_SIGNUP_TITLE, 
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_SIGNUP_FAILED, 
+						Labels.USER_SIGNUP_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }

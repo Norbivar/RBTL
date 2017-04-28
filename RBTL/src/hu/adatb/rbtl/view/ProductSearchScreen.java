@@ -1,7 +1,6 @@
 package hu.adatb.rbtl.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,7 +21,7 @@ import javax.swing.SwingConstants;
  */
 public class ProductSearchScreen extends JPanel implements ActionListener {
 
-	private Container contentPane;
+	private BookshopGUI gui;
 	private JPanel gridpanel, buttonpanel;
 	private JLabel panel_title, label_category, label_title, label_isbn, label_pages, label_kotes, label_size, label_price, label_publisher, label_publishdate;
 	private JComboBox<String> combobox_category, combobox_kotes, combobox_publisher;
@@ -31,16 +30,17 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 	private JSpinner spinner_pages, spinner_price;
 	private JButton okbutton, cancelbutton;
 	
-	public ProductSearchScreen(Container contentPane) {
+	public ProductSearchScreen(BookshopGUI gui) {
 		super();
-		this.contentPane = contentPane;	//in this way we can access the main contentPane and repaint the gui when the user selects another menu
+		//this.contentPane = contentPane;	//in this way we can access the main contentPane and repaint the gui when the user selects another menu
+		this.gui = gui;		//in this way we can access the main contentPane and repaint the gui when the user selects another menu
 		setLayout(new BorderLayout());
 		
 		panel_title = new JLabel(Labels.SEARCH_PRODUCTS_PANE_TITLE, SwingConstants.CENTER);
 		add(panel_title, BorderLayout.NORTH);
 		
 		/*----------------------------Grid panel----------------------------*/
-		gridpanel = new JPanel(new GridLayout(8, 2));
+		gridpanel = new JPanel(new GridLayout(9, 2));
 		
 		label_category = new JLabel(Labels.SEARCH_PRODUCTS_CATEGORY);
 		label_title = new JLabel(Labels.SEARCH_PRODUCTS_TITLE);
@@ -89,6 +89,9 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		gridpanel.add(label_category);
 		gridpanel.add(combobox_category);
 		
+		gridpanel.add(label_isbn);
+		gridpanel.add(input_isbn);
+		
 		gridpanel.add(label_title);
 		gridpanel.add(input_title);
 		
@@ -131,9 +134,9 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
-			contentPane.removeAll();
-			contentPane.add(new WelcomeScreen());
-			contentPane.revalidate();
+			gui.getContentPane().removeAll();
+			gui.getContentPane().add(new WelcomeScreen());
+			gui.getContentPane().revalidate();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
 			//TODO implement query
 		}

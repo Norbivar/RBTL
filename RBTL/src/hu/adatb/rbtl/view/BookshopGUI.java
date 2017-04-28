@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import hu.adatb.rbtl.controller.BookshopController;
 import hu.adatb.rbtl.view.dialogs.UserLoginDialog;
 import hu.adatb.rbtl.view.dialogs.UserSignUpDialog;
 
@@ -18,6 +19,8 @@ import hu.adatb.rbtl.view.dialogs.UserSignUpDialog;
  */
 public class BookshopGUI extends JFrame implements ActionListener{
 
+	private BookshopController controller;
+	
 	private JMenuBar mb;
 	
 	private JMenu file_menu;
@@ -29,8 +32,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenu products;
 	private JMenuItem search_products, product_toplist;
 	
-	public BookshopGUI() {
+	public BookshopGUI(BookshopController controller) {
 		super();
+		this.controller = controller;
 		setTitle(Labels.MAIN_TITLE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(600, 500);
@@ -94,6 +98,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
+	public BookshopController getController(){
+		return this.controller;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -104,16 +111,16 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == file_exit) {		//If the user clicked on the 'Exit' menu item
 			System.exit(0);
 		} else if (e.getSource() == user_register){ 	//If the user clicked on the 'Sign up' menu item
-			new UserSignUpDialog();
+			new UserSignUpDialog(this);
 		} else if (e.getSource() == user_login){		//If the user clicked on the 'Log in' menu item
-			new UserLoginDialog();
+			new UserLoginDialog(this);
 		} else if (e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
 			//TODO implement logging out
 		} else if (e.getSource() == user_editprofile){	//If the user clicked on the 'Edit profile' menu item
 			//TODO implement editing personal profile
 		} else if (e.getSource() == search_products){	//If the user clicked on the 'Search products' menu item
 			getContentPane().removeAll();
-			getContentPane().add(new ProductSearchScreen(getContentPane()));
+			getContentPane().add(new ProductSearchScreen(this));
 			revalidate();
 			//TODO implement browsing products
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item

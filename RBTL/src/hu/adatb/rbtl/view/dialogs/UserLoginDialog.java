@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import hu.adatb.rbtl.view.BookshopGUI;
 import hu.adatb.rbtl.view.Labels;
 
 /**
@@ -22,14 +23,16 @@ import hu.adatb.rbtl.view.Labels;
  */
 public class UserLoginDialog extends JDialog implements ActionListener{
 
+	private BookshopGUI gui;
 	private JPanel gridpanel, buttonpanel;
-	private JLabel label_name, label_email, label_password;
-	private JTextField input_name, input_email;
+	private JLabel label_email, label_password;
+	private JTextField input_email;
 	private JPasswordField input_password;
 	private JButton okbutton, cancelbutton;
 	
-	public UserLoginDialog() {
+	public UserLoginDialog(BookshopGUI gui) {
 		super();
+		this.gui = gui;
 		setLayout(new BorderLayout());
 		setTitle(Labels.USER_LOGIN_TITLE);
 		setSize(300, 200);
@@ -38,18 +41,13 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		
 		/*-----------Grid panel containing the labels and input fields-----------*/
 		gridpanel = new JPanel();
-		gridpanel.setLayout(new GridLayout(3, 2, 0, 10));
+		gridpanel.setLayout(new GridLayout(2, 2, 0, 10));
 		
-		label_name = new JLabel(Labels.USER_LOGIN_NAME);
 		label_email = new JLabel(Labels.USER_LOGIN_EMAIL);
 		label_password = new JLabel(Labels.USER_LOGIN_PASSWORD);
 		
-		input_name = new JTextField();
 		input_email = new JTextField();
 		input_password = new JPasswordField();
-		
-		gridpanel.add(label_name);
-		gridpanel.add(input_name);
 		
 		gridpanel.add(label_email);
 		gridpanel.add(input_email);
@@ -82,7 +80,7 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
 			dispose();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
-			//TODO implements signing in
+			//TODO implement signing in
 		}
 	}
 }

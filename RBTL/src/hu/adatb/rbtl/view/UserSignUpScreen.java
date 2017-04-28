@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
  */
 public class UserSignUpScreen extends JPanel implements ActionListener{
 
-	private Container contentPane;
+	private BookshopGUI gui;
 	
 	private JLabel pane_title;
 	private JPanel gridpanel, buttonpanel;
@@ -31,9 +31,9 @@ public class UserSignUpScreen extends JPanel implements ActionListener{
 	private JButton okbutton, cancelbutton;
 	
 	
-	public UserSignUpScreen(Container contentPane){
+	public UserSignUpScreen(BookshopGUI gui){
 		super();
-		this.contentPane = contentPane;
+		this.gui = gui;
 		setLayout(new BorderLayout());
 		
 		pane_title = new JLabel(Labels.USER_SIGNUP_TITLE, SwingConstants.CENTER);
@@ -82,9 +82,9 @@ public class UserSignUpScreen extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
-			contentPane.removeAll();
-			contentPane.add(new WelcomeScreen());
-			contentPane.revalidate();
+			gui.getContentPane().removeAll();
+			gui.getContentPane().add(new WelcomeScreen());
+			gui.getContentPane().revalidate();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
 			//TODO implement writing to database
 		}		
