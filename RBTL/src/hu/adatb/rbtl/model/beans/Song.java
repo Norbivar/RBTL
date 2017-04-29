@@ -1,5 +1,7 @@
 package hu.adatb.rbtl.model.beans;
 
+import javax.swing.JPanel;
+
 public class Song extends Product{
 
 	private char[] id, title;
@@ -23,6 +25,12 @@ public class Song extends Product{
 
 	public void setTitle(char[] title) {
 		this.title = title;
+	}
+
+	@Override
+	public JPanel display() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

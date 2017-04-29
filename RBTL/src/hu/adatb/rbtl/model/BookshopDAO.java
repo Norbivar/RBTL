@@ -1,8 +1,11 @@
 package hu.adatb.rbtl.model;
 
+import java.util.List;
+
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Film;
+import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
@@ -61,4 +64,13 @@ public interface BookshopDAO {
 	 * This method returns all the available publishers in the database
 	 */
 	String[] getAllPublishers();
+	
+	/**
+	 * This method is for searching a book in the database by matching any of it's attributes
+	 * @param book
+	 * @return
+	 */
+	List<Product> searchBookByAttributes(Book book);
+	
+	List<Product> searchFilmByAttributes(Film film);
 }

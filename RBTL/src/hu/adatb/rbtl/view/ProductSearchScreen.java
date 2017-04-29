@@ -14,6 +14,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import hu.adatb.rbtl.model.beans.Book;
+import hu.adatb.rbtl.model.beans.Film;
+
 /**
  * The panel what is displayed when the user is browsing products.
  * @author Attila Uhrin
@@ -27,7 +30,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 	private JComboBox<String> combobox_category, combobox_kotes, combobox_publisher;
 	private String[] available_categories, available_bindings, available_publishers;
 	private JTextField input_title, input_isbn, input_size, input_publishdate, input_publisher;
-	private JSpinner spinner_pages, spinner_price;
+	private JSpinner spinner_pages, spinner_price, spinner_publishyear;
 	private JButton okbutton, cancelbutton;
 	
 	public ProductSearchScreen(BookshopGUI gui) {
@@ -71,10 +74,11 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		input_isbn = new JTextField();
 		input_size = new JTextField();
 		input_publisher = new JTextField();
-		input_publishdate = new JTextField();
+		//input_publishdate = new JTextField();
 		
 		spinner_pages = new JSpinner();
 		spinner_price = new JSpinner();
+		spinner_publishyear = new JSpinner();
 		
 		gridpanel.add(label_category);
 		gridpanel.add(combobox_category);
@@ -101,8 +105,8 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		gridpanel.add(input_publisher);
 		
 		gridpanel.add(label_publishdate);
-		gridpanel.add(input_publishdate);
-		
+		gridpanel.add(spinner_publishyear);
+
 		add(gridpanel, BorderLayout.CENTER);
 		/*-------------------------------------------------------------------*/
 		
@@ -118,6 +122,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		buttonpanel.add(cancelbutton);
 		
 		add(buttonpanel, BorderLayout.SOUTH);
+		
 		/*--------------------------------------------------------------------*/
 	}
 	
@@ -129,6 +134,28 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 			gui.getContentPane().revalidate();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
 			//TODO implement query
+			gui.getContentPane().removeAll();
+			if(combobox_category.getSelectedItem().toString().equals("Book")){
+				Book book = new Book();
+				book.setIsbn(input_isbn.getText());
+				book.setTitle(input_title.getText());
+				book.setNumOfPages((Integer)spinner_pages.getValue());
+				book.setKotesNev(String.valueOf(combobox_kotes.getSelectedItem()));
+				book.setSize(input_size.getText());
+				book.setPrice((Integer)spinner_price.getValue());
+				book.setPublisher(input_publisher.getText());
+				book.setPublishYear((Integer)spinner_publishyear.getValue());
+				
+				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchBook(book)));
+			} else if (combobox_category.getSelectedItem().toString().equals("Film")){
+				Film film = new Film();
+				film.setTitle(input_title.getText());
+				
+				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchFilm(film)));
+			}
+			
+			
+			gui.getContentPane().revalidate();
 		}
 	}
 

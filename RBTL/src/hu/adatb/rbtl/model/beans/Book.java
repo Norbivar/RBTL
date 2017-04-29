@@ -1,30 +1,55 @@
 package hu.adatb.rbtl.model.beans;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class Book extends Product{
 
-	private char[] isbn, size;
-	private String title;
-	private int numOfPages, kotesID, price, publisherID, publishYear;
+	private String isbn, size, title, kotesNev, publisher;
+	private int numOfPages, price, publishYear, kotesID, kiadoID;
 	
-	public Book(char[] isbn, String title){
+	public Book() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public JPanel display(){
+		JPanel ret = new JPanel();
+		JLabel label_isbn, label_title, label_kotesNev, label_publisher, label_numOfPages, label_price, label_publishYear;
+		JLabel isbn, title, kotesNev, publisher, numOfPages, price, publishYear;
+		
+		ret.setLayout(new BorderLayout());
+		isbn = new JLabel(this.isbn);
+		ret.add(isbn, BorderLayout.CENTER);
+		
+		return ret;
+	}
+	
+	/**
+	 * 
+	 * @param isbn - ISBN number of the book
+	 * @param title - Title of the book
+	 */
+	public Book(String isbn, String title){
 		this.isbn = isbn;
-		size = new char[7];
 		this.title = title;
 	}
 
-	public char[] getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(char[] isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
-	public char[] getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(char[] size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
@@ -44,14 +69,6 @@ public class Book extends Product{
 		this.numOfPages = numOfPages;
 	}
 
-	public int getKotesID() {
-		return kotesID;
-	}
-
-	public void setKotesID(int kotesID) {
-		this.kotesID = kotesID;
-	}
-
 	public int getPrice() {
 		return price;
 	}
@@ -60,19 +77,43 @@ public class Book extends Product{
 		this.price = price;
 	}
 
-	public int getPublisherID() {
-		return publisherID;
-	}
-
-	public void setPublisherID(int publisherID) {
-		this.publisherID = publisherID;
-	}
-
 	public int getPublishYear() {
 		return publishYear;
 	}
 
 	public void setPublishYear(int publishYear) {
 		this.publishYear = publishYear;
+	}
+
+	public String getKotesNev() {
+		return kotesNev;
+	}
+
+	public void setKotesNev(String kotesNev) {
+		this.kotesNev = kotesNev;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public int getKotesID() {
+		return kotesID;
+	}
+
+	public void setKotesID(int kotesID) {
+		this.kotesID = kotesID;
+	}
+
+	public int getKiadoID() {
+		return kiadoID;
+	}
+
+	public void setKiadoID(int kiadoID) {
+		this.kiadoID = kiadoID;
 	}
 }

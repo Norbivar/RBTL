@@ -1,8 +1,15 @@
 package hu.adatb.rbtl.controller;
 
+import java.util.List;
+
 import hu.adatb.rbtl.model.BookshopDAO;
 import hu.adatb.rbtl.model.BookshopDAOImplementation;
-import hu.adatb.rbtl.model.beans.*;
+import hu.adatb.rbtl.model.beans.Book;
+import hu.adatb.rbtl.model.beans.Ebook;
+import hu.adatb.rbtl.model.beans.Film;
+import hu.adatb.rbtl.model.beans.Product;
+import hu.adatb.rbtl.model.beans.Song;
+import hu.adatb.rbtl.model.beans.User;
 
 /**
  * This class controls the application.
@@ -54,5 +61,11 @@ public class BookshopController {
 		this.loggedin = loggedin;
 	}
 
-	
+	public List<Product> searchBook(Book book){
+		return dao.searchBookByAttributes(book);
+	}
+
+	public List<Product> searchFilm(Film film) {
+		return dao.searchFilmByAttributes(film);
+	}
 }

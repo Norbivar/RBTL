@@ -11,6 +11,7 @@ import java.util.List;
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Film;
+import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
@@ -31,6 +32,16 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
+	private final String SEARCH_BOOK = "SELECT * FROM konyv "
+			+ "WHERE isbn LIKE ? OR "
+			+ "cim LIKE ? OR "
+			+ "oldalszam = ? OR "
+			+ "kotesid IN (SELECT kotesid FROM kotes WHERE megnevezes LIKE ?) OR "
+			+ "meret LIKE ? OR "
+			+ "ar = ? OR "
+			+ "kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE ?) OR "
+			+ "kiadaseve = ?";
+	private final String SEARCH_FILM = "SELECT * FROM film WHERE filmcim LIKE ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -140,4 +151,60 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return return_list.toArray(new String[0]);
 	}
 
+	public List<Product> searchBookByAttributes(Book book){
+		List<Product> ret = new ArrayList<Product>();
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
+
+			pst.setString(1, book.getIsbn());
+			pst.setString(2, book.getTitle());
+			pst.setInt(3, book.getNumOfPages());
+			pst.setString(4, book.getKotesNev());
+			pst.setString(5, book.getSize());
+			pst.setInt(6, book.getPrice());
+			pst.setString(7, book.getPublisher());
+			pst.setInt(8, book.getPublishYear());		
+			
+			ResultSet rs = pst.executeQuery();
+			//TODO fix this
+			while(rs.next()){
+				Book tmp = new Book();
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				ret.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	@Override
+	public List<Product> searchFilmByAttributes(Film film) {
+		List<Product> ret = new ArrayList<Product>();
+		
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(SEARCH_FILM);
+
+			pst.setString(1, film.getTitle());
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Film tmp = new Film();
+				tmp.setTitle(rs.getString(2));
+				ret.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
 }
