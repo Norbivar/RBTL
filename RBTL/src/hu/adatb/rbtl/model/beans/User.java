@@ -1,5 +1,9 @@
 package hu.adatb.rbtl.model.beans;
 
+/**
+ * It represents a simple user in our program.
+ *
+ */
 public class User {
 
 	private String name, email, password;

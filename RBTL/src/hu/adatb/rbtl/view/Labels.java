@@ -44,6 +44,9 @@ public class Labels {
 	public static final String USER_LOGIN_PASSWORD = "Password: (max 30 characters)";
 	public static final String USER_LOGIN_OKBUTTON = "OK";
 	public static final String USER_LOGIN_CANCELBUTTON = "Cancel";
+	public static final String USER_LOGIN_SUCCESSFUL = "Logged in successfully";
+	public static final String USER_LOGIN_FAILED = "Failed to log in";
+	public static final String USER_ALREADY_LOGGED_IN = "You have already logged in!";
 	
 	//Sign out
 	public static final String USER_SIGNOUT_TITLE = "Sign out";
@@ -60,7 +63,7 @@ public class Labels {
 	public static final String SEARCH_PRODUCTS_SIZE = "Size of book:";
 	public static final String SEARCH_PRODUCTS_PRICE = "Price:";
 	public static final String SEARCH_PDORUCTS_PUBLISHER = "Publisher:";
-	public static final String SEARCH_PRODUCTS_DATE_OF_PUBLISHING = "Date of publishing:";
+	public static final String SEARCH_PRODUCTS_DATE_OF_PUBLISHING = "Year of publishing:";
 	public static final String SEARCH_PRODUCTS_OKBUTTON = "OK";
 	public static final String SEARCH_PRODUCTS_CANCELBUTTON = "Cancel";
 }

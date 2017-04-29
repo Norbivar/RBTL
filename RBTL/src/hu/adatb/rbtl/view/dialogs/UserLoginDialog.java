@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import hu.adatb.rbtl.model.beans.User;
 import hu.adatb.rbtl.view.BookshopGUI;
 import hu.adatb.rbtl.view.Labels;
 
@@ -35,7 +37,7 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		this.gui = gui;
 		setLayout(new BorderLayout());
 		setTitle(Labels.USER_LOGIN_TITLE);
-		setSize(300, 200);
+		setSize(400, 200);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
@@ -58,7 +60,7 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		add(gridpanel, BorderLayout.CENTER);
 		/*-------------------------------------------------------------------*/
 		
-		/*-----------Button panel containing ok and cancel buttons-----------*/
+		/*-----------Button panel containing OK and cancel buttons-----------*/
 		buttonpanel = new JPanel(new FlowLayout());
 		okbutton = new JButton(Labels.USER_LOGIN_OKBUTTON);
 		cancelbutton = new JButton(Labels.USER_LOGIN_CANCELBUTTON);
@@ -80,7 +82,20 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
 			dispose();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
-			//TODO implement signing in
+			User user = new User("", input_email.getText(), String.valueOf(input_password.getPassword()));
+			if(gui.getController().validateUser(user)){
+				this.dispose();
+				gui.getController().setLoggedin(true);
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_LOGIN_SUCCESSFUL, 
+						Labels.USER_LOGIN_TITLE, 
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_LOGIN_FAILED, 
+						Labels.USER_LOGIN_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 }

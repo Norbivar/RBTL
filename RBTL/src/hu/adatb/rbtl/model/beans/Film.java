@@ -1,6 +1,6 @@
 package hu.adatb.rbtl.model.beans;
 
-public class Film {
+public class Film extends Product{
 
 	private char[] id, title;
 	

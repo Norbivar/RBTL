@@ -1,6 +1,6 @@
 package hu.adatb.rbtl.model.beans;
 
-public class Song {
+public class Song extends Product{
 
 	private char[] id, title;
 	

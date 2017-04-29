@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import hu.adatb.rbtl.controller.BookshopController;
 import hu.adatb.rbtl.view.dialogs.UserLoginDialog;
@@ -113,9 +114,27 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == user_register){ 	//If the user clicked on the 'Sign up' menu item
 			new UserSignUpDialog(this);
 		} else if (e.getSource() == user_login){		//If the user clicked on the 'Log in' menu item
-			new UserLoginDialog(this);
+			if(controller.isLoggedin()){
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_ALREADY_LOGGED_IN, 
+						Labels.USER_LOGIN_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				new UserLoginDialog(this);
+			}			
 		} else if (e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
-			//TODO implement logging out
+			if (!controller.isLoggedin()){
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_SIGNOUT_ERROR, 
+						Labels.USER_SIGNOUT_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				controller.setLoggedin(false);
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_SIGNOUT_SUCCESSFUL, 
+						Labels.USER_SIGNOUT_TITLE, 
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		} else if (e.getSource() == user_editprofile){	//If the user clicked on the 'Edit profile' menu item
 			//TODO implement editing personal profile
 		} else if (e.getSource() == search_products){	//If the user clicked on the 'Search products' menu item

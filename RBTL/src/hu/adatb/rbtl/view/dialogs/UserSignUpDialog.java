@@ -87,8 +87,9 @@ public class UserSignUpDialog extends JDialog implements ActionListener{
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
 			dispose();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked			
-			User user = new User(input_name.getText(), input_email.getText(), input_password.getPassword().toString());
+			User user = new User(input_name.getText(), input_email.getText(), String.valueOf(input_password.getPassword()));
 			if (gui.getController().registerUser(user)){
+				this.dispose();
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNUP_SUCCESSFUL, 
 						Labels.USER_SIGNUP_TITLE, 

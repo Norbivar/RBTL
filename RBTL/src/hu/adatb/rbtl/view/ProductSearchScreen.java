@@ -26,7 +26,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 	private JLabel panel_title, label_category, label_title, label_isbn, label_pages, label_kotes, label_size, label_price, label_publisher, label_publishdate;
 	private JComboBox<String> combobox_category, combobox_kotes, combobox_publisher;
 	private String[] available_categories, available_bindings, available_publishers;
-	private JTextField input_title, input_isbn, input_size, input_publishdate;
+	private JTextField input_title, input_isbn, input_size, input_publishdate, input_publisher;
 	private JSpinner spinner_pages, spinner_price;
 	private JButton okbutton, cancelbutton;
 	
@@ -60,31 +60,21 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		
 		combobox_category = new JComboBox<>(available_categories);
 		
-		//TODO kötéseket adatbázisból lekérdezni
-		available_bindings = new String[5];
-		available_bindings[0] = "Paperback";
-		available_bindings[1] = "Leatherback";
-		available_bindings[2] = "Soft Paperback";
-		available_bindings[3] = "Plasticback";
+		available_bindings = this.gui.getController().getAllBindings();
 		
 		combobox_kotes = new JComboBox<>(available_bindings);
 		
-		//TODO kiadókat adatbázisból lekérdezni
-		available_publishers = new String[3];
-		available_publishers[0] = "Publisher1";
-		available_publishers[1] = "Publisher2";
-		available_publishers[2] = "Publisher3";
-		
-		combobox_publisher = new JComboBox<>(available_publishers);
+		/*available_publishers = gui.getController().getAllPublishers();		
+		combobox_publisher = new JComboBox<>(available_publishers);*/
 		
 		input_title = new JTextField();
 		input_isbn = new JTextField();
 		input_size = new JTextField();
+		input_publisher = new JTextField();
 		input_publishdate = new JTextField();
 		
 		spinner_pages = new JSpinner();
 		spinner_price = new JSpinner();
-		
 		
 		gridpanel.add(label_category);
 		gridpanel.add(combobox_category);
@@ -108,7 +98,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 		gridpanel.add(spinner_price);
 		
 		gridpanel.add(label_publisher);
-		gridpanel.add(combobox_publisher);
+		gridpanel.add(input_publisher);
 		
 		gridpanel.add(label_publishdate);
 		gridpanel.add(input_publishdate);

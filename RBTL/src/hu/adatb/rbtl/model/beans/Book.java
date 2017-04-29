@@ -1,6 +1,6 @@
 package hu.adatb.rbtl.model.beans;
 
-public class Book {
+public class Book extends Product{
 
 	private char[] isbn, size;
 	private String title;

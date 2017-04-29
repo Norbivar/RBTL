@@ -3,7 +3,10 @@ package hu.adatb.rbtl.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
@@ -15,8 +18,19 @@ public class BookshopDAOImplementation implements BookshopDAO{
 
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
-	//TODO ezt majd át kell írni, hogy a felhasznaloID-t ne szúrja be fixen 1 értékkel, hanem trigger lesz rá de teszteléshez jó
-	private final String REGISTER_USER = "INSERT INTO felhasznalo (felhasznaloID, nev, torzsvasarlo, email, jelszo) VALUES (1, ?, ?, ?, ?)";
+	
+	/* Ide trigger kell a beszúráshoz, hogy az id jó legyen. Pl ez jó:
+	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
+		BEFORE INSERT ON felhasznalo
+		FOR EACH ROW
+		BEGIN
+  			:NEW.FELHASZNALOID := FELHASZNALO_SEQ.nextval;
+		END;
+	*/
+	private final String REGISTER_USER = "INSERT INTO felhasznalo (nev, torzsvasarlo, email, jelszo) VALUES (?, ?, ?, ?)";
+	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
+	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
+	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -62,10 +76,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(REGISTER_USER);
 			
-			pst.setString(1, user.getName().toString());
+			pst.setString(1, user.getName());
 			pst.setInt(2, user.isTorzsvasarlo() ? 1 : 0);
-			pst.setString(3, user.getEmail().toString());
-			pst.setString(4, user.getPassword().toString());
+			pst.setString(3, user.getEmail());
+			pst.setString(4, user.getPassword());
 			
 			success = pst.executeUpdate() == 1;
 		} catch (SQLException e) {
@@ -75,9 +89,55 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	}
 
 	@Override
-	public boolean userLogin(User user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean validateUser(User user) {
+		boolean valid = false;
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(VALIDATE_USER);
+
+			pst.setString(1, user.getEmail());
+			pst.setString(2, user.getPassword());
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				valid = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return valid;
+	}
+
+	@Override
+	public String[] getAllBindings() {		
+		List<String> return_list = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_BINDIGS);
+
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				return_list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return return_list.toArray(new String[0]);
+	}
+
+	@Override
+	public String[] getAllPublishers() {
+		List<String> return_list = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_AUTHORS);
+
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				return_list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return return_list.toArray(new String[0]);
 	}
 
 }
