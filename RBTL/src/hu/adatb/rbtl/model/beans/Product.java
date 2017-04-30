@@ -8,5 +8,5 @@ import javax.swing.JPanel;
  */
 public abstract class Product {
 
-	public abstract JPanel displayInList();
+	//public abstract JPanel displayInList();
 }

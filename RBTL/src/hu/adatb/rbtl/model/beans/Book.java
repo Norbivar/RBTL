@@ -19,7 +19,6 @@ public class Book extends Product{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
 	public JPanel displayInList(){
 		JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
 		

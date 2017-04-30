@@ -39,7 +39,6 @@ public class Film extends Product{
 		this.title = title;
 	}
 
-	@Override
 	public JPanel displayInList() {
 		JPanel p;
 		JLabel film_icon, label_title, title;

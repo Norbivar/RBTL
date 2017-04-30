@@ -15,7 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import hu.adatb.rbtl.model.beans.Book;
+import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Film;
+import hu.adatb.rbtl.model.beans.Song;
 
 /**
  * The panel what is displayed when the user is browsing products.
@@ -133,7 +135,6 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 			gui.getContentPane().add(new WelcomeScreen());
 			gui.getContentPane().revalidate();
 		} else if (e.getSource() == okbutton){		//The ok button was clicked
-			//TODO implement query
 			gui.getContentPane().removeAll();
 			if(combobox_category.getSelectedItem().toString().equals("Book")){
 				Book book = new Book();
@@ -152,7 +153,17 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 				film.setTitle(input_title.getText());
 				
 				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchFilm(film)));
-			}			
+			} else if (combobox_category.getSelectedItem().toString().equals("Music")){
+				Song song = new Song();
+				song.setTitle(input_title.getText());
+				
+				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchSong(song)));
+			} else if (combobox_category.getSelectedItem().toString().equals("Ebook")){
+				Ebook ebook = new Ebook();
+				ebook.setTitle(input_title.getText());
+				
+				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchEbook(ebook)));
+			}
 			gui.getContentPane().revalidate();
 		}
 	}

@@ -44,6 +44,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_AUTHOR_BY_ID = "SELECT nev FROM szerzo WHERE szerzoid = ?";
 	private final String GET_AUTHORID_BY_ISBN = "SELECT szerzoid FROM szerzoje WHERE isbn LIKE ?";
 	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
+	private final String SEARCH_SONG = "SELECT * FROM zene WHERE zenecim LIKE ?";
+	private final String SEARCH_EBOOK = "SELECT * FROM ebook WHERE ebookcim LIKE ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -243,6 +245,50 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
+		return ret;
+	}
+
+	@Override
+	public List<Product> searchSongByAttributes(Song song) {
+		List<Product> ret = new ArrayList<Product>();
+		
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(SEARCH_SONG);
+
+			pst.setString(1, "%" + song.getTitle() + "%");
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Song tmp = new Song();
+				tmp.setId(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				ret.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	@Override
+	public List<Product> searchEbookByAttributes(Ebook ebook) {
+		List<Product> ret = new ArrayList<Product>();
+		
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(SEARCH_EBOOK);
+
+			pst.setString(1, "%" + ebook.getTitle() + "%");
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Ebook tmp = new Ebook();
+				tmp.setId(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				ret.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ret;
 	}
 }

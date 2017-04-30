@@ -4,30 +4,33 @@ import javax.swing.JPanel;
 
 public class Song extends Product{
 
-	private char[] id, title;
+	private String id, title;
 	
-	public Song(char[] id, char[] title){
+	public Song(String id, String title){
 		this.id = id;
 		this.title = title;
 	}
 
-	public char[] getId() {
+	public Song() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(char[] id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public char[] getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(char[] title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	@Override
 	public JPanel displayInList() {
 		// TODO Auto-generated method stub
 		return null;

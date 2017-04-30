@@ -80,6 +80,20 @@ public interface BookshopDAO {
 	List<Product> searchFilmByAttributes(Film film);
 	
 	/**
+	 * This method is for searching a song in the database by matching any of it's attributes
+	 * @param song
+	 * @return
+	 */
+	List<Product> searchSongByAttributes(Song song);
+	
+	/**
+	 * This method is for searching an ebook in the database by matching any of it's attributes
+	 * @param ebook
+	 * @return
+	 */
+	List<Product> searchEbookByAttributes(Ebook ebook);
+	
+	/**
 	 * This method returns the author's name as a String, whose ID is the parameter
 	 * @param id - the ID of the author
 	 * @return
