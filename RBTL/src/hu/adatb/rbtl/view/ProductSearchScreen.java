@@ -152,9 +152,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 				film.setTitle(input_title.getText());
 				
 				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchFilm(film)));
-			}
-			
-			
+			}			
 			gui.getContentPane().revalidate();
 		}
 	}

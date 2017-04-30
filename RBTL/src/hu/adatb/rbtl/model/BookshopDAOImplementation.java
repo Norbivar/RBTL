@@ -16,7 +16,6 @@ import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
 public class BookshopDAOImplementation implements BookshopDAO{
-
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
@@ -42,6 +41,9 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			+ "kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE ?) OR "
 			+ "kiadaseve = ?";
 	private final String SEARCH_FILM = "SELECT * FROM film WHERE filmcim LIKE ?";
+	private final String GET_AUTHOR_BY_ID = "SELECT nev FROM szerzo WHERE szerzoid = ?";
+	private final String GET_AUTHORID_BY_ISBN = "SELECT szerzoid FROM szerzoje WHERE isbn LIKE ?";
+	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -151,22 +153,37 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return return_list.toArray(new String[0]);
 	}
 
+	public String getAuthorByID(int id){
+		String ret = null;
+		
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_AUTHOR_BY_ID);
+			pst.setInt(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getString(1);			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return ret;
+	}
+	
 	public List<Product> searchBookByAttributes(Book book){
 		List<Product> ret = new ArrayList<Product>();
 		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
 
-			pst.setString(1, book.getIsbn());
-			pst.setString(2, book.getTitle());
+			pst.setString(1, "%" + book.getIsbn() + "%");
+			pst.setString(2, "%" + book.getTitle() + "%");
 			pst.setInt(3, book.getNumOfPages());
-			pst.setString(4, book.getKotesNev());
-			pst.setString(5, book.getSize());
+			pst.setString(4, "%" + book.getKotesNev() + "%");
+			pst.setString(5, "%" + book.getSize() + "%");
 			pst.setInt(6, book.getPrice());
-			pst.setString(7, book.getPublisher());
-			pst.setInt(8, book.getPublishYear());		
+			pst.setString(7, "%" + book.getPublisher() + "%");
+			pst.setInt(8, book.getPublishYear());
 			
 			ResultSet rs = pst.executeQuery();
-			//TODO fix this
 			while(rs.next()){
 				Book tmp = new Book();
 				tmp.setIsbn(rs.getString(1));
@@ -177,6 +194,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 				tmp.setPrice(rs.getInt(6));
 				tmp.setKiadoID(rs.getInt(7));
 				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				
 				ret.add(tmp);
 			}
@@ -193,11 +212,12 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_FILM);
 
-			pst.setString(1, film.getTitle());
+			pst.setString(1, "%" + film.getTitle() + "%");
 			
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				Film tmp = new Film();
+				tmp.setId(rs.getString(1));
 				tmp.setTitle(rs.getString(2));
 				ret.add(tmp);
 			}
@@ -205,6 +225,24 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			e.printStackTrace();
 		}
 		
+		return ret;
+	}
+
+	
+	@Override
+	public int getAuthorIDByISBN(String isbn) {
+		int ret = 0;
+		
+		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_AUTHORID_BY_ISBN);
+			pst.setString(1, isbn);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getInt(1);			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
 		return ret;
 	}
 }

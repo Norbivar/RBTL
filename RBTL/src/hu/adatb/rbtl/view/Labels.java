@@ -66,4 +66,13 @@ public class Labels {
 	public static final String SEARCH_PRODUCTS_DATE_OF_PUBLISHING = "Year of publishing:";
 	public static final String SEARCH_PRODUCTS_OKBUTTON = "OK";
 	public static final String SEARCH_PRODUCTS_CANCELBUTTON = "Cancel";
+	
+	//PRODUCT SEARCH RESULT
+	public static final String PRODUCT_RESULT_PANE_TITLE = "Result:";
+	public static final String PRODUCT_RESULT_TITLE = "Title: ";
+	public static final String PRODUCT_RESULT_AUTHOR = "Author: ";
+	public static final String PRODUCT_RESULT_ISBN = "ISBN number: ";
+	public static final String PRODUCT_RESULT_PUBLISHER = "Publisher: ";
+	public static final String PRODUCT_RESULT_PRICE = "Price: ";
+	public static final String PRODUCT_DETAILS_BUTTON = "Details";
 }

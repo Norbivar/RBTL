@@ -28,7 +28,7 @@ public class Ebook extends Product{
 	}
 
 	@Override
-	public JPanel display() {
+	public JPanel displayInList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

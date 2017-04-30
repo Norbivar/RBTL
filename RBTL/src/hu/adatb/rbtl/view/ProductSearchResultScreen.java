@@ -25,15 +25,18 @@ public class ProductSearchResultScreen extends JPanel {
 		setLayout(new BorderLayout());
 		
 		productlist = new JPanel();
+		productlist.setLayout(new GridLayout(0, 1));
 		
-		panel_title = new JLabel(Labels.SEARCH_PRODUCTS_PANE_TITLE, SwingConstants.CENTER);
+		panel_title = new JLabel(Labels.PRODUCT_RESULT_PANE_TITLE, SwingConstants.CENTER);
 		add(panel_title, BorderLayout.NORTH);
 		System.out.println(list.size());
 		
 		for(int i = 0; i<list.size(); i++){
-			productlist.add(list.get(i).display());
+			productlist.add(list.get(i).displayInList());
 		}
+		
 		scrollpane = new JScrollPane(productlist);
+		scrollpane.getVerticalScrollBar().setUnitIncrement(16);
 		add(scrollpane, BorderLayout.CENTER);
 	}
 }

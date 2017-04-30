@@ -72,5 +72,24 @@ public interface BookshopDAO {
 	 */
 	List<Product> searchBookByAttributes(Book book);
 	
+	/**
+	 * This method is for searching a film in the database by matching any of it's attributes
+	 * @param film
+	 * @return
+	 */
 	List<Product> searchFilmByAttributes(Film film);
+	
+	/**
+	 * This method returns the author's name as a String, whose ID is the parameter
+	 * @param id - the ID of the author
+	 * @return
+	 */
+	String getAuthorByID(int id);
+	
+	/**
+	 * This method returns the author's ID, who wrote the Book with the given ISBN
+	 * @param isbn
+	 * @return
+	 */
+	int getAuthorIDByISBN(String isbn);
 }
