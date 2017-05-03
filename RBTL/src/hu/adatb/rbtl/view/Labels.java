@@ -85,6 +85,7 @@ public class Labels {
 	public static final String PRODUCT_AR = "Price:";
 	public static final String PRODUCT_KIADO = "Publisher:";
 	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
+	public static final String PRODUCT_SZERZO = "Author:";
 	
 	//CART
 	public static final String CART_MENU = "Cart";

@@ -77,7 +77,7 @@ public class BookshopController{
 		return dao.searchEbookByAttributes(ebook);
 	}
 	
-	public Book getBookByID(int id){
+	public Book getBookByID(String id){
 		return dao.getBookByID(id);
 	}
 	

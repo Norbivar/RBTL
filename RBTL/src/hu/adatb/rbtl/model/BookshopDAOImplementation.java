@@ -296,12 +296,12 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
-	public Book getBookByID(int id){
+	public Book getBookByID(String id){
 		Book ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_BOOK_BY_ID);
 			
-			pst.setInt(1, id);
+			pst.setString(1, id);
 			
 			ResultSet rs = pst.executeQuery();
 			rs.next();
@@ -314,7 +314,24 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			ret.setSize(rs.getString(5));
 			ret.setPrice(rs.getInt(6));
 			ret.setKiadoID(rs.getInt(7));
-			ret.setPublishYear(rs.getInt(8));
+			ret.setPublishYear(rs.getInt(8));			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public String getPublisherNameByID(String id){
+		String ret = null;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_PUBLISHER_BY_ID);
+			
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getString(1);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

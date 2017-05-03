@@ -114,5 +114,5 @@ public interface BookshopDAO {
 	 */
 	List<Product> getUserCart(User user);
 	
-	public Book getBookByID(int id);
+	public Book getBookByID(String id);
 }
