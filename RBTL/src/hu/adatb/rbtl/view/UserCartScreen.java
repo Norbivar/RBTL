@@ -6,10 +6,12 @@ import javax.swing.JPanel;
 public class UserCartScreen extends JPanel{
 
 	private BookshopGUI gui;
-	private JLabel a;
+	//private JLabel a;
 	
 	public UserCartScreen(BookshopGUI gui){
 		super();
 		this.gui = gui;
+		
+		
 	}
 }

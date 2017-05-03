@@ -41,7 +41,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		this.controller = controller;
 		setTitle(Labels.MAIN_TITLE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(600, 500);
+		setSize(800, 600);
 		setLocationRelativeTo(null);	//Place the jframe at the center of the screen
 		setResizable(false);
 		

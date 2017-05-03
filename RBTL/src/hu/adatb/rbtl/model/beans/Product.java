@@ -1,7 +1,5 @@
 package hu.adatb.rbtl.model.beans;
 
-import javax.swing.JPanel;
-
 /**
  * This class is a "wrapper" for all the products in our application.
  *
@@ -9,4 +7,8 @@ import javax.swing.JPanel;
 public abstract class Product {
 
 	//public abstract JPanel displayInList();
+	
+	public void displayDetails(){
+		
+	}
 }
