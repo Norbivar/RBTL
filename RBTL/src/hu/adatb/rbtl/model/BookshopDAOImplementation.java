@@ -49,6 +49,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
 	private final String SEARCH_SONG = "SELECT * FROM zene WHERE zenecim LIKE ?";
 	private final String SEARCH_EBOOK = "SELECT * FROM ebook WHERE ebookcim LIKE ?";
+	private final String GET_BOOK_BY_ID = "SELECT * FROM konyv WHERE isbn = ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -289,6 +290,32 @@ public class BookshopDAOImplementation implements BookshopDAO{
 				tmp.setTitle(rs.getString(2));
 				ret.add(tmp);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public Book getBookByID(int id){
+		Book ret = null;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOK_BY_ID);
+			
+			pst.setInt(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			ret = new Book();
+			ret.setIsbn(rs.getString(1));
+			ret.setTitle(rs.getString(2));
+			ret.setNumOfPages(rs.getInt(3));
+			ret.setKotesID(rs.getInt(4));
+			ret.setSize(rs.getString(5));
+			ret.setPrice(rs.getInt(6));
+			ret.setKiadoID(rs.getInt(7));
+			ret.setPublishYear(rs.getInt(8));
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

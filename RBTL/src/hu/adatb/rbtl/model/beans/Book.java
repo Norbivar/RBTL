@@ -1,15 +1,5 @@
 package hu.adatb.rbtl.model.beans;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import hu.adatb.rbtl.view.Labels;
-
 public class Book extends Product{
 
 	private String size, kotesNev, publisher, author;

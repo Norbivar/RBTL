@@ -1,13 +1,6 @@
 package hu.adatb.rbtl.controller;
 
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import hu.adatb.rbtl.model.BookshopDAO;
 import hu.adatb.rbtl.model.BookshopDAOImplementation;
@@ -17,7 +10,6 @@ import hu.adatb.rbtl.model.beans.Film;
 import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
-import hu.adatb.rbtl.view.Labels;
 
 /**
  * This class controls the application.

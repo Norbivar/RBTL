@@ -76,6 +76,16 @@ public class Labels {
 	public static final String PRODUCT_RESULT_PRICE = "Price: ";
 	public static final String PRODUCT_DETAILS_BUTTON = "Details";
 	
+	//PRODUCT DETAILS
+	public static final String PRODUCT_ISBN = "ISBN:";
+	public static final String PRODUCT_TITLE = "Title:";
+	public static final String PRODUCT_OLDALSZAM = "Number of pages:";
+	public static final String PRODUCT_KOTES = "Binding:";
+	public static final String PRODUCT_MERET = "Size:";
+	public static final String PRODUCT_AR = "Price:";
+	public static final String PRODUCT_KIADO = "Publisher:";
+	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
+	
 	//CART
 	public static final String CART_MENU = "Cart";
 	public static final String SHOW_CART_MENUITEM = "Show cart";
