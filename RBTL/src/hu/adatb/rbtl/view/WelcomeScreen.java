@@ -27,7 +27,9 @@ public class WelcomeScreen extends JPanel {
 		add(screen_title, BorderLayout.NORTH);
 		
 		logo = new JLabel(new ImageIcon(this.getClass().getResource("/images/Genealogy-Logo.png")));
-		add(logo, BorderLayout.CENTER);		
+		add(logo, BorderLayout.CENTER);
+		
+		//TODO * A legújabb könyvek megjelenítése a kezdõ oldalon
 	}
 	
 }

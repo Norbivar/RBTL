@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -42,7 +41,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenuItem user_register, user_login, user_logout, user_editprofile;
 	
 	private JMenu products;
-	private JMenuItem search_products, product_toplist;
+	private JMenuItem search_products, product_toplist, cheap_products, popular_books;
 	
 	private JMenu cart;
 	private JMenuItem show_cart, cart_checkout;
@@ -95,12 +94,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		products = new JMenu(Labels.PRODUCTS_MENU);
 		search_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_SEARCH);
 		product_toplist = new JMenuItem(Labels.PRODUCTS_MENUITEM_TOPLIST);
+		cheap_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_CHEAP);
+		popular_books = new JMenuItem(Labels.PRODUCTS_POPULAR_BOOKS);
 		
 		search_products.addActionListener(this);
 		product_toplist.addActionListener(this);
+		cheap_products.addActionListener(this);
+		popular_books.addActionListener(this);
 		
 		products.add(search_products);
 		products.add(product_toplist);
+		products.add(cheap_products);
 		
 		//CART MENU
 		cart = new JMenu(Labels.CART_MENU);
@@ -301,8 +305,12 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new ProductSearchScreen(this));
 			revalidate();
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item
-			//TODO implement product toplists
-		} else if(e.getSource() == show_cart){
+			//TODO Heti/havi toplista a vásárlások alapján (mindegy, hogy interneten vagy boltban vásárolták meg a könyvet).
+		} else if (e.getSource() == cheap_products){
+			//TODO * „Olcsó könyvek” kilistázása árkategóriánként.
+		} else if (e.getSource() == popular_books){
+			//TODO * A legnépszerûbb könyvek mûfajonként.
+		} else if (e.getSource() == show_cart){
 			getContentPane().removeAll();
 			getContentPane().add(new UserCartScreen(this));
 			revalidate();

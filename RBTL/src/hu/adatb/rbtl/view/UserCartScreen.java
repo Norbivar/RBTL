@@ -1,6 +1,5 @@
 package hu.adatb.rbtl.view;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class UserCartScreen extends JPanel{

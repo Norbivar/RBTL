@@ -53,8 +53,6 @@ public interface BookshopDAO {
 	 */
 	boolean validateUser(User user);
 	
-	//List<Product> searchProducts();
-	
 	/**
 	 * This method returns all the available bindings in the database
 	 */
@@ -114,5 +112,31 @@ public interface BookshopDAO {
 	 */
 	List<Product> getUserCart(User user);
 	
+	/**
+	 * Returns the Book identified by the parameter
+	 * @param id - ID of the book
+	 * @return {@link Book} object with the attributes of the book in the database
+	 */
 	public Book getBookByID(String id);
+	
+	/**
+	 * Returns the {@link Film} identified by the parameter
+	 * @param id - ID of the film
+	 * @return {@link Film} object with the attributes of the film in the database
+	 */
+	public Film getFilmByID(String id);
+	
+	/**
+	 * Returns the {@link Song} indentified by the parameter
+	 * @param id - ID of the song
+	 * @return {@link Song} object with the attributes of the song in the database
+	 */
+	public Song getSongByID(String id);
+	
+	/**
+	 * Returns the {@link Ebook} indentified by the parameter
+	 * @param id - ID of the ebook
+	 * @return {@link Ebook} object with the attributes of the ebook in the database
+	 */
+	public Ebook getEbookByID(String id);
 }

@@ -22,6 +22,4 @@ public abstract class Product {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	//public abstract JPanel displayInList();	
 }

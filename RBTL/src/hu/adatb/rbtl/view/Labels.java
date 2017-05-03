@@ -26,6 +26,8 @@ public class Labels {
 	public static final String PRODUCTS_MENU = "Products";
 	public static final String PRODUCTS_MENUITEM_SEARCH = "Search products";
 	public static final String PRODUCTS_MENUITEM_TOPLIST = "Product toplists";
+	public static final String PRODUCTS_MENUITEM_CHEAP = "Cheap products";
+	public static final String PRODUCTS_POPULAR_BOOKS = "Popular books";
 	
 	//Sign up
 	public static final String USER_SIGNUP_TITLE = "Sign up";
