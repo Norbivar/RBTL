@@ -129,7 +129,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == user_register){ 	//If the user clicked on the 'Sign up' menu item
 			new UserSignUpDialog(this);
 		} else if (e.getSource() == user_login){		//If the user clicked on the 'Log in' menu item
-			if(controller.isLoggedin()){
+			if(controller.getLoggedinUser() != null){
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_ALREADY_LOGGED_IN, 
 						Labels.USER_LOGIN_TITLE, 
@@ -138,13 +138,13 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				new UserLoginDialog(this);
 			}			
 		} else if (e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
-			if (!controller.isLoggedin()){
+			if (controller.getLoggedinUser() == null){
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_ERROR, 
 						Labels.USER_SIGNOUT_TITLE, 
 						JOptionPane.ERROR_MESSAGE);
 			} else {
-				controller.setLoggedin(false);
+				controller.setLoggedinUser(null); // TODO: frissíteni a grafikus elemeket hogy eltünjenek ha valaminek el kell
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_SUCCESSFUL, 
 						Labels.USER_SIGNOUT_TITLE, 

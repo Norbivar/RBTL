@@ -85,7 +85,7 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 			User user = new User("", input_email.getText(), String.valueOf(input_password.getPassword()));
 			if(gui.getController().validateUser(user)){
 				this.dispose();
-				gui.getController().setLoggedin(true);
+				gui.getController().setLoggedinUser(user);
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_LOGIN_SUCCESSFUL, 
 						Labels.USER_LOGIN_TITLE, 
