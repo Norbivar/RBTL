@@ -13,6 +13,10 @@ public class User {
 	private int id;
 	private boolean torzsvasarlo;
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * User constructor
 	 * @param name - Name of the user

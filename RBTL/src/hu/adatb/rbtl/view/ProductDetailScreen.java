@@ -25,10 +25,16 @@ public class ProductDetailScreen extends JPanel{
 		data_panel.setLayout(new GridLayout(0, 1));
 		
 		if(product instanceof Book){
+			Book book = null;
+			
 			isbn_label = new JLabel(Labels.PRODUCT_ISBN);
 			title_label = new JLabel(Labels.PRODUCT_TITLE);
 			oldalszam_label = new JLabel(Labels.PRODUCT_OLDALSZAM);
-			kotes_label = new JLabel();
+			kotes_label = new JLabel(Labels.PRODUCT_KOTES);
+			meret_label = new JLabel(Labels.PRODUCT_MERET);
+			ar_label = new JLabel(Labels.PRODUCT_AR);
+			kiado_label = new JLabel(Labels.PRODUCT_KIADO);
+			kiadaseve_label = new JLabel(Labels.PRODUCT_KIADASEVE);
 
 		} else if (product instanceof Film){
 

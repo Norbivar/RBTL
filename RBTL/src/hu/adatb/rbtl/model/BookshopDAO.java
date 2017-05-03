@@ -113,4 +113,6 @@ public interface BookshopDAO {
 	 * @return List of Products in the user's cart.
 	 */
 	List<Product> getUserCart(User user);
+	
+	public Book getBookByID(int id);
 }
