@@ -16,6 +16,9 @@ import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
 public class BookshopDAOImplementation implements BookshopDAO{
+	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
+	
+	
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
@@ -88,7 +91,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		/*Ide kell a portforwarding meg stb, mint sqldevelopernél
 		És be kell állítani a USERNAME, PASSWORD Stringeket teszteléshez. 
 		Nem tudtam jobb megoldást, otthon mindenki teszteléskor beállítja majd git-re feltöltéskor kitörlitek. */
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(REGISTER_USER);
 			
 			pst.setString(1, user.getName());
@@ -106,7 +109,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	@Override
 	public boolean validateUser(User user) {
 		boolean valid = false;
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(VALIDATE_USER);
 
 			pst.setString(1, user.getEmail());
@@ -126,7 +129,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	@Override
 	public String[] getAllBindings() {		
 		List<String> return_list = new ArrayList<String>();
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_ALL_BINDIGS);
 
 			ResultSet rs = pst.executeQuery();
@@ -142,7 +145,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	@Override
 	public String[] getAllPublishers() {
 		List<String> return_list = new ArrayList<String>();
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_ALL_AUTHORS);
 
 			ResultSet rs = pst.executeQuery();
@@ -158,7 +161,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public String getAuthorByID(int id){
 		String ret = null;
 		
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_AUTHOR_BY_ID);
 			pst.setInt(1, id);
 			
@@ -173,7 +176,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	
 	public List<Product> searchBookByAttributes(Book book){
 		List<Product> ret = new ArrayList<Product>();
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
 
 			pst.setString(1, "%" + book.getIsbn() + "%");
@@ -211,7 +214,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public List<Product> searchFilmByAttributes(Film film) {
 		List<Product> ret = new ArrayList<Product>();
 		
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_FILM);
 
 			pst.setString(1, "%" + film.getTitle() + "%");
@@ -235,7 +238,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public int getAuthorIDByISBN(String isbn) {
 		int ret = 0;
 		
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_AUTHORID_BY_ISBN);
 			pst.setString(1, isbn);
 			
@@ -252,7 +255,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public List<Product> searchSongByAttributes(Song song) {
 		List<Product> ret = new ArrayList<Product>();
 		
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_SONG);
 
 			pst.setString(1, "%" + song.getTitle() + "%");
@@ -274,7 +277,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public List<Product> searchEbookByAttributes(Ebook ebook) {
 		List<Product> ret = new ArrayList<Product>();
 		
-		try(Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:4000:kabinet", USERNAME, PASSWORD)){
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(SEARCH_EBOOK);
 
 			pst.setString(1, "%" + ebook.getTitle() + "%");
