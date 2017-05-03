@@ -27,7 +27,7 @@ import hu.adatb.rbtl.view.Labels;
 public class BookshopController {
 
 	private BookshopDAO dao = new BookshopDAOImplementation();
-	private boolean loggedin;
+	private User loggedInUser = null;
 	
 	public boolean addBook(Book book){
 		return dao.addBook(book);
@@ -61,12 +61,12 @@ public class BookshopController {
 		return dao.validateUser(user);
 	}
 
-	public boolean isLoggedin() {
-		return loggedin;
+	public User getLoggedinUser() {
+		return loggedInUser;
 	}
 
-	public void setLoggedin(boolean loggedin) {
-		this.loggedin = loggedin;
+	public void setLoggedinUser(User loggedin) {
+		this.loggedInUser = loggedin;
 	}
 
 	public List<Product> searchBook(Book book){
