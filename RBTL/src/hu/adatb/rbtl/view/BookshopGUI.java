@@ -34,7 +34,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenuItem search_products, product_toplist;
 	
 	private JMenu cart;
-	private JMenuItem show_cart;
+	private JMenuItem show_cart, cart_checkout;
 	
 	public BookshopGUI(BookshopController controller) {
 		super();
@@ -92,8 +92,16 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		//CART MENU
 		cart = new JMenu(Labels.CART_MENU);
 		show_cart = new JMenuItem(Labels.SHOW_CART_MENUITEM);
-		cart.add(show_cart);
+		cart_checkout = new JMenuItem(Labels.CART_CHECKOUT_MENUITEM);
 		
+		show_cart.addActionListener(this);
+		cart_checkout.addActionListener(this);
+		
+		cart.add(show_cart);
+		cart.add(cart_checkout);
+		
+		
+		/* ----------- */
 		mb.add(file_menu);
 		mb.add(user_settings);
 		mb.add(products);
@@ -148,9 +156,14 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().removeAll();
 			getContentPane().add(new ProductSearchScreen(this));
 			revalidate();
-			//TODO implement browsing products
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item
 			//TODO implement product toplists
+		} else if(e.getSource() == show_cart){
+			getContentPane().removeAll();
+			getContentPane().add(new UserCartScreen(this));
+			revalidate();
+		} else if (e.getSource() == cart_checkout) {
+			//TODO
 		}
 	}
 

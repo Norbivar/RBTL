@@ -79,4 +79,5 @@ public class Labels {
 	//CART
 	public static final String CART_MENU = "Cart";
 	public static final String SHOW_CART_MENUITEM = "Show cart";
+	public static final String CART_CHECKOUT_MENUITEM = "Checkout";
 }

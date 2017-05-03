@@ -141,6 +141,8 @@ public class BookshopController {
 			button_panel.add(detailsButton);
 			/* ------------------------------------------------ */
 			
+			
+			
 			ret.add(icon_panel);
 			ret.add(labels_panel);
 			ret.add(values_panel);
@@ -160,6 +162,7 @@ public class BookshopController {
 			title = new JLabel(((Film) product).getTitle());
 			detailsButton = new JButton(Labels.PRODUCT_DETAILS_BUTTON);
 			
+						
 			p.add(film_icon);
 			p.add(label_title);
 			p.add(title);
@@ -206,4 +209,6 @@ public class BookshopController {
 			return p;
 		}
 	}
+	
+	
 }
