@@ -4,8 +4,6 @@ import javax.swing.JPanel;
 
 public class Ebook extends Product{
 
-	private String id, title;
-	
 	public Ebook(String id, String title){
 		this.id = id;
 		this.title = title;

@@ -294,4 +294,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		}
 		return ret;
 	}
+
+	@Override
+	public List<Product> getUserCart(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

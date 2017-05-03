@@ -3,8 +3,6 @@ package hu.adatb.rbtl.model.beans;
 import javax.swing.JPanel;
 
 public class Song extends Product{
-
-	private String id, title;
 	
 	public Song(String id, String title){
 		this.id = id;

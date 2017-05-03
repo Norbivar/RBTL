@@ -12,8 +12,6 @@ import hu.adatb.rbtl.view.Labels;
 
 public class Film extends Product{
 
-	private String id, title;
-	
 	public Film(String id, String title){
 		this.id = id;
 		this.title = title;

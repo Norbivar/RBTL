@@ -5,6 +5,7 @@ package hu.adatb.rbtl.model.beans;
  *
  */
 public abstract class Product {
+	protected String id, title;
 
 	//public abstract JPanel displayInList();	
 }
