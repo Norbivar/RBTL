@@ -19,69 +19,6 @@ public class Book extends Product{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public JPanel displayInList(){
-		JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
-		
-		JLabel book_icon, label_title, label_author, label_publisher, label_price, label_publishYear;
-		JLabel title, author, publisher, price, publishYear;
-		JButton detailsButton;
-		
-		ret = new JPanel();
-		ret.setLayout(new FlowLayout());
-		
-		/* -----------------BOOK ICON PANEL-------------  */
-		icon_panel = new JPanel();
-		book_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/book_icon_smaller.png")));
-		icon_panel.add(book_icon);
-		/* ---------------------------------------------- */
-		
-		/* ------------BOOK LABELS PANEL --------------- */
-		labels_panel = new JPanel();
-		labels_panel.setLayout(new GridLayout(4, 1));
-		
-		label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
-		label_author = new JLabel(Labels.PRODUCT_RESULT_AUTHOR);
-		label_publisher = new JLabel(Labels.PRODUCT_RESULT_PUBLISHER);
-		label_price = new JLabel(Labels.PRODUCT_RESULT_PRICE);
-		
-		labels_panel.add(label_title);		
-		labels_panel.add(label_author);		
-		labels_panel.add(label_publisher);		
-		labels_panel.add(label_price);
-		/* -------------------------------------------------- */
-		
-		/* ---------------------------- VALUES PANEL -------------------- */
-		values_panel = new JPanel();
-		values_panel.setLayout(new GridLayout(4, 1));
-		
-		title = new JLabel(this.title);
-		author = new JLabel(this.author);
-		publisher = new JLabel(this.publisher);
-		price = new JLabel(String.valueOf(this.price));
-		
-		values_panel.add(title);
-		values_panel.add(author);
-		values_panel.add(publisher);
-		values_panel.add(price);		
-		/* ----------------------------------------------------- */
-		
-		/* --------------- BUTTON PANEL -------------------*/
-		button_panel = new JPanel();
-		button_panel.setLayout(new GridLayout(3, 1));
-		
-		detailsButton = new JButton(Labels.PRODUCT_DETAILS_BUTTON);
-		button_panel.add(new JLabel());	//üres hely az elsõ sorban
-		button_panel.add(detailsButton);
-		/* ------------------------------------------------ */
-		
-		ret.add(icon_panel);
-		ret.add(labels_panel);
-		ret.add(values_panel);
-		ret.add(button_panel);
-		
-		return ret;
-	}
-	
 	/**
 	 * 
 	 * @param isbn - ISBN number of the book

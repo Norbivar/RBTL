@@ -32,7 +32,7 @@ public class ProductSearchResultScreen extends JPanel {
 		System.out.println(list.size());
 		
 		for(int i = 0; i<list.size(); i++){
-			productlist.add(gui.getController().displayProductInList(list.get(i)));
+			productlist.add(gui.displayProductInList(list.get(i)));
 		}
 		
 		scrollpane = new JScrollPane(productlist);

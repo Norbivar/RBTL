@@ -6,9 +6,5 @@ package hu.adatb.rbtl.model.beans;
  */
 public abstract class Product {
 
-	//public abstract JPanel displayInList();
-	
-	public void displayDetails(){
-		
-	}
+	//public abstract JPanel displayInList();	
 }
