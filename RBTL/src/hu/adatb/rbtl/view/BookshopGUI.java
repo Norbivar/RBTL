@@ -40,7 +40,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(600, 500);
 		setLocationRelativeTo(null);	//Place the jframe at the center of the screen
-		//setResizable(false);
+		setResizable(false);
 		
 		/*----------------MENUBAR----------------*/
 		mb = new JMenuBar();
