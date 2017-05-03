@@ -106,4 +106,11 @@ public interface BookshopDAO {
 	 * @return
 	 */
 	int getAuthorIDByISBN(String isbn);
+	
+	/**
+	 * Returns the specified user's cart in a List that can be displayed on the screen.
+	 * @param user
+	 * @return List of Products in the user's cart.
+	 */
+	List<Product> getUserCart(User user);
 }

@@ -81,9 +81,9 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cancelbutton){			//The cancel button was clicked
 			dispose();
-		} else if (e.getSource() == okbutton){		//The ok button was clicked
+		} else if (e.getSource() == okbutton) {		//The ok button was clicked
 			User user = new User("", input_email.getText(), String.valueOf(input_password.getPassword()));
-			if(gui.getController().validateUser(user)){
+			if(gui.getController().validateUser(user)) {
 				this.dispose();
 				gui.getController().setLoggedinUser(user);
 				JOptionPane.showMessageDialog(this, 

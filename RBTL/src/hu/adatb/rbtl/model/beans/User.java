@@ -1,5 +1,8 @@
 package hu.adatb.rbtl.model.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * It represents a simple user in our program.
  *
@@ -7,6 +10,7 @@ package hu.adatb.rbtl.model.beans;
 public class User {
 
 	private String name, email, password;
+	private int id;
 	private boolean torzsvasarlo;
 	
 	/**
@@ -54,4 +58,11 @@ public class User {
 		this.torzsvasarlo = torzsvasarlo;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

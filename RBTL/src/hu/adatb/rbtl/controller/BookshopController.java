@@ -85,6 +85,10 @@ public class BookshopController {
 		return dao.searchEbookByAttributes(ebook);
 	}
 	
+	public List<Product> getUserCart(User user) {
+		return dao.getUsercart(user);
+	}
+	
 	public JPanel displayProductInList(Product product){
 		if(product instanceof Book){
 			JPanel ret, icon_panel, labels_panel, values_panel, button_panel;

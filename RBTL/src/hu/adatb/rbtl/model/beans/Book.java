@@ -12,7 +12,7 @@ import hu.adatb.rbtl.view.Labels;
 
 public class Book extends Product{
 
-	private String isbn, size, title, kotesNev, publisher, author;
+	private String size, kotesNev, publisher, author;
 	private int numOfPages, price, publishYear, kotesID, kiadoID;
 	
 	public Book() {
@@ -88,16 +88,16 @@ public class Book extends Product{
 	 * @param title - Title of the book
 	 */
 	public Book(String isbn, String title){
-		this.isbn = isbn;
+		this.id = isbn;
 		this.title = title;
 	}
 
 	public String getIsbn() {
-		return isbn;
+		return id;
 	}
 
 	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+		this.id = isbn;
 	}
 
 	public String getSize() {
