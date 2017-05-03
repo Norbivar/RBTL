@@ -33,6 +33,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenu products;
 	private JMenuItem search_products, product_toplist;
 	
+	private JMenu cart;
+	private JMenuItem show_cart;
+	
 	public BookshopGUI(BookshopController controller) {
 		super();
 		this.controller = controller;
@@ -86,14 +89,18 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		products.add(search_products);
 		products.add(product_toplist);
 		
+		//CART MENU
+		cart = new JMenu(Labels.CART_MENU);
+		show_cart = new JMenuItem(Labels.SHOW_CART_MENUITEM);
+		cart.add(show_cart);
+		
 		mb.add(file_menu);
 		mb.add(user_settings);
 		mb.add(products);
+		mb.add(cart);
 		
 		setJMenuBar(mb);
-		
 		/*------------------------------------------------*/
-		
 		
 		getContentPane().add(new WelcomeScreen());		
 		setVisible(true);

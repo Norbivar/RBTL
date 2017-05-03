@@ -75,4 +75,8 @@ public class Labels {
 	public static final String PRODUCT_RESULT_PUBLISHER = "Publisher: ";
 	public static final String PRODUCT_RESULT_PRICE = "Price: ";
 	public static final String PRODUCT_DETAILS_BUTTON = "Details";
+	
+	//CART
+	public static final String CART_MENU = "Cart";
+	public static final String SHOW_CART_MENUITEM = "Show cart";
 }
