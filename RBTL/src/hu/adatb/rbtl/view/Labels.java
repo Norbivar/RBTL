@@ -90,4 +90,12 @@ public class Labels {
 	public static final String CART_MENU = "Cart";
 	public static final String SHOW_CART_MENUITEM = "Show cart";
 	public static final String CART_CHECKOUT_MENUITEM = "Checkout";
+	
+	//Edit Profile
+	public static final String EDIT_PROFILE_PANE_TITLE ="Edit Profile: ";
+	public static final String EDIT_PROFILE_USER_NAME ="User Name: ";
+	public static final String EDIT_PROFILE_EMAIL="Email: ";
+	public static final String EDIT_PROFILE_CURRENT_PASSWORD="Current Password: ";
+	public static final String EDIT_PROFILE_NEW_PASSWORD1="New Password:";
+	public static final String EDIT_PROFILE_NEW_PASSWORD2="New Password Again: ";
 }
