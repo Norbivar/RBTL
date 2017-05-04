@@ -17,7 +17,7 @@ import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
-public class BookshopDAOImplementation implements BookshopDAO{
+public class BookshopDAOImplementation implements BookshopDAO {
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
 	private final String USERNAME = "";
