@@ -43,7 +43,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
 	private final String GET_ALL_SHOPS = "SELECT cim, nev FROM bolt";
 	
-	private final String SEARCH_BOOK = "SELECT * FROM konyv "
+	/*private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
 			+ "cim LIKE ? OR "
 			+ "oldalszam = ? OR "
@@ -51,7 +51,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			+ "meret LIKE ? OR "
 			+ "ar = ? OR "
 			+ "kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE ?) OR "
-			+ "kiadaseve = ?";
+			+ "kiadaseve = ?";*/
 	private final String SEARCH_FILM = "SELECT * FROM film WHERE filmcim LIKE ?";
 	private final String SEARCH_SONG = "SELECT * FROM zene WHERE zenecim LIKE ?";
 	private final String SEARCH_EBOOK = "SELECT * FROM ebook WHERE ebookcim LIKE ?";
