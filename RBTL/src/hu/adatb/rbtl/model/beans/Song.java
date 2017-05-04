@@ -15,6 +15,10 @@ public class Song extends Product{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Song(String id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id;
 	}

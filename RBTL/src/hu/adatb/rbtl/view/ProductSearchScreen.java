@@ -141,12 +141,12 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 				
 				book.setIsbn(input_isbn.getText());
 				book.setTitle(input_title.getText());
-				book.setNumOfPages((Integer)spinner_pages.getValue());
+				book.setNumOfPages((Integer) spinner_pages.getValue());
 				book.setKotesNev(String.valueOf(combobox_kotes.getSelectedItem()));
 				book.setSize(input_size.getText());
-				book.setPrice((Integer)spinner_price.getValue());
+				book.setPrice((Integer) spinner_price.getValue());
 				book.setPublisher(input_publisher.getText());
-				book.setPublishYear((Integer)spinner_publishyear.getValue());
+				book.setPublishYear((Integer) spinner_publishyear.getValue());
 				
 				gui.getContentPane().add(new ProductSearchResultScreen(gui, gui.getController().searchBook(book)));
 			} else if (combobox_category.getSelectedItem().toString().equals("Film")){

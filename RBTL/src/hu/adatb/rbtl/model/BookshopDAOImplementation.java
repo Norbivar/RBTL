@@ -1,11 +1,13 @@
 package hu.adatb.rbtl.model;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import hu.adatb.rbtl.model.beans.Book;
@@ -17,7 +19,6 @@ import hu.adatb.rbtl.model.beans.User;
 
 public class BookshopDAOImplementation implements BookshopDAO{
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
-	
 	
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
@@ -66,6 +67,11 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_FILM_BY_ID = "SELECT * FROM film WHERE filmID = ?";
 	private final String GET_SONG_BY_ID = "SELECT * FROM zene WHERE zeneID = ?";
 	private final String GET_EBOOK_BY_ID = "SELECT * FROM ebook WHERE ebookID = ?";
+	
+	private final String GET_SHOPID_FROM_ADDRESS_AND_NAME = "SELECT boltID FROM bolt WHERE cim LIKE ? AND nev LIKE ?";
+	private final String GET_BOOKS_FROM_SHOP = "SELECT isbn, darab FROM keszlet WHERE boltID = ?";
+	
+	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -240,6 +246,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return return_list.toArray(new String[0]);
 	}
 
+	@Override
 	public String getAuthorByID(int id){
 		String ret = null;
 		
@@ -256,21 +263,58 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public List<Product> searchBookByAttributes(Book book){
 		List<Product> ret = new ArrayList<Product>();
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
-
-			pst.setString(1, "%" + book.getIsbn() + "%");
-			pst.setString(2, "%" + book.getTitle() + "%");
-			pst.setInt(3, book.getNumOfPages());
-			pst.setString(4, "%" + book.getKotesNev() + "%");
-			pst.setString(5, "%" + book.getSize() + "%");
-			pst.setInt(6, book.getPrice());
-			pst.setString(7, "%" + book.getPublisher() + "%");
-			pst.setInt(8, book.getPublishYear());
+			//PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
+			String query = "SELECT * FROM konyv WHERE 1=1";
 			
-			ResultSet rs = pst.executeQuery();
+			if(!(book.getIsbn().equals(""))){
+				query += " AND isbn LIKE '%" + book.getIsbn() + "%'";
+				//pst.setString(1, "%" + book.getIsbn() + "%");
+			}
+			
+			if(!(book.getTitle().equals(""))){
+				query += " AND cim LIKE '%" + book.getTitle() + "%'";
+				//pst.setString(2, "%" + book.getTitle() + "%");
+			}
+			
+			if(book.getNumOfPages() > 0){
+				query += " AND oldalszam = " + book.getNumOfPages();
+				//pst.setInt(3, book.getNumOfPages());
+			}
+			
+			if(!(book.getKotesNev().equals(""))){
+				query += " AND kotesid IN (SELECT kotesid FROM kotes WHERE megnevezes LIKE '%" + book.getKotesNev() + "%')";
+				//pst.setString(4, "%" + book.getKotesNev() + "%");
+			}
+			
+			if(!(book.getSize().equals(""))){
+				query += " AND meret LIKE '%" + book.getSize() + "%'";
+				//pst.setString(5, "%" + book.getSize() + "%");
+			}
+			
+			if(book.getPrice() > 0){
+				query += " AND ar = " + book.getPrice();
+				//pst.setInt(6, book.getPrice());
+			}
+			
+			if(!(book.getPublisher().equals(""))){
+				query += " AND kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE '%" + book.getPublisher() + "%')";
+				//pst.setString(7, "%" + book.getPublisher() + "%");
+			}
+			
+			if(book.getPublishYear() > 0){
+				query += " AND kiadaseve = " + book.getPublishYear();
+				//pst.setInt(8, book.getPublishYear());
+			}
+			
+			Statement stmt = conn.createStatement();
+			
+			//System.out.println(query);
+			
+			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
 				Book tmp = new Book();
 				tmp.setIsbn(rs.getString(1));
@@ -376,6 +420,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	@Override
 	public Book getBookByID(String id){
 		Book ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -406,6 +451,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public String getPublisherNameByID(String id){
 		String ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -414,8 +460,9 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			pst.setString(1, id);
 			
 			ResultSet rs = pst.executeQuery();
-			rs.next();
-			ret = rs.getString(1);
+			if(rs.next()){
+				ret = rs.getString(1);
+			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -423,6 +470,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	@Override
 	public String getKotesByID(String id){
 		String ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -440,6 +488,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public Film getFilmByID(String id){
 		Film ret = null;
 		
@@ -463,9 +512,41 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	}
 	
 	@Override
-	public List<Product> getUserCart(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<Product, Integer> getUserCart(User user) {
+		HashMap<Product, Integer> userCart = new HashMap<Product, Integer>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_USER_CART);
+
+			pst.setInt(1, user.getId());
+			
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				switch(rs.getString(3)) 
+				{
+				case "k":
+					userCart.put(new Book(rs.getString(1)), rs.getInt(2));
+					break;
+				case "f":
+					userCart.put(new Film(rs.getString(1)), rs.getInt(2));
+					break;
+				case "e":
+					userCart.put(new Ebook(rs.getString(1)), rs.getInt(2));
+					break;
+				case "z":
+					userCart.put(new Song(rs.getString(1)), rs.getInt(2));
+					break;
+				default:
+					System.out.println("ERROR: default reached in getUserCart!");
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userCart;
 	}
 
 	@Override
@@ -513,4 +594,47 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		
 		return ret;
 	}
+
+	@Override
+	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
+		String ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_SHOPID_FROM_ADDRESS_AND_NAME);
+
+			pst.setString(1, shopAddress);
+			pst.setString(2, shopName);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getString(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@Override
+	public HashMap<Book, Integer> getBooksFromShop(String shopID) {
+		HashMap<Book, Integer> keszlet_konyv_db = new HashMap<Book, Integer>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_FROM_SHOP);
+
+			pst.setInt(1, Integer.parseInt(shopID));
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Book book = getBookByID(rs.getString(1));
+				int db = rs.getInt(2);
+				keszlet_konyv_db.put(book, db);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return keszlet_konyv_db;
+	}
+
+
 }

@@ -26,6 +26,11 @@ public class Book extends Product{
 		this.title = title;
 	}
 
+	public Book(String isbn) {
+		this.id = isbn;
+		this.title = "TODO";
+	}
+
 	public String getIsbn() {
 		return id;
 	}

@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import hu.adatb.rbtl.model.beans.Book;
@@ -130,7 +131,7 @@ public interface BookshopDAO {
 	 * @param user
 	 * @return List of Products in the user's cart.
 	 */
-	List<Product> getUserCart(User user);
+	HashMap<Product, Integer> getUserCart(User user);
 	
 	/**
 	 * Returns the Book identified by the parameter
@@ -160,5 +161,37 @@ public interface BookshopDAO {
 	 */
 	public Ebook getEbookByID(String id);
 	
+<<<<<<< HEAD
 	
+=======
+	/**
+	 * Returns the id of the shop with the given address and name
+	 * @param shopAddress - the address of the shop
+	 * @param shopName - name of the shop
+	 * @return id of the shop
+	 */
+	public String getShopIDFromAddressAndName(String shopAddress, String shopName);
+	
+	/**
+	 * Return the available {@link Book} from the specific shop 
+	 * @param shopAddress - the address of the shop
+	 * @param shopName - name of the shop
+	 * @return List of {@link Book}s
+	 */
+	public HashMap<Book, Integer> getBooksFromShop(String shopID);
+
+	/**
+	 * This method returns the publisher associated with the id given in the parameter
+	 * @param id - id of the author
+	 * @return
+	 */
+	String getPublisherNameByID(String id);
+
+	/**
+	 * This method returns the name of the binding with the given id
+	 * @param id - id of the binding
+	 * @return
+	 */
+	String getKotesByID(String id);
+>>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 }

@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import hu.adatb.rbtl.model.BookshopDAO;
@@ -97,6 +98,7 @@ public class BookshopController{
 		return dao.getEbookByID(id);
 	}
 	
+<<<<<<< HEAD
 	public boolean validateUserEditProfile(User user,  String password){
 		return dao.validateUserEditProfile(user, password);
 	}
@@ -107,6 +109,14 @@ public class BookshopController{
 	
 	public boolean updatePasswordEditProfile(User user, String password){
 		return dao.updatePasswordEditProfile(user, password);
+=======
+	public HashMap<Book, Integer> getBooksFromShop(String shopID){
+		return dao.getBooksFromShop(shopID);
+	}
+	
+	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
+		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
+>>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 	}
 	
 }
