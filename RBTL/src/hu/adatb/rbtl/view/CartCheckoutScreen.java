@@ -10,6 +10,7 @@ public class CartCheckoutScreen extends JPanel{
 	
 	
 	public CartCheckoutScreen(BookshopGUI gui) {
+		super();
 		this.gui = gui;
 	}
 	

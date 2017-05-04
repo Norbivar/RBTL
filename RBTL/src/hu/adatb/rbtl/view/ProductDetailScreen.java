@@ -31,6 +31,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	private JPanel offers_panel;
 	
 	public ProductDetailScreen(BookshopGUI gui, Product product){
+		super();
 		this.gui = gui;
 		this.setLayout(new GridLayout(0, 1));
 		

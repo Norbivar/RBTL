@@ -64,6 +64,11 @@ public interface BookshopDAO {
 	String[] getAllPublishers();
 	
 	/**
+	 * This method returns all the shops from the database
+	 */
+	String[] getAllShops();
+	
+	/**
 	 * This method is for searching a book in the database by matching any of it's attributes
 	 * @param book
 	 * @return

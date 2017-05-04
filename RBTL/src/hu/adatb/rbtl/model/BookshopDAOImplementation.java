@@ -35,6 +35,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
+	private final String GET_ALL_SHOPS = "SELECT cim, nev FROM bolt";
 	
 	private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
@@ -162,6 +163,22 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				return_list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return return_list.toArray(new String[0]);
+	}
+	
+	@Override
+	public String[] getAllShops(){
+		List<String> return_list = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_SHOPS);
+
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				return_list.add(rs.getString(1) + "  |  " + rs.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();	

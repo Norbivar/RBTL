@@ -106,4 +106,8 @@ public class Labels {
 	public static final String EDIT_PROFILE_NEW_PASSWORD2="New Password Again: ";
 	public static final String EDIT_PROFILE_OKBUTTON = "Change";
 	public static final String EDIT_PROFILE_CANCELBUTTON ="";
+	
+	//BROWSE SHOPS
+	public static final String SHOP_SELECTSHOP = "Select which shop's products you want to see: ";
+	
 }

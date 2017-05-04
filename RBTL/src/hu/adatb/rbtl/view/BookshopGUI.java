@@ -114,6 +114,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		every_book_in_a_shop = new JMenuItem(Labels.SHOP_MENUITEM_BROWSE);
 		book_in_which_shop = new JMenuItem(Labels.SHOP_MENUITEMS_SEARCH);
 		
+		every_book_in_a_shop.addActionListener(this);
+		book_in_which_shop.addActionListener(this);
+		
 		shops.add(every_book_in_a_shop);
 		shops.add(book_in_which_shop);
 		
@@ -338,7 +341,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new ProductDetailScreen(this, detailsButton.getProduct()));
 			revalidate();
 		} else if (e.getSource() == every_book_in_a_shop){
-			//TODO Mely könyvek kaphatók egy áruházban?
+			getContentPane().removeAll();
+			getContentPane().add(new BrowseProductsInShopScreen(this));
+			revalidate();
 		} else if (e.getSource() == book_in_which_shop){
 			//TODO Egy adott könyv mely áruházban kapható?
 		}

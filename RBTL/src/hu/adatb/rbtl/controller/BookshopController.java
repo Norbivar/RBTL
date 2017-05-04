@@ -49,6 +49,10 @@ public class BookshopController{
 		return dao.getAllPublishers();
 	}
 	
+	public String[] getAllShops(){
+		return dao.getAllShops();
+	}
+	
 	public boolean validateUser(User user){
 		return dao.validateUser(user);
 	}
