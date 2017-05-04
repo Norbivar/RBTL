@@ -197,4 +197,8 @@ public interface BookshopDAO {
 	 * @return - list of {@link Book}s
 	 */
 	List<Book> getBooksByPriceRange(int minprice, int maxprice);
+
+	boolean DeleteFromUserCart(User user, Product what);
+
+	boolean ModifyProductInUserCart(User user, Product what, int tohowmany);
 }
