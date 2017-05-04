@@ -49,8 +49,8 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		input_new_password_2 = new JTextField();
 		input_current_password  = new JTextField();
 		
-		gridpanel_user_name.add(label_user_name );
-		gridpanel_user_name.add(input_user_name);
+		gridpanel.add(label_user_name );
+		gridpanel.add(input_user_name);
 		
 		gridpanel.add(label_email);
 		gridpanel.add(input_email);
