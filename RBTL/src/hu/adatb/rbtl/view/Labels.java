@@ -99,4 +99,6 @@ public class Labels {
 	public static final String EDIT_PROFILE_CURRENT_PASSWORD="Current Password: ";
 	public static final String EDIT_PROFILE_NEW_PASSWORD1="New Password:";
 	public static final String EDIT_PROFILE_NEW_PASSWORD2="New Password Again: ";
+	public static final String EDIT_PROFILE_OKBUTTON = "Change";
+	public static final String EDIT_PROFILE_CANCELBUTTON ="";
 }

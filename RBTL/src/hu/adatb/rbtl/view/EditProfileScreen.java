@@ -17,7 +17,7 @@ import hu.adatb.rbtl.model.beans.User;
 public class EditProfileScreen extends JPanel implements ActionListener {
 	private BookshopGUI gui;
 	private JLabel a, panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
-	private JPanel gridpanel, buttonpanel;
+	private JPanel gridpanel, buttonpanel, gridpanel_user_name;
 	private JLabel account_name, email;
 	private JTextField input_account,input_user_name,input_email,input_current_password, input_new_password_1, input_new_password_2;
 	private JButton okbutton, cancelbutton;
@@ -49,8 +49,8 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		input_new_password_2 = new JTextField();
 		input_current_password  = new JTextField();
 		
-		gridpanel.add(label_user_name );
-		gridpanel.add(input_user_name);
+		gridpanel_user_name.add(label_user_name );
+		gridpanel_user_name.add(input_user_name);
 		
 		gridpanel.add(label_email);
 		gridpanel.add(input_email);
@@ -69,8 +69,8 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		
 		/*-----------Button panel containing ok and cancel buttons-----------*/
 		buttonpanel = new JPanel(new FlowLayout());
-		okbutton = new JButton(Labels.SEARCH_PRODUCTS_OKBUTTON);
-		cancelbutton = new JButton(Labels.SEARCH_PRODUCTS_CANCELBUTTON);
+		okbutton = new JButton(Labels.EDIT_PROFILE_OKBUTTON);
+		cancelbutton = new JButton(Labels.EDIT_PROFILE_CANCELBUTTON);
 		
 		cancelbutton.addActionListener(this);
 		okbutton.addActionListener(this);
@@ -93,6 +93,12 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			User user = new User();
 			user.setName(input_account.getText());
 			user.setEmail(input_email.getText());
+			
+			if(input_account.getText().length()>0){
+				
+			}else if(input_email.getText().length()>0){
+				
+			}
 		}
 		
 	}

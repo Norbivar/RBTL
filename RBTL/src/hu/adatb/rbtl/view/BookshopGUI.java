@@ -185,7 +185,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			detailsButton.setProduct(product);
 			detailsButton.addActionListener(this);
 			
-			button_panel.add(new JLabel());	//üres hely az elsõ sorban
+			button_panel.add(new JLabel());	//ï¿½res hely az elsï¿½ sorban
 			button_panel.add(detailsButton);
 			/* ------------------------------------------------ */
 			
@@ -288,14 +288,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 						Labels.USER_SIGNOUT_TITLE, 
 						JOptionPane.ERROR_MESSAGE);
 			} else {
-				controller.setLoggedinUser(null); // TODO: frissíteni a grafikus elemeket hogy eltünjenek ha valaminek el kell
+				controller.setLoggedinUser(null); // TODO: frissï¿½teni a grafikus elemeket hogy eltï¿½njenek ha valaminek el kell
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_SUCCESSFUL, 
 						Labels.USER_SIGNOUT_TITLE, 
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else if (e.getSource() == user_editprofile){	//If the user clicked on the 'Edit profile' menu item
-			//TODO implement editing personal profile
+			getContentPane().removeAll();
+			getContentPane().add(new EditProfileScreen(this));
+			revalidate();
+			
 		} else if (e.getSource() == search_products){	//If the user clicked on the 'Search products' menu item
 			getContentPane().removeAll();
 			getContentPane().add(new ProductSearchScreen(this));
@@ -312,7 +315,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().removeAll();
 			getContentPane().add(new ProductDetailScreen(this, detailsButton.getProduct()));
 			revalidate();
-		}
+		} 
+		
 	}
 
 }
