@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import hu.adatb.rbtl.model.BookshopDAO;
@@ -95,6 +96,14 @@ public class BookshopController{
 	
 	public Ebook getEbookByID(String id){
 		return dao.getEbookByID(id);
+	}
+	
+	public HashMap<Book, Integer> getBooksFromShop(String shopID){
+		return dao.getBooksFromShop(shopID);
+	}
+	
+	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
+		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
 	}
 	
 }

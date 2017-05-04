@@ -4,11 +4,16 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import hu.adatb.rbtl.model.beans.Book;
 
 /**
  * On this screen, you can select a shop and then it displays all the products what you can find there.
@@ -60,8 +65,13 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 	          String parts[] = item.split("  |  ");
 	          selectedShop_address = parts[0];
 	          selectedShop_name = parts[2];
-	          System.out.println(selectedShop_address);
-	          System.out.println(selectedShop_name);
+	          HashMap<Book, Integer> set = gui.getController().getBooksFromShop(gui.getController().getShopIDFromAddressAndName(selectedShop_address, selectedShop_name));
+	          Iterator it = set.entrySet().iterator();
+	          while(it.hasNext()){
+	        	  Map.Entry pair = (Map.Entry) it.next();
+	              System.out.println(pair.getKey() + " = " + pair.getValue());
+	              it.remove(); // avoids a ConcurrentModificationException
+	          }
 	       }
 	}
 }

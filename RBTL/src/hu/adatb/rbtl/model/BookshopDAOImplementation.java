@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import hu.adatb.rbtl.model.beans.Book;
@@ -61,6 +62,9 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_FILM_BY_ID = "SELECT * FROM film WHERE filmID = ?";
 	private final String GET_SONG_BY_ID = "SELECT * FROM zene WHERE zeneID = ?";
 	private final String GET_EBOOK_BY_ID = "SELECT * FROM ebook WHERE ebookID = ?";
+	
+	private final String GET_SHOPID_FROM_ADDRESS_AND_NAME = "SELECT boltID FROM bolt WHERE cim LIKE ? AND nev LIKE ?";
+	private final String GET_BOOKS_FROM_SHOP = "SELECT isbn, darab FROM keszlet WHERE boltID = ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -186,6 +190,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return return_list.toArray(new String[0]);
 	}
 
+	@Override
 	public String getAuthorByID(int id){
 		String ret = null;
 		
@@ -202,6 +207,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public List<Product> searchBookByAttributes(Book book){
 		List<Product> ret = new ArrayList<Product>();
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -322,6 +328,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	@Override
 	public Book getBookByID(String id){
 		Book ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -352,6 +359,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public String getPublisherNameByID(String id){
 		String ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -369,6 +377,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	@Override
 	public String getKotesByID(String id){
 		String ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -386,6 +395,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 	
+	@Override
 	public Film getFilmByID(String id){
 		Film ret = null;
 		
@@ -459,4 +469,49 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		
 		return ret;
 	}
+
+	@Override
+	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
+		String ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_SHOPID_FROM_ADDRESS_AND_NAME);
+
+			pst.setString(1, shopAddress);
+			pst.setString(2, shopName);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getString(1);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	@Override
+	public HashMap<Book, Integer> getBooksFromShop(String shopID) {
+		HashMap<Book, Integer> keszlet_konyv_db = new HashMap<Book, Integer>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_FROM_SHOP);
+
+			pst.setString(1, shopID);
+			
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				Book book = getBookByID(rs.getString(1));
+				int db = rs.getInt(2);
+				keszlet_konyv_db.put(book, db);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return keszlet_konyv_db;
+	}
+
+
 }
