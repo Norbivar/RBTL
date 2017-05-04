@@ -201,8 +201,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			pst.setInt(1, id);
 			
 			ResultSet rs = pst.executeQuery();
-			rs.next();
-			ret = rs.getString(1);			
+			if(rs.next()){
+				ret = rs.getString(1);	
+			}
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -314,8 +316,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			pst.setString(1, isbn);
 			
 			ResultSet rs = pst.executeQuery();
-			rs.next();
-			ret = rs.getInt(1);			
+			if(rs.next()){
+				ret = rs.getInt(1);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		

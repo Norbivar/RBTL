@@ -49,7 +49,6 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenu cart;
 	private JMenuItem show_cart, cart_checkout;
 	
-	private ProductDetailsButton detailsButton;
 	
 	public BookshopGUI(BookshopController controller) {
 		super();
@@ -151,6 +150,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	}
 	
 	public JPanel displayProductInList(Product product){
+	
 		if(product instanceof Book){
 			JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
 			
@@ -200,9 +200,19 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			button_panel = new JPanel();
 			button_panel.setLayout(new GridLayout(3, 1));
 			
+			ProductDetailsButton detailsButton;
 			detailsButton = new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
 			detailsButton.setProduct(product);
-			detailsButton.addActionListener(this);
+			
 			
 			button_panel.add(new JLabel());	//ï¿½res hely az elsï¿½ sorban
 			button_panel.add(detailsButton);
@@ -226,9 +236,20 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			film_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/film_icon_smaller.png")));
 			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
 			title = new JLabel(((Film) product).getTitle());
+
+
+			ProductDetailsButton detailsButton;
 			detailsButton = new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
 			detailsButton.setProduct(product);
-			detailsButton.addActionListener(this);
 			
 						
 			p.add(film_icon);
@@ -247,9 +268,20 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			song_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/song_icon_smaller.png")));
 			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
 			title = new JLabel(((Song) product).getTitle());
+			
+			ProductDetailsButton detailsButton;
 			detailsButton = new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
 			detailsButton.setProduct(product);
-			detailsButton.addActionListener(this);
+
 			
 			p.add(song_icon);
 			p.add(label_title);
@@ -267,9 +299,20 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			ebook_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/ebook_icon_smaller.png")));
 			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
 			title = new JLabel(((Ebook) product).getTitle());
+			
+			ProductDetailsButton detailsButton;
 			detailsButton = new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
 			detailsButton.setProduct(product);
-			detailsButton.addActionListener(this);
+
 			
 			p.add(ebook_icon);
 			p.add(label_title);
@@ -325,7 +368,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item
 			//TODO Heti/havi toplista a vásárlások alapján (mindegy, hogy interneten vagy boltban vásárolták meg a könyvet).
 		} else if (e.getSource() == cheap_products){
-			//TODO * „Olcsó könyvek” kilistázása árkategóriánként.
+			getContentPane().removeAll();
+			getContentPane().add(new CheapProductsScreen(this));
+			revalidate();
 		} else if (e.getSource() == popular_books){
 			//TODO * A legnépszerûbb könyvek mûfajonként.
 		} else if (e.getSource() == show_cart){
@@ -335,10 +380,6 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == cart_checkout) {
 			getContentPane().removeAll();
 			getContentPane().add(new CartCheckoutScreen(this));
-			revalidate();
-		} else if (e.getSource() == detailsButton){
-			getContentPane().removeAll();
-			getContentPane().add(new ProductDetailScreen(this, detailsButton.getProduct()));
 			revalidate();
 		} else if (e.getSource() == every_book_in_a_shop){
 			getContentPane().removeAll();

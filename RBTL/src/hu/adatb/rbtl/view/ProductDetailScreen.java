@@ -42,7 +42,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		data_panel.setLayout(new GridLayout(0, 2));
 		
 		if(product instanceof Book){
-			Book book = gui.getController().getBookByID(product.getId());
+			Book book = gui.getController().getBookByID(((Book) product).getIsbn());
 			
 			isbn_label = new JLabel(Labels.PRODUCT_ISBN);
 			title_label = new JLabel(Labels.PRODUCT_TITLE);
