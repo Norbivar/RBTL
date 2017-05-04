@@ -36,8 +36,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
 	private final String UPDATE_USER_NAME_EDIT_PROFILE1 ="UPDATE felhasznalo  SET nev = ";
 	private final String UPDATE_USER_NAME_EDIT_PROFILE2 = " WHERE email LIKE ";
-	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = ";
-	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 =" WHERE email LIKE ";
+	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = '";
+	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 ="' WHERE email LIKE '";
 	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
@@ -188,7 +188,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public boolean updatePasswordEditProfile(User user, String password){
 		boolean validate = false;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_PASSWORD_EDIT_PROFILE1 + password + UPDATE_USER_PASSWORD_EDIT_PROFILE2 + user.getEmail());
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_PASSWORD_EDIT_PROFILE1 + password + UPDATE_USER_PASSWORD_EDIT_PROFILE2 + user.getEmail()+ "'");
 			
 			validate = pst.executeUpdate() == 1;
 			

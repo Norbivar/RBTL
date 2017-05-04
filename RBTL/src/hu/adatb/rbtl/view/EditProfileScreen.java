@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -46,9 +47,9 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		
 		
 		input_user_name = new JTextField();
-		input_new_password_1 = new JTextField();
-		input_new_password_2 = new JTextField();
-		input_current_password  = new JTextField();
+		input_new_password_1 = new JPasswordField();
+		input_new_password_2 = new JPasswordField();
+		input_current_password  = new JPasswordField();
 		
 		gridpanel.add(label_user_name );
 		gridpanel.add(input_user_name);
@@ -112,7 +113,7 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 							
 							//pwd1 and pwd2 are not the same
 						}else if(!(input_new_password_1.getText().equals(input_new_password_2.getText()))){
-							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog();
+							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
 						}
 					}
 					

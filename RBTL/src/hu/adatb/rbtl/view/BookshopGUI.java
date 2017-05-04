@@ -323,11 +323,13 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new ProductSearchScreen(this));
 			revalidate();
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item
-			//TODO Heti/havi toplista a vásárlások alapján (mindegy, hogy interneten vagy boltban vásárolták meg a könyvet).
+			//getContentPane().removeAll();
+			//getContentPane().add(new TopListScreen(new BookshopGUI gui));
+			//revalidate();
 		} else if (e.getSource() == cheap_products){
-			//TODO * „Olcsó könyvek” kilistázása árkategóriánként.
+			//TODO * ï¿½Olcsï¿½ kï¿½nyvekï¿½ kilistï¿½zï¿½sa ï¿½rkategï¿½riï¿½nkï¿½nt.
 		} else if (e.getSource() == popular_books){
-			//TODO * A legnépszerûbb könyvek mûfajonként.
+			//TODO * A legnï¿½pszerï¿½bb kï¿½nyvek mï¿½fajonkï¿½nt.
 		} else if (e.getSource() == show_cart){
 			getContentPane().removeAll();
 			getContentPane().add(new UserCartScreen(this));
@@ -345,7 +347,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new BrowseProductsInShopScreen(this));
 			revalidate();
 		} else if (e.getSource() == book_in_which_shop){
-			//TODO Egy adott könyv mely áruházban kapható?
+			//TODO Egy adott kï¿½nyv mely ï¿½ruhï¿½zban kaphatï¿½?
 		}
 		
 	}

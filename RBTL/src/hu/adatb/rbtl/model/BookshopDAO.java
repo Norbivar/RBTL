@@ -161,9 +161,7 @@ public interface BookshopDAO {
 	 */
 	public Ebook getEbookByID(String id);
 	
-<<<<<<< HEAD
-	
-=======
+
 	/**
 	 * Returns the id of the shop with the given address and name
 	 * @param shopAddress - the address of the shop
@@ -193,5 +191,4 @@ public interface BookshopDAO {
 	 * @return
 	 */
 	String getKotesByID(String id);
->>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 }

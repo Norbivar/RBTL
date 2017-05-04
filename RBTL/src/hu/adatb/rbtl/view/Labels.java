@@ -119,6 +119,9 @@ public class Labels {
 	public static final String EDIT_PROFILE_PASSWORD_DIALOG_OKBUTTON ="OK";
 	public static final String EDIT_PROFILE_PASSWORD_DIALOG_CANCELBUTTON ="Cancel";
 	
+	//Top List Screen
+	public static final String TOP_LIST_TITLE ="Top Lists";
+	
 	
 	//BROWSE SHOPS
 	public static final String SHOP_SELECTSHOP = "Select shop: ";
