@@ -117,4 +117,8 @@ public class BookshopController{
 		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
 	}
 	
+	public List<Book> getBooksByPriceRange(int minprice, int maxprice) {
+		return dao.getBooksByPriceRange(minprice, maxprice);
+	}
+	
 }

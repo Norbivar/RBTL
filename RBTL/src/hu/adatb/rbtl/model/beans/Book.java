@@ -126,4 +126,8 @@ public class Book extends Product{
 	public void setMufajok(List<String> mufajok) {
 		this.mufajok = mufajok;
 	}
+	
+	/*public String getId() {
+		return getIsbn();
+	}*/
 }

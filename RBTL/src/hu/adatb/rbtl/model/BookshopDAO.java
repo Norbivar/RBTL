@@ -189,4 +189,12 @@ public interface BookshopDAO {
 	 * @return
 	 */
 	String getKotesByID(String id);
+	
+	/**
+	 * This method returns a list of {@link Book}s which costs at least minprice, and maximum maxprice
+	 * @param minprice - minimum price of the {@link Book}
+	 * @param maxprice - maximum price of the {@link Book}
+	 * @return - list of {@link Book}s
+	 */
+	List<Book> getBooksByPriceRange(int minprice, int maxprice);
 }
