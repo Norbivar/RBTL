@@ -108,6 +108,7 @@ public class Labels {
 	public static final String EDIT_PROFILE_CANCELBUTTON ="";
 	
 	//BROWSE SHOPS
-	public static final String SHOP_SELECTSHOP = "Select which shop's products you want to see: ";
+	public static final String SHOP_SELECTSHOP = "Select shop: ";
+	public static final String SHOP_AMOUNT = "Amount: ";
 	
 }

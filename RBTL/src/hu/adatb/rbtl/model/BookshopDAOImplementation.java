@@ -20,7 +20,6 @@ import hu.adatb.rbtl.model.beans.User;
 public class BookshopDAOImplementation implements BookshopDAO{
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
@@ -259,7 +258,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			
 			Statement stmt = conn.createStatement();
 			
-			System.out.println(query);
+			//System.out.println(query);
 			
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
@@ -407,8 +406,9 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			pst.setString(1, id);
 			
 			ResultSet rs = pst.executeQuery();
-			rs.next();
-			ret = rs.getString(1);
+			if(rs.next()){
+				ret = rs.getString(1);
+			}			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -570,13 +570,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			pst.setInt(1, Integer.parseInt(shopID));
 			
 			ResultSet rs = pst.executeQuery();
-			//nem fut le
 			while(rs.next()){
-				System.out.println("next");
 				Book book = getBookByID(rs.getString(1));
 				int db = rs.getInt(2);
 				keszlet_konyv_db.put(book, db);
-				System.out.println(keszlet_konyv_db.get(book));
 			}
 
 		} catch (SQLException e) {
