@@ -117,6 +117,14 @@ public class BookshopController{
 		return dao.getUserCart(user);
 	}
 	
+	public boolean DeleteFromUserCart(User user, Product what) {
+		return dao.DeleteFromUserCart(user, what);
+	}
+	
+	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
+		return dao.ModifyProductInUserCart(user, what, tohowmany);
+	}
+	
 	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
 		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
 	}

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Product;
-
+//TODO: updating
 public class UserCartScreen extends JPanel  implements ActionListener { // I seriously doubt this will work but hey...
 
 	private BookshopGUI gui;
@@ -60,8 +60,10 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 				counter++;
 				if(tmp.getId() == asd.getId()) {
 					((DefaultTableModel)table.getModel()).removeRow(counter);
-					//TODO delete from SQL
-					break;
+					if(gui.getController().DeleteFromUserCart(gui.getController().getLoggedinUser(), asd))
+						break;
+					else
+						System.out.println("VALAMI error!");
 				}
 			}
 			table.updateUI();
