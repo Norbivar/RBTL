@@ -33,7 +33,7 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		dm.setColumnIdentifiers(new Object[] { "Code", "Title", "Amount","Delete" });
 		for(Product tmp : cart.keySet())
 		{
-			if(tmp instanceof Book)
+			if(/*tmp instanceof Book*/ true)
 			{
 				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
 				JTextField a2 = new JTextField(cart.get(tmp).intValue());
@@ -52,7 +52,6 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	{
 		if(e.getSource() instanceof SpecialJButton)
 		{
-			int rowToDelete = -1;
 			int counter = -1;
 			Product asd = ((SpecialJButton) e.getSource()).getP();
 			for(Product tmp : cart.keySet())
