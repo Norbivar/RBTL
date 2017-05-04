@@ -1,8 +1,5 @@
 package hu.adatb.rbtl.model.beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * It represents a simple user in our program.
  *

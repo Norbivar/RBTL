@@ -31,9 +31,11 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		END;
 	*/
 	private final String REGISTER_USER = "INSERT INTO felhasznalo (nev, torzsvasarlo, email, jelszo) VALUES (?, ?, ?, ?)";
+	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
+	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
-	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
+	
 	private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
 			+ "cim LIKE ? OR "
@@ -44,12 +46,20 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			+ "kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE ?) OR "
 			+ "kiadaseve = ?";
 	private final String SEARCH_FILM = "SELECT * FROM film WHERE filmcim LIKE ?";
-	private final String GET_AUTHOR_BY_ID = "SELECT nev FROM szerzo WHERE szerzoid = ?";
-	private final String GET_AUTHORID_BY_ISBN = "SELECT szerzoid FROM szerzoje WHERE isbn LIKE ?";
-	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
 	private final String SEARCH_SONG = "SELECT * FROM zene WHERE zenecim LIKE ?";
 	private final String SEARCH_EBOOK = "SELECT * FROM ebook WHERE ebookcim LIKE ?";
+	
+	private final String GET_AUTHOR_BY_ID = "SELECT nev FROM szerzo WHERE szerzoid = ?";
+	private final String GET_AUTHORID_BY_ISBN = "SELECT szerzoid FROM szerzoje WHERE isbn LIKE ?";
+	
+	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
+	
+	private final String GET_KOTES_BY_ID = "SELECT megnevezes FROM kotes WHERE kotesID = ?";
+	
 	private final String GET_BOOK_BY_ID = "SELECT * FROM konyv WHERE isbn = ?";
+	private final String GET_FILM_BY_ID = "SELECT * FROM film WHERE filmID = ?";
+	private final String GET_SONG_BY_ID = "SELECT * FROM zene WHERE zeneID = ?";
+	private final String GET_EBOOK_BY_ID = "SELECT * FROM ebook WHERE ebookID = ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -59,7 +69,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			e.printStackTrace();
 		}
 	}
-
+ 
 	@Override
 	public boolean addBook(Book book) {
 		// TODO Auto-generated method stub
@@ -234,7 +244,6 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
-	
 	@Override
 	public int getAuthorIDByISBN(String isbn) {
 		int ret = 0;
@@ -295,7 +304,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		}
 		return ret;
 	}
-	
+
 	public Book getBookByID(String id){
 		Book ret = null;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -314,7 +323,11 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			ret.setSize(rs.getString(5));
 			ret.setPrice(rs.getInt(6));
 			ret.setKiadoID(rs.getInt(7));
-			ret.setPublishYear(rs.getInt(8));			
+			ret.setPublishYear(rs.getInt(8));
+			
+			ret.setAuthor(getAuthorByID(getAuthorIDByISBN(ret.getIsbn())));
+			ret.setPublisher(getPublisherNameByID(String.valueOf(ret.getKiadoID())));
+			ret.setKotesNev(getKotesByID(String.valueOf(ret.getKotesID())));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -339,9 +352,94 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	public String getKotesByID(String id){
+		String ret = null;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_KOTES_BY_ID);
+			
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			ret = rs.getString(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	public Film getFilmByID(String id){
+		Film ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_FILM_BY_ID);
+			
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			ret = new Film();
+			ret.setId(rs.getString(1));
+			ret.setTitle(rs.getString(2));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public List<Product> getUserCart(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Song getSongByID(String id) {
+		Song ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_SONG_BY_ID);
+			
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			ret = new Song();
+			ret.setId(rs.getString(1));
+			ret.setTitle(rs.getString(2));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+
+	@Override
+	public Ebook getEbookByID(String id) {
+		Ebook ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_EBOOK_BY_ID);
+			
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			ret = new Ebook();
+			ret.setId(rs.getString(1));
+			ret.setTitle(rs.getString(2));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
 	}
 }

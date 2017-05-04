@@ -1,7 +1,6 @@
 package hu.adatb.rbtl.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.List;
 
@@ -27,9 +26,8 @@ public class ProductSearchResultScreen extends JPanel {
 		productlist = new JPanel();
 		productlist.setLayout(new GridLayout(0, 1));
 		
-		panel_title = new JLabel(Labels.PRODUCT_RESULT_PANE_TITLE, SwingConstants.CENTER);
-		add(panel_title, BorderLayout.NORTH);
-		System.out.println(list.size());
+		panel_title = new JLabel(Labels.PRODUCT_RESULT_PANE_TITLE + "   (number of results: " + list.size() + ")", SwingConstants.CENTER);
+		add(panel_title, BorderLayout.NORTH);		
 		
 		for(int i = 0; i<list.size(); i++){
 			productlist.add(gui.displayProductInList(list.get(i)));

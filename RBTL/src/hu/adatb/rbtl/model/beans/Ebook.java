@@ -1,7 +1,9 @@
 package hu.adatb.rbtl.model.beans;
 
-import javax.swing.JPanel;
-
+/**
+ * Ebook bean, which represents an ebook from the database
+ *
+ */
 public class Ebook extends Product{
 
 	public Ebook(String id, String title){
@@ -28,12 +30,6 @@ public class Ebook extends Product{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public JPanel displayInList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 	
 }

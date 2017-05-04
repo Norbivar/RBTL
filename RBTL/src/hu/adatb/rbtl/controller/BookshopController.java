@@ -81,4 +81,16 @@ public class BookshopController{
 		return dao.getBookByID(id);
 	}
 	
+	public Film getFilmByID(String id){
+		return dao.getFilmByID(id);
+	}
+	
+	public Song getSongByID(String id){
+		return dao.getSongByID(id);
+	}
+	
+	public Ebook getEbookByID(String id){
+		return dao.getEbookByID(id);
+	}
+	
 }

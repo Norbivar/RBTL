@@ -1,7 +1,9 @@
 package hu.adatb.rbtl.model.beans;
 
-import javax.swing.JPanel;
-
+/**
+ * Song bean, which represents a song from the database
+ *
+ */
 public class Song extends Product{
 	
 	public Song(String id, String title){
@@ -27,12 +29,5 @@ public class Song extends Product{
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public JPanel displayInList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+	}	
 }

@@ -1,9 +1,16 @@
 package hu.adatb.rbtl.model.beans;
 
+import java.util.List;
+
+/**
+ * Book bean, which represents a book from the database
+ *
+ */
 public class Book extends Product{
 
 	private String size, kotesNev, publisher, author;
 	private int numOfPages, price, publishYear, kotesID, kiadoID;
+	private List<String> mufajok;
 	
 	public Book() {
 		// TODO Auto-generated constructor stub
@@ -105,5 +112,13 @@ public class Book extends Product{
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public List<String> getMufajok() {
+		return mufajok;
+	}
+
+	public void setMufajok(List<String> mufajok) {
+		this.mufajok = mufajok;
 	}
 }
