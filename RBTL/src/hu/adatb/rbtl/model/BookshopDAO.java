@@ -116,7 +116,7 @@ public interface BookshopDAO {
 	 * @param user
 	 * @return List of Products in the user's cart.
 	 */
-	List<Product> getUserCart(User user);
+	HashMap<Product, Integer> getUserCart(User user);
 	
 	/**
 	 * Returns the Book identified by the parameter

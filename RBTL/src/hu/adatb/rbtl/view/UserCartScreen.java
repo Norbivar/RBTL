@@ -10,7 +10,7 @@ public class UserCartScreen extends JPanel{
 	public UserCartScreen(BookshopGUI gui){
 		super();
 		this.gui = gui;
-		
+		//TODO here: when you cann getUserCart, you get a map with <Product, Integer>. Product ONLY HAS id, every Title will show "TODO"!!!
 		
 	}
 }

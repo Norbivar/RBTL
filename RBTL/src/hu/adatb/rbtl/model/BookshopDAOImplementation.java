@@ -67,6 +67,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_SHOPID_FROM_ADDRESS_AND_NAME = "SELECT boltID FROM bolt WHERE cim LIKE ? AND nev LIKE ?";
 	private final String GET_BOOKS_FROM_SHOP = "SELECT isbn, darab FROM keszlet WHERE boltID = ?";
 	
+	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
+	
 	public BookshopDAOImplementation() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -456,9 +458,41 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	}
 	
 	@Override
-	public List<Product> getUserCart(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<Product, Integer> getUserCart(User user) {
+		HashMap<Product, Integer> userCart = new HashMap<Product, Integer>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_USER_CART);
+
+			pst.setInt(1, user.getId());
+			
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				switch(rs.getString(3)) 
+				{
+				case "k":
+					userCart.put(new Book(rs.getString(1)), rs.getInt(2));
+					break;
+				case "f":
+					userCart.put(new Film(rs.getString(1)), rs.getInt(2));
+					break;
+				case "e":
+					userCart.put(new Ebook(rs.getString(1)), rs.getInt(2));
+					break;
+				case "z":
+					userCart.put(new Song(rs.getString(1)), rs.getInt(2));
+					break;
+				default:
+					System.out.println("ERROR: default reached in getUserCart!");
+					break;
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userCart;
 	}
 
 	@Override
