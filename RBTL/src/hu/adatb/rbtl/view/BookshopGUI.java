@@ -373,7 +373,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			//TODO * A legnépszerûbb könyvek mûfajonként.
 		} else if (e.getSource() == show_cart){
 			getContentPane().removeAll();
-			getContentPane().add(new UserCartScreen(this));
+			getContentPane().add(new UserCartScreen(this, controller.getUserCart(controller.getLoggedinUser())));
 			revalidate();
 		} else if (e.getSource() == cart_checkout) {
 			getContentPane().removeAll();

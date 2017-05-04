@@ -72,6 +72,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_BOOKS_FROM_SHOP = "SELECT isbn, darab FROM keszlet WHERE boltID = ?";
 	
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
+	private final String DELETE_PRODUCT_FROM_USER_CART = "DELETE FROM kosar WHERE felhasznaloid = ? AND mibol = ?";
+	private final String UPDATE_PRODUCT_IN_USER_CART = "UPDATE mennyit WHERE felhasznaloid = ? AND mibol = ? SET mennyit = ?";
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
 
@@ -516,6 +518,14 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		}
 		
 		return ret;
+	}
+	@Override
+	public boolean DeleteFromUserCart(User user, Product what) {
+		return true;
+	}
+	@Override
+	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
+		return true;
 	}
 	
 	@Override

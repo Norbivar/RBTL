@@ -113,6 +113,10 @@ public class BookshopController{
 		return dao.getBooksFromShop(shopID);
 	}
 	
+	public HashMap<Product, Integer> getUserCart(User user){
+		return dao.getUserCart(user);
+	}
+	
 	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
 		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
 	}
