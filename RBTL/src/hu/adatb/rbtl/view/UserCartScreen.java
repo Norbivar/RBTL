@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import hu.adatb.rbtl.model.beans.Book;
@@ -39,7 +41,29 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 				JTextField a2 = new JTextField(cart.get(tmp).intValue());
 				SpecialJButton tmp2 = new SpecialJButton("Remove", tmp);
 				tmp2.addActionListener(this);
-			
+				
+				// Medzsik
+				a2.getDocument().addDocumentListener(new DocumentListener() {
+					  public void changedUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+					  public void removeUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+					  public void insertUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+
+					  public void doIt() {
+					     if (Integer.parseInt(a2.getText())<=0){
+					    	 a2.setText("1");
+					     }
+					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
+					  }
+					});
+				
+				//
+				
 				Object[] row = { a1, a2, tmp2 };
 				
 				dm.insertRow(dm.getRowCount(), row);
