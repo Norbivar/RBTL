@@ -65,12 +65,22 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 	          String parts[] = item.split("  |  ");
 	          selectedShop_address = parts[0];
 	          selectedShop_name = parts[2];
-	          HashMap<Book, Integer> set = gui.getController().getBooksFromShop(gui.getController().getShopIDFromAddressAndName(selectedShop_address, selectedShop_name));
+	          
+	          System.out.println(selectedShop_address);
+	          System.out.println(selectedShop_name);
+	          String shopid = gui.getController().getShopIDFromAddressAndName(selectedShop_address, selectedShop_name);
+	          	          
+	          HashMap<Book, Integer> set = gui.getController().getBooksFromShop(shopid);
 	          Iterator it = set.entrySet().iterator();
-	          while(it.hasNext()){
+	          /*while(it.hasNext()){
+	        	  System.out.println(selectedShop_address + " " + selectedShop_name);
 	        	  Map.Entry pair = (Map.Entry) it.next();
 	              System.out.println(pair.getKey() + " = " + pair.getValue());
 	              it.remove(); // avoids a ConcurrentModificationException
+	          }*/
+	          for (Map.Entry<Book, Integer> entry : set.entrySet())
+	          {
+	              System.out.println(entry.getKey() + "/" + entry.getValue());
 	          }
 	       }
 	}

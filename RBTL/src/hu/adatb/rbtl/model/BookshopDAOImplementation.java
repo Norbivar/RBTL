@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.model;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -211,18 +212,54 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	public List<Product> searchBookByAttributes(Book book){
 		List<Product> ret = new ArrayList<Product>();
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
-
-			pst.setString(1, "%" + book.getIsbn() + "%");
-			pst.setString(2, "%" + book.getTitle() + "%");
-			pst.setInt(3, book.getNumOfPages());
-			pst.setString(4, "%" + book.getKotesNev() + "%");
-			pst.setString(5, "%" + book.getSize() + "%");
-			pst.setInt(6, book.getPrice());
-			pst.setString(7, "%" + book.getPublisher() + "%");
-			pst.setInt(8, book.getPublishYear());
+			//PreparedStatement pst = conn.prepareStatement(SEARCH_BOOK);
+			String query = "SELECT * FROM konyv WHERE 1=1";
 			
-			ResultSet rs = pst.executeQuery();
+			if(!(book.getIsbn().equals(""))){
+				query += " AND isbn LIKE '%" + book.getIsbn() + "%'";
+				//pst.setString(1, "%" + book.getIsbn() + "%");
+			}
+			
+			if(!(book.getTitle().equals(""))){
+				query += " AND cim LIKE '%" + book.getTitle() + "%'";
+				//pst.setString(2, "%" + book.getTitle() + "%");
+			}
+			
+			if(book.getNumOfPages() > 0){
+				query += " AND oldalszam = " + book.getNumOfPages();
+				//pst.setInt(3, book.getNumOfPages());
+			}
+			
+			if(!(book.getKotesNev().equals(""))){
+				query += " AND kotesid IN (SELECT kotesid FROM kotes WHERE megnevezes LIKE '%" + book.getKotesNev() + "%')";
+				//pst.setString(4, "%" + book.getKotesNev() + "%");
+			}
+			
+			if(!(book.getSize().equals(""))){
+				query += " AND meret LIKE '%" + book.getSize() + "%'";
+				//pst.setString(5, "%" + book.getSize() + "%");
+			}
+			
+			if(book.getPrice() > 0){
+				query += " AND ar = " + book.getPrice();
+				//pst.setInt(6, book.getPrice());
+			}
+			
+			if(!(book.getPublisher().equals(""))){
+				query += " AND kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE '%" + book.getPublisher() + "%')";
+				//pst.setString(7, "%" + book.getPublisher() + "%");
+			}
+			
+			if(book.getPublishYear() > 0){
+				query += " AND kiadaseve = " + book.getPublishYear();
+				//pst.setInt(8, book.getPublishYear());
+			}
+			
+			Statement stmt = conn.createStatement();
+			
+			System.out.println(query);
+			
+			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
 				Book tmp = new Book();
 				tmp.setIsbn(rs.getString(1));
@@ -483,7 +520,6 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			ResultSet rs = pst.executeQuery();
 			rs.next();
 			ret = rs.getString(1);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -497,14 +533,16 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_FROM_SHOP);
 
-			pst.setString(1, shopID);
+			pst.setInt(1, Integer.parseInt(shopID));
 			
 			ResultSet rs = pst.executeQuery();
-			
+			//nem fut le
 			while(rs.next()){
+				System.out.println("next");
 				Book book = getBookByID(rs.getString(1));
 				int db = rs.getInt(2);
 				keszlet_konyv_db.put(book, db);
+				System.out.println(keszlet_konyv_db.get(book));
 			}
 
 		} catch (SQLException e) {
