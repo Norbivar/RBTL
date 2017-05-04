@@ -329,13 +329,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		} else if (e.getSource() == popular_books){
 			//TODO * A legnépszerûbb könyvek mûfajonként.
 		} else if (e.getSource() == show_cart){
-			getContentPane().removeAll();
-			getContentPane().add(new UserCartScreen(this));
-			revalidate();
+			if(controller.getLoggedinUser() != null) {
+				getContentPane().removeAll();
+				getContentPane().add(new UserCartScreen(this));
+				revalidate();
+			}
 		} else if (e.getSource() == cart_checkout) {
-			getContentPane().removeAll();
-			getContentPane().add(new CartCheckoutScreen(this));
-			revalidate();
+			if(controller.getLoggedinUser() != null) {
+				getContentPane().removeAll();
+				getContentPane().add(new CartCheckoutScreen(this));
+				revalidate();
+			}
 		} else if (e.getSource() == detailsButton){
 			getContentPane().removeAll();
 			getContentPane().add(new ProductDetailScreen(this, detailsButton.getProduct()));
