@@ -15,6 +15,10 @@ public class Ebook extends Product{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Ebook(String id) {
+		this.id = id;
+	}
+
 	public String getId() {
 		return id;
 	}
