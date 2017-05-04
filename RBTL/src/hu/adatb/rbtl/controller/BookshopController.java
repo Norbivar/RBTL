@@ -97,7 +97,11 @@ public class BookshopController{
 	public Ebook getEbookByID(String id){
 		return dao.getEbookByID(id);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 	public boolean validateUserEditProfile(User user,  String password){
 		return dao.validateUserEditProfile(user, password);
 	}
@@ -108,15 +112,27 @@ public class BookshopController{
 	
 	public boolean updatePasswordEditProfile(User user, String password){
 		return dao.updatePasswordEditProfile(user, password);
+<<<<<<< HEAD
 	}
 	
+=======
+	}
+>>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 	public HashMap<Book, Integer> getBooksFromShop(String shopID){
 		return dao.getBooksFromShop(shopID);
 	}
 	
 	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
+<<<<<<< HEAD
 		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
 
+=======
+		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
+	}
+	
+	public List<Book> getBooksByPriceRange(int minprice, int maxprice) {
+		return dao.getBooksByPriceRange(minprice, maxprice);
+>>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 	}
 	
 }

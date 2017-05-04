@@ -71,7 +71,7 @@ public class Labels {
 	public static final String SEARCH_PRODUCTS_PAGES = "Number of pages:";
 	public static final String SEARCH_PRODUCTS_BINDING = "Type of binding:";
 	public static final String SEARCH_PRODUCTS_SIZE = "Size of book:";
-	public static final String SEARCH_PRODUCTS_PRICE = "Price:";
+	public static final String SEARCH_PRODUCTS_PRICE = "Price: ($)";
 	public static final String SEARCH_PDORUCTS_PUBLISHER = "Publisher:";
 	public static final String SEARCH_PRODUCTS_DATE_OF_PUBLISHING = "Year of publishing:";
 	public static final String SEARCH_PRODUCTS_OKBUTTON = "OK";
@@ -83,7 +83,7 @@ public class Labels {
 	public static final String PRODUCT_RESULT_AUTHOR = "Author: ";
 	public static final String PRODUCT_RESULT_ISBN = "ISBN number: ";
 	public static final String PRODUCT_RESULT_PUBLISHER = "Publisher: ";
-	public static final String PRODUCT_RESULT_PRICE = "Price: ";
+	public static final String PRODUCT_RESULT_PRICE = "Price: ($) ";
 	public static final String PRODUCT_DETAILS_BUTTON = "Details";
 	
 	//PRODUCT DETAILS
@@ -92,7 +92,7 @@ public class Labels {
 	public static final String PRODUCT_OLDALSZAM = "Number of pages:";
 	public static final String PRODUCT_KOTES = "Binding:";
 	public static final String PRODUCT_MERET = "Size:";
-	public static final String PRODUCT_AR = "Price:";
+	public static final String PRODUCT_AR = "Price: ($)";
 	public static final String PRODUCT_KIADO = "Publisher:";
 	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
 	public static final String PRODUCT_SZERZO = "Author:";
@@ -127,5 +127,12 @@ public class Labels {
 	public static final String SHOP_SELECTSHOP = "Select shop: ";
 	public static final String SHOP_AMOUNT = "Amount: ";
 	
+	//BOOKS, CATEGORY BY PRICE
+	public static final String CHEAPBOOK_10 = "Less than 10 $";
+	public static final String CHEAPBOOK_20 = "10-20 $";
+	public static final String CHEAPBOOK_30 = "20-30 $";
+	public static final String CHEAPBOOK_40 = "30-40 $";
+	public static final String CHEAPBOOK_50 = "40-50$ ";
+	public static final String CHEAPBOOK_MORE = "More than 50 $";
 
 }
