@@ -23,6 +23,14 @@ public class Labels {
 	public static final String USER_MENUITEM_SIGNOUT = "Sign out";
 	public static final String USER_MENUITEM_EDITPROFILE = "Edit profile";
 	
+	public static final String SHOP_MENU = "Shops";
+	public static final String SHOP_MENUITEM_BROWSE = "Browse a shop's collection";
+	public static final String SHOP_MENUITEMS_SEARCH = "Search a specific book in a shop's collection";
+	
+	public static final String CART_MENU = "Cart";
+	public static final String SHOW_CART_MENUITEM = "Show cart";
+	public static final String CART_CHECKOUT_MENUITEM = "Checkout";
+	
 	public static final String PRODUCTS_MENU = "Products";
 	public static final String PRODUCTS_MENUITEM_SEARCH = "Search products";
 	public static final String PRODUCTS_MENUITEM_TOPLIST = "Product toplists";
@@ -88,11 +96,6 @@ public class Labels {
 	public static final String PRODUCT_KIADO = "Publisher:";
 	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
 	public static final String PRODUCT_SZERZO = "Author:";
-	
-	//CART
-	public static final String CART_MENU = "Cart";
-	public static final String SHOW_CART_MENUITEM = "Show cart";
-	public static final String CART_CHECKOUT_MENUITEM = "Checkout";
 	
 	//Edit Profile
 	public static final String EDIT_PROFILE_PANE_TITLE ="Edit Profile: ";

@@ -43,6 +43,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenu products;
 	private JMenuItem search_products, product_toplist, cheap_products, popular_books;
 	
+	private JMenu shops;
+	private JMenuItem every_book_in_a_shop, book_in_which_shop;
+	
 	private JMenu cart;
 	private JMenuItem show_cart, cart_checkout;
 	
@@ -106,6 +109,14 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		products.add(product_toplist);
 		products.add(cheap_products);
 		
+		//SHOPS MENU
+		shops = new JMenu(Labels.SHOP_MENU);
+		every_book_in_a_shop = new JMenuItem(Labels.SHOP_MENUITEM_BROWSE);
+		book_in_which_shop = new JMenuItem(Labels.SHOP_MENUITEMS_SEARCH);
+		
+		shops.add(every_book_in_a_shop);
+		shops.add(book_in_which_shop);
+		
 		//CART MENU
 		cart = new JMenu(Labels.CART_MENU);
 		show_cart = new JMenuItem(Labels.SHOW_CART_MENUITEM);
@@ -122,6 +133,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		mb.add(file_menu);
 		mb.add(user_settings);
 		mb.add(products);
+		mb.add(shops);
 		mb.add(cart);
 		
 		setJMenuBar(mb);
@@ -318,12 +330,18 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new UserCartScreen(this));
 			revalidate();
 		} else if (e.getSource() == cart_checkout) {
-			//TODO 
+			getContentPane().removeAll();
+			getContentPane().add(new CartCheckoutScreen(this));
+			revalidate();
 		} else if (e.getSource() == detailsButton){
 			getContentPane().removeAll();
 			getContentPane().add(new ProductDetailScreen(this, detailsButton.getProduct()));
 			revalidate();
-		} 
+		} else if (e.getSource() == every_book_in_a_shop){
+			//TODO Mely könyvek kaphatók egy áruházban?
+		} else if (e.getSource() == book_in_which_shop){
+			//TODO Egy adott könyv mely áruházban kapható?
+		}
 		
 	}
 
