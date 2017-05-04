@@ -26,7 +26,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	private JLabel isbn, title, oldalszam, kotes, meret, ar, kiado, kiadaseve, szerzo;
 	
 	private JPanel buy_panel;
-	private JLabel buy_icon;
+	private JLabel buy_icon, back_arrow;
 	
 	private JPanel offers_panel;
 	
@@ -34,6 +34,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		super();
 		this.gui = gui;
 		this.setLayout(new GridLayout(0, 1));
+		this.setOpaque(true);
 		
 		product_panel = new JPanel();
 		product_panel.setLayout(new FlowLayout());
@@ -125,6 +126,10 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		buy_panel.add(buy_icon);
 		
 		
+		back_arrow = new JLabel(new ImageIcon(this.getClass().getResource("/images/back_arrow.png")));
+		back_arrow.addMouseListener(this);
+		
+		product_panel.add(back_arrow);
 		product_panel.add(data_panel);
 		product_panel.add(buy_panel);
 		
@@ -139,8 +144,11 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == buy_icon){
+			System.out.println("kosárba");
 			//TODO kosárba helyezés
-		}		
+		} else if (e.getSource() == back_arrow){
+			System.out.println("vissza");
+		}
 	}
 
 	@Override

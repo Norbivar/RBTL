@@ -218,8 +218,6 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			button_panel.add(detailsButton);
 			/* ------------------------------------------------ */
 			
-			
-			
 			ret.add(icon_panel);
 			ret.add(labels_panel);
 			ret.add(values_panel);
