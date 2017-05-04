@@ -49,6 +49,10 @@ public class BookshopController{
 		return dao.getAllPublishers();
 	}
 	
+	public String[] getAllShops(){
+		return dao.getAllShops();
+	}
+	
 	public boolean validateUser(User user){
 		return dao.validateUser(user);
 	}
@@ -91,6 +95,18 @@ public class BookshopController{
 	
 	public Ebook getEbookByID(String id){
 		return dao.getEbookByID(id);
+	}
+	
+	public boolean validateUserEditProfile(User user,  String password){
+		return dao.validateUserEditProfile(user, password);
+	}
+	
+	public boolean updateUserNameEditProfile(User user, String username){
+		return dao.updateUserNameEditProfile(user, username);
+	}
+	
+	public boolean updatePasswordEditProfile(User user, String password){
+		return dao.updatePasswordEditProfile(user, password);
 	}
 	
 }

@@ -12,12 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import hu.adatb.rbtl.model.BookshopDAOImplementation;
 import hu.adatb.rbtl.model.beans.User;
+import hu.adatb.rbtl.view.dialogs.EditProfilePasswordDialog;
 import hu.adatb.rbtl.view.dialogs.UserEditProfileDialog;
 
 public class EditProfileScreen extends JPanel implements ActionListener {
 	private BookshopGUI gui;
-	private JLabel a, panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
+	private JLabel  panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
 	private JPanel gridpanel, buttonpanel, gridpanel_email;
 	private JLabel account_name, email;
 	private JTextField input_account,input_user_name,input_email,input_current_password, input_new_password_1, input_new_password_2;
@@ -88,15 +90,35 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			gui.getContentPane().revalidate();
 		}else if(e.getSource() == okbutton){
 			User user = new User();
-			user.setName(input_account.getText());
-			user.setEmail(input_email.getText());
+			//user.setName(input_account.getText());
+			//user.setEmail(input_email.getText());
 			
-			if(!(input_current_password.getText().isEmpty())){
-				
-				
+			if((input_current_password.getText().equals(""))){
+				UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
 				
 			}else {
-				UserEditProfileDialog dialog = new UserEditProfileDialog(gui) ;
+				if(gui.getController().validateUserEditProfile(user, input_current_password.getText())){
+					
+					//the user has typed in a new user name
+					if(!(input_user_name.getText().equals(""))){
+						gui.getController().updateUserNameEditProfile(user, input_user_name.getText());
+					}
+					
+					//the user has typed in a new password
+					if(!(input_new_password_1.equals("") && input_new_password_2.equals(""))){
+						// pwd1 and pwd2 are the same
+						if(input_new_password_1.getText().equals(input_new_password_2.getText())){
+							gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText());
+							
+							//pwd1 and pwd2 are not the same
+						}else if(!(input_new_password_1.getText().equals(input_new_password_2.getText()))){
+							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog();
+						}
+					}
+					
+				}
+				
+				
 			}
 		}
 		

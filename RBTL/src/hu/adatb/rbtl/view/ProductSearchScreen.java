@@ -138,6 +138,7 @@ public class ProductSearchScreen extends JPanel implements ActionListener {
 			gui.getContentPane().removeAll();
 			if(combobox_category.getSelectedItem().toString().equals("Book")){
 				Book book = new Book();
+				
 				book.setIsbn(input_isbn.getText());
 				book.setTitle(input_title.getText());
 				book.setNumOfPages((Integer)spinner_pages.getValue());

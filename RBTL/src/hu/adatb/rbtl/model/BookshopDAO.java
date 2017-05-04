@@ -56,12 +56,32 @@ public interface BookshopDAO {
 	/**
 	 * This method returns all the available bindings in the database
 	 */
+	boolean validateUserEditProfile(User user,  String password);
+	/*
+	 * This method returns if the user has the correct password in the database
+	 * */
+	
+	boolean updateUserNameEditProfile(User user, String username);
+	/*
+	 * This method updates the user's name
+	 * */
+	 
+	boolean updatePasswordEditProfile(User user, String password);
+	/*
+	 * This method updates the user's password
+	 * */
+	
 	String[] getAllBindings();
 	
 	/**
 	 * This method returns all the available publishers in the database
 	 */
 	String[] getAllPublishers();
+	
+	/**
+	 * This method returns all the shops from the database
+	 */
+	String[] getAllShops();
 	
 	/**
 	 * This method is for searching a book in the database by matching any of it's attributes
@@ -139,4 +159,6 @@ public interface BookshopDAO {
 	 * @return {@link Ebook} object with the attributes of the ebook in the database
 	 */
 	public Ebook getEbookByID(String id);
+	
+	
 }

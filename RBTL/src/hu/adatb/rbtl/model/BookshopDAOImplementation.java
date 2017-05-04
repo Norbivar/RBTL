@@ -22,7 +22,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
-	/* Ide trigger kell a beszúráshoz, hogy az id jó legyen. Pl ez jó:
+	/* Ide trigger kell a beszï¿½rï¿½shoz, hogy az id jï¿½ legyen. Pl ez jï¿½:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
 		BEFORE INSERT ON felhasznalo
 		FOR EACH ROW
@@ -32,9 +32,15 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	*/
 	private final String REGISTER_USER = "INSERT INTO felhasznalo (nev, torzsvasarlo, email, jelszo) VALUES (?, ?, ?, ?)";
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
+	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
+	private final String UPDATE_USER_NAME_EDIT_PROFILE1 ="UPDATE felhasznalo  SET nev = ";
+	private final String UPDATE_USER_NAME_EDIT_PROFILE2 = " WHERE email LIKE ";
+	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = ";
+	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 =" WHERE email LIKE ";
 	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
+	private final String GET_ALL_SHOPS = "SELECT cim, nev FROM bolt";
 	
 	private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
@@ -99,9 +105,9 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		boolean success = false;
 		//TODO Trigger on inserting a new user, for setting the userID
 		
-		/*Ide kell a portforwarding meg stb, mint sqldevelopernél
-		És be kell állítani a USERNAME, PASSWORD Stringeket teszteléshez. 
-		Nem tudtam jobb megoldást, otthon mindenki teszteléskor beállítja majd git-re feltöltéskor kitörlitek. */
+		/*Ide kell a portforwarding meg stb, mint sqldevelopernï¿½l
+		ï¿½s be kell ï¿½llï¿½tani a USERNAME, PASSWORD Stringeket tesztelï¿½shez. 
+		Nem tudtam jobb megoldï¿½st, otthon mindenki tesztelï¿½skor beï¿½llï¿½tja majd git-re feltï¿½ltï¿½skor kitï¿½rlitek. */
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(REGISTER_USER);
 			
@@ -136,6 +142,55 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		}		
 		return valid;
 	}
+	
+	@Override
+	public boolean validateUserEditProfile(User user, String password){
+		boolean valid = false;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(VALIDATE_USER_EDIT_PROFILE);
+			
+			pst.setString(1, user.getEmail());
+			
+			ResultSet rs = pst.executeQuery();
+			
+			if(password.equals(rs.next())){
+				valid = true;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return valid;
+	}
+	
+	@Override
+	public boolean updateUserNameEditProfile(User user, String username){
+		boolean validate= false;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE1 + username + UPDATE_USER_NAME_EDIT_PROFILE2 + user.getEmail());
+			
+			validate = pst.executeUpdate() == 1;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return validate;
+	}
+	
+	@Override
+	public boolean updatePasswordEditProfile(User user, String password){
+		boolean validate = false;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_PASSWORD_EDIT_PROFILE1 + password + UPDATE_USER_PASSWORD_EDIT_PROFILE2 + user.getEmail());
+			
+			validate = pst.executeUpdate() == 1;
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return validate;
+	}
 
 	@Override
 	public String[] getAllBindings() {		
@@ -162,6 +217,22 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()){
 				return_list.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return return_list.toArray(new String[0]);
+	}
+	
+	@Override
+	public String[] getAllShops(){
+		List<String> return_list = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_SHOPS);
+
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				return_list.add(rs.getString(1) + "  |  " + rs.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();	
