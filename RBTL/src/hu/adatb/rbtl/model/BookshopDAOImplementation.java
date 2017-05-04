@@ -73,6 +73,8 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
 	
+	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
+
 	public BookshopDAOImplementation() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -329,6 +331,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 				tmp.setPublishYear(rs.getInt(8));
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
 				
 				ret.add(tmp);
 			}
@@ -638,6 +641,39 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			e.printStackTrace();
 		}
 		return keszlet_konyv_db;
+	}
+
+	@Override
+	public List<Book> getBooksByPriceRange(int minprice, int maxprice) {
+		List<Book> ret = new ArrayList<Book>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_PRICE_RANGE);
+
+			pst.setInt(1, minprice);
+			pst.setInt(2, maxprice);
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Book tmp = new Book();
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				
+				ret.add(tmp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 
