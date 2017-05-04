@@ -22,4 +22,17 @@ public abstract class Product {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+    @Override
+    public int hashCode() {
+        return id.hashCode(); // I don't know what this does but found it on internet
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+    	if(this == (Product) obj) { // dunno either
+    		return true;
+    	}
+    	return false;
+    }
 }
