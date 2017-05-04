@@ -72,8 +72,8 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		okbutton = new JButton(Labels.EDIT_PROFILE_OKBUTTON);
 		cancelbutton = new JButton(Labels.EDIT_PROFILE_CANCELBUTTON);
 		
-		cancelbutton.addActionListener(this);
 		okbutton.addActionListener(this);
+		cancelbutton.addActionListener(this);
 		
 		buttonpanel.add(okbutton);
 		buttonpanel.add(cancelbutton);
