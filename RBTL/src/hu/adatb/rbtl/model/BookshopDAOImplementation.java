@@ -521,13 +521,34 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	}
 	@Override
 	public boolean DeleteFromUserCart(User user, Product what) {
-		return true;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(DELETE_PRODUCT_FROM_USER_CART);
+
+			pst.setInt(1, user.getId());
+			pst.setString(2, what.getId());
+			if(pst.execute())
+				return true;		
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	@Override
 	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
-		return true;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(UPDATE_PRODUCT_IN_USER_CART);
+
+			pst.setInt(1, user.getId());
+			pst.setString(2, what.getId());
+			pst.setInt(3, tohowmany);
+			if(pst.executeUpdate() == 1)
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
-	
 	@Override
 	public HashMap<Product, Integer> getUserCart(User user) {
 		HashMap<Product, Integer> userCart = new HashMap<Product, Integer>();

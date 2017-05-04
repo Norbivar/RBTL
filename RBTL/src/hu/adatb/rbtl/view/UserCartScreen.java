@@ -10,12 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Product;
-
+//TODO: updating
 public class UserCartScreen extends JPanel  implements ActionListener { // I seriously doubt this will work but hey...
 
 	private BookshopGUI gui;
@@ -33,13 +35,35 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		dm.setColumnIdentifiers(new Object[] { "Code", "Title", "Amount","Delete" });
 		for(Product tmp : cart.keySet())
 		{
-			if(tmp instanceof Book)
+			if(/*tmp instanceof Book*/ true)
 			{
 				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
 				JTextField a2 = new JTextField(cart.get(tmp).intValue());
 				SpecialJButton tmp2 = new SpecialJButton("Remove", tmp);
 				tmp2.addActionListener(this);
-			
+				
+				// Medzsik
+				a2.getDocument().addDocumentListener(new DocumentListener() {
+					  public void changedUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+					  public void removeUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+					  public void insertUpdate(DocumentEvent e) {
+						  doIt();
+					  }
+
+					  public void doIt() {
+					     if (Integer.parseInt(a2.getText())<=0){
+					    	 a2.setText("1");
+					     }
+					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
+					  }
+					});
+				
+				//
+				
 				Object[] row = { a1, a2, tmp2 };
 				
 				dm.insertRow(dm.getRowCount(), row);
@@ -52,7 +76,6 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	{
 		if(e.getSource() instanceof SpecialJButton)
 		{
-			int rowToDelete = -1;
 			int counter = -1;
 			Product asd = ((SpecialJButton) e.getSource()).getP();
 			for(Product tmp : cart.keySet())
@@ -60,8 +83,10 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 				counter++;
 				if(tmp.getId() == asd.getId()) {
 					((DefaultTableModel)table.getModel()).removeRow(counter);
-					//TODO delete from SQL
-					break;
+					if(gui.getController().DeleteFromUserCart(gui.getController().getLoggedinUser(), asd))
+						break;
+					else
+						System.out.println("VALAMI error!");
 				}
 			}
 			table.updateUI();
