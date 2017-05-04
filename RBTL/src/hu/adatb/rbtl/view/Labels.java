@@ -105,10 +105,24 @@ public class Labels {
 	public static final String EDIT_PROFILE_NEW_PASSWORD1="New Password:";
 	public static final String EDIT_PROFILE_NEW_PASSWORD2="New Password Again: ";
 	public static final String EDIT_PROFILE_OKBUTTON = "Change";
-	public static final String EDIT_PROFILE_CANCELBUTTON ="";
+	
+	//User Edit Profile Dialog
+	public static final String USER_EDIT_DIALOG_OKBUTTON ="OK";
+	public static final String USER_EDIT_DIALOG_CANCELBUTTON ="Cancel";
+	public static final String USER_EDIT_DIALOG_TITLE = "Enter Your Current Password";
+	public static final String USER_EDIT_ENTER_CURRENT_PASSWORD ="You must enter your current password";
+
+	public static final String EDIT_PROFILE_CANCELBUTTON ="Cancel";
+
+	public static final String EDIT_PROFILE_PASSWORD_DIALOG_TITLE ="Invalid Passwords";
+	public static final String EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD ="Enter the same passwords for changing it.";
+	public static final String EDIT_PROFILE_PASSWORD_DIALOG_OKBUTTON ="OK";
+	public static final String EDIT_PROFILE_PASSWORD_DIALOG_CANCELBUTTON ="Cancel";
+	
 	
 	//BROWSE SHOPS
 	public static final String SHOP_SELECTSHOP = "Select shop: ";
 	public static final String SHOP_AMOUNT = "Amount: ";
 	
+
 }

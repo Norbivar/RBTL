@@ -98,6 +98,17 @@ public class BookshopController{
 		return dao.getEbookByID(id);
 	}
 	
+	public boolean validateUserEditProfile(User user,  String password){
+		return dao.validateUserEditProfile(user, password);
+	}
+	
+	public boolean updateUserNameEditProfile(User user, String username){
+		return dao.updateUserNameEditProfile(user, username);
+	}
+	
+	public boolean updatePasswordEditProfile(User user, String password){
+		return dao.updatePasswordEditProfile(user, password);
+	}
 	public HashMap<Book, Integer> getBooksFromShop(String shopID){
 		return dao.getBooksFromShop(shopID);
 	}
