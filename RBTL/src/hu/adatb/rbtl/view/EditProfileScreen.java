@@ -112,7 +112,7 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 							
 							//pwd1 and pwd2 are not the same
 						}else if(!(input_new_password_1.getText().equals(input_new_password_2.getText()))){
-							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog();
+							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
 						}
 					}
 					
