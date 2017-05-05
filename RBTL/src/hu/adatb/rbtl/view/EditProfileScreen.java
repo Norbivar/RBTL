@@ -21,9 +21,8 @@ import hu.adatb.rbtl.view.dialogs.UserEditProfileDialog;
 public class EditProfileScreen extends JPanel implements ActionListener {
 	private BookshopGUI gui;
 	private JLabel  panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
-	private JPanel gridpanel, buttonpanel, gridpanel_email;
-	private JLabel account_name, email;
-	private JTextField input_account,input_user_name,input_email,input_current_password, input_new_password_1, input_new_password_2;
+	private JPanel gridpanel, buttonpanel;
+	private JTextField input_user_name,input_current_password, input_new_password_1, input_new_password_2;
 	private JButton okbutton, cancelbutton;
 	
 	public EditProfileScreen(BookshopGUI gui){

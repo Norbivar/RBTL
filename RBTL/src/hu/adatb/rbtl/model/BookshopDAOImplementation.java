@@ -89,7 +89,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	
 	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv INNER JOIN havitoplista ON HAVITOPLISTA.ISBN = KONYV.ISBN AND HAVITOPLISTA.DARAB > 0";
-	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv INNER JOIN hetitoplista ON hetitoplista.ISBN = KONYV.ISBN AND hetitoplista.DARAB > 0";
+	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv INNER JOIN hetitoplista ON hetitoplista.ISBN = konyv.ISBN";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -777,29 +777,31 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	public List<Book> getBooksFromWeeklyTopList(){
 		List<Book> ret = new ArrayList<Book>();
-		int i = 10;
+		int i = 2;
 		
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			
 			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_WEEKLY_TOP_LIST);
-		
+			
 			ResultSet rs = pst.executeQuery();
 			
-			while(rs.next() || i > 0){
+			while(rs.next()){
 				Book tmp = new Book();
+				System.out.println("valami");
 				System.out.println(rs.getString("ISBN"));
-				//tmp.setIsbn(rs.getString(1));
-				//tmp.setTitle(rs.getString(2));
-				//tmp.setNumOfPages(rs.getInt(3));
-				//tmp.setKotesID(rs.getInt(4));
-				//tmp.setSize(rs.getString(5));
-				//tmp.setPrice(rs.getInt(6));
-				//tmp.setKiadoID(rs.getInt(7));
-				// tmp.setPublishYear(rs.getInt(8));
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				 tmp.setPublishYear(rs.getInt(8));
 				
-				//tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
-				//tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
 				
-				//ret.add(tmp);
+				ret.add(tmp);
 
 				i--;
 			}
