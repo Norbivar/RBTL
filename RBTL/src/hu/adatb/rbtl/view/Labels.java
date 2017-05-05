@@ -121,6 +121,12 @@ public class Labels {
 	
 	//Top List Screen
 	public static final String TOP_LIST_TITLE ="Top Lists";
+	public static final String TOP_LIST_WEEKLY ="Weekly Top Books";
+	public static final String TOP_LIST_MONTHLY ="Monthly Top Books";
+	public static final String TOP_LIST_BY_GENRE ="Top Books By Genre";
+	public static final String TOP_LIST_BACK_BUTTON ="BACK";
+	
+	
 	
 	
 	//BROWSE SHOPS

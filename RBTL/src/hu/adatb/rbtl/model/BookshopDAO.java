@@ -159,13 +159,12 @@ public interface BookshopDAO {
 	 * @param id - ID of the ebook
 	 * @return {@link Ebook} object with the attributes of the ebook in the database
 	 */
-<<<<<<< HEAD
-	public Ebook getEbookByID(String id);
+
+	
 	
 
-=======
+
 	public Ebook getEbookByID(String id);
->>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
 	/**
 	 * Returns the id of the shop with the given address and name
 	 * @param shopAddress - the address of the shop
@@ -195,9 +194,7 @@ public interface BookshopDAO {
 	 * @return
 	 */
 	String getKotesByID(String id);
-<<<<<<< HEAD
-=======
-	
+
 	/**
 	 * This method returns a list of {@link Book}s which costs at least minprice, and maximum maxprice
 	 * @param minprice - minimum price of the {@link Book}
@@ -205,5 +202,15 @@ public interface BookshopDAO {
 	 * @return - list of {@link Book}s
 	 */
 	List<Book> getBooksByPriceRange(int minprice, int maxprice);
->>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
+
+	
+	/**
+	 * This method returns the top 10 result of purchased books in the current month
+	 * */
+	List<Book> getBooksFromMonthlyTopList();
+	
+	/**
+	 * This method returns the top 10 result of purchased books in the current month
+	 * */
+	List<Book> getBooksFromWeeklyTopList();
 }

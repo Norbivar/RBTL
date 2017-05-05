@@ -343,7 +343,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			} else {
 				new UserLoginDialog(this);
 			}			
-		} else if (e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
+		} else if(e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
 			if (controller.getLoggedinUser() == null){
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_ERROR, 
@@ -366,17 +366,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new ProductSearchScreen(this));
 			revalidate();
 		} else if (e.getSource() == product_toplist){	//If the user clicked on the 'Product toplists' menu item
-			//getContentPane().removeAll();
-			//getContentPane().add(new TopListScreen(new BookshopGUI gui));
-			//revalidate();
+			getContentPane().removeAll();
+			getContentPane().add(new TopListScreen(this));
+			revalidate();
 		} else if (e.getSource() == cheap_products){
-<<<<<<< HEAD
+
 			//TODO * �Olcs� k�nyvek� kilist�z�sa �rkateg�ri�nk�nt.
-=======
+
 			getContentPane().removeAll();
 			getContentPane().add(new CheapProductsScreen(this));
 			revalidate();
->>>>>>> branch 'master' of https://github.com/Norbivar/RBTL
+
 		} else if (e.getSource() == popular_books){
 			//TODO * A legn�pszer�bb k�nyvek m�fajonk�nt.
 		} else if (e.getSource() == show_cart){

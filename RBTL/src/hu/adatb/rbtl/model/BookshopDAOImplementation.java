@@ -20,8 +20,8 @@ import hu.adatb.rbtl.model.beans.User;
 public class BookshopDAOImplementation implements BookshopDAO{
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	private final String USERNAME = "";
-	private final String PASSWORD = "";
+	private final String USERNAME = "h662400";
+	private final String PASSWORD = "cbforever11";
 	
 	/* Ide trigger kell a besz�r�shoz, hogy az id j� legyen. Pl ez j�:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
@@ -74,7 +74,10 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
-
+	
+	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv, havitoplista WHERE konyv.isbn = havitoplista.isbn GROUP BY havitoplista.darab";
+	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv, hetitoplista WHERE konyv.isbn = hetitoplista.isbn GROUP BY hetitoplista.darab";
+	
 	public BookshopDAOImplementation() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -676,5 +679,75 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		return ret;
 	}
 
+	public List<Book> getBooksFromMonthlyTopList(){
+		List<Book> ret = new ArrayList<Book>();
+		int i = 10;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_MONTHLY_TOP_LIST);
+		
+			ResultSet rs = pst.executeQuery();
+			while(rs.next() || i > 0){
+				Book tmp = new Book();
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				
+				ret.add(tmp);
 
+				i--;
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	public List<Book> getBooksFromWeeklyTopList(){
+		List<Book> ret = new ArrayList<Book>();
+		int i = 10;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_WEEKLY_TOP_LIST);
+		
+			ResultSet rs = pst.executeQuery();
+			while(rs.next() || i > 0){
+				Book tmp = new Book();
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				
+				ret.add(tmp);
+
+				i--;
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	
 }
+
+
