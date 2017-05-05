@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -31,7 +32,7 @@ public class CheapProductsScreen extends JPanel implements ActionListener{
 		super();
 		this.gui = gui;
 		
-		this.setLayout(new GridLayout(0, 1));
+		this.setLayout(new BorderLayout());
 		
 		buttonpanel = new JPanel();
 		buttonpanel.setLayout(new FlowLayout());
@@ -57,14 +58,14 @@ public class CheapProductsScreen extends JPanel implements ActionListener{
 		buttonpanel.add(label_50);
 		buttonpanel.add(label_more);
 		
-		add(buttonpanel);
+		add(buttonpanel, BorderLayout.NORTH);
 		
 		resultpanel = new JPanel();
 		resultpanel.setLayout(new GridLayout(0, 1));
 		
 		scrollpane = new JScrollPane(resultpanel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(16);
-		add(scrollpane);		
+		add(scrollpane, BorderLayout.CENTER);		
 	}
 
 

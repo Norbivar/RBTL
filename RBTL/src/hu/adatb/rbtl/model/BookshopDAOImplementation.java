@@ -17,11 +17,11 @@ import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
-public class BookshopDAOImplementation implements BookshopDAO{
+public class BookshopDAOImplementation implements BookshopDAO {
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	private final String USERNAME = "h662400";
-	private final String PASSWORD = "cbforever11";
+	private final String USERNAME = "";
+	private final String PASSWORD = "";
 	
 	/* Ide trigger kell a besz�r�shoz, hogy az id j� legyen. Pl ez j�:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
@@ -42,8 +42,16 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
 	private final String GET_ALL_SHOPS = "SELECT cim, nev FROM bolt";
+	private final String GET_ALL_GENRE = "SELECT neve FROM mufaj";
 	
-	private final String SEARCH_BOOK = "SELECT * FROM konyv "
+	private final String GET_BOOKS_BY_GENRE ="SELECT konyv.cim, KONYV.AR, SZERZO.nev AS szerzo_nev, KIADO.nev AS kiado_nev"  
+						+ "FROM KONYV,KIADO,SZERZO"
+						+ "INNER JOIN szerzoje ON szerzoje.SZERZOID = SZERZO.SZERZOID,"
+						+ "JOIN mufaj "
+						+ "JOIN konyvmufajai ON mufaj.mufajid = konyvmufajai.MUFAJID"
+						+ "WHERE szerzoje.ISBN = KONYV.ISBN AND mufaj.mufajid = ";
+	
+	/*private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
 			+ "cim LIKE ? OR "
 			+ "oldalszam = ? OR "
@@ -51,7 +59,7 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			+ "meret LIKE ? OR "
 			+ "ar = ? OR "
 			+ "kiadoid IN (SELECT kiadoid FROM kiado WHERE nev LIKE ?) OR "
-			+ "kiadaseve = ?";
+			+ "kiadaseve = ?";*/
 	private final String SEARCH_FILM = "SELECT * FROM film WHERE filmcim LIKE ?";
 	private final String SEARCH_SONG = "SELECT * FROM zene WHERE zenecim LIKE ?";
 	private final String SEARCH_EBOOK = "SELECT * FROM ebook WHERE ebookcim LIKE ?";
@@ -72,11 +80,16 @@ public class BookshopDAOImplementation implements BookshopDAO{
 	private final String GET_BOOKS_FROM_SHOP = "SELECT isbn, darab FROM keszlet WHERE boltID = ?";
 	
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
+	private final String DELETE_PRODUCT_FROM_USER_CART = "DELETE FROM kosar WHERE felhasznaloid = ? AND mibol = ?";
+	private final String UPDATE_PRODUCT_IN_USER_CART = "UPDATE mennyit WHERE felhasznaloid = ? AND mibol = ? SET mennyit = ?";
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
 	
-	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv, havitoplista WHERE konyv.isbn = havitoplista.isbn GROUP BY havitoplista.darab";
-	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv, hetitoplista WHERE konyv.isbn = hetitoplista.isbn GROUP BY hetitoplista.darab";
+	
+	
+	
+	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv INNER JOIN havitoplista ON HAVITOPLISTA.ISBN = KONYV.ISBN AND HAVITOPLISTA.DARAB > 0";
+	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv INNER JOIN hetitoplista ON hetitoplista.ISBN = KONYV.ISBN AND hetitoplista.DARAB > 0";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -248,6 +261,26 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();	
 		}		
+		return return_list.toArray(new String[0]);
+	}
+	
+	@Override
+	public String[] getAllGenre(){
+		List<String> return_list = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_GENRE);
+			
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				return_list.add(rs.getString(1));
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			
+		}
+			
+			
 		return return_list.toArray(new String[0]);
 	}
 
@@ -520,7 +553,36 @@ public class BookshopDAOImplementation implements BookshopDAO{
 		
 		return ret;
 	}
-	
+	@Override
+	public boolean DeleteFromUserCart(User user, Product what) {
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(DELETE_PRODUCT_FROM_USER_CART);
+
+			pst.setInt(1, user.getId());
+			pst.setString(2, what.getId());
+			if(pst.execute())
+				return true;		
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	@Override
+	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(UPDATE_PRODUCT_IN_USER_CART);
+
+			pst.setInt(1, user.getId());
+			pst.setString(2, what.getId());
+			pst.setInt(3, tohowmany);
+			if(pst.executeUpdate() == 1)
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	@Override
 	public HashMap<Product, Integer> getUserCart(User user) {
 		HashMap<Product, Integer> userCart = new HashMap<Product, Integer>();
@@ -721,21 +783,23 @@ public class BookshopDAOImplementation implements BookshopDAO{
 			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_WEEKLY_TOP_LIST);
 		
 			ResultSet rs = pst.executeQuery();
+			
 			while(rs.next() || i > 0){
 				Book tmp = new Book();
-				tmp.setIsbn(rs.getString(1));
-				tmp.setTitle(rs.getString(2));
-				tmp.setNumOfPages(rs.getInt(3));
-				tmp.setKotesID(rs.getInt(4));
-				tmp.setSize(rs.getString(5));
-				tmp.setPrice(rs.getInt(6));
-				tmp.setKiadoID(rs.getInt(7));
-				tmp.setPublishYear(rs.getInt(8));
+				System.out.println(rs.getString("ISBN"));
+				//tmp.setIsbn(rs.getString(1));
+				//tmp.setTitle(rs.getString(2));
+				//tmp.setNumOfPages(rs.getInt(3));
+				//tmp.setKotesID(rs.getInt(4));
+				//tmp.setSize(rs.getString(5));
+				//tmp.setPrice(rs.getInt(6));
+				//tmp.setKiadoID(rs.getInt(7));
+				// tmp.setPublishYear(rs.getInt(8));
 				
-				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
-				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				//tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				//tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
 				
-				ret.add(tmp);
+				//ret.add(tmp);
 
 				i--;
 			}

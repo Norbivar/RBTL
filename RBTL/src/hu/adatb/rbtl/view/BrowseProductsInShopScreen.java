@@ -26,8 +26,6 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 
 	private BookshopGUI gui;
 	
-	private Box verticalBox;
-	
 	private JPanel selectorpanel;
 	private JLabel select_shop_label;
 	private JComboBox<String> shop_combobox;
@@ -44,8 +42,8 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 		super();
 		this.gui = gui;
 		
-		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		verticalBox = Box.createVerticalBox();
+		this.setLayout(new BorderLayout());
+
 		
 		/*  Panel where the user can select which shop's collection he/she wants to see  */
 		selectorpanel = new JPanel();
@@ -59,16 +57,15 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 		selectorpanel.add(select_shop_label);
 		selectorpanel.add(shop_combobox);
 		
-		verticalBox.add(selectorpanel);
+		add(selectorpanel, BorderLayout.NORTH);
 		
 		/*  Scrollable list with the products  */
 		listpanel = new JPanel();
 		listpanel.setLayout(new GridLayout(0, 2));
 		
 		product_scrollable_list = new JScrollPane(listpanel);
-		verticalBox.add(product_scrollable_list);
-		
-		add(verticalBox);
+		product_scrollable_list.getVerticalScrollBar().setUnitIncrement(16);
+		add(product_scrollable_list, BorderLayout.CENTER);
 	}
 
 	@Override
@@ -84,13 +81,13 @@ public class BrowseProductsInShopScreen extends JPanel implements ItemListener{
 	          listpanel.removeAll();
 	          HashMap<Book, Integer> set = gui.getController().getBooksFromShop(shopid);
 	          for (Map.Entry<Book, Integer> entry : set.entrySet())
-	          {	        	  
-	              //System.out.println(entry.getKey().getTitle() + "/" + entry.getValue());
+	          {
 	              listpanel.add(gui.displayProductInList(entry.getKey()));
 	              listpanel.add(new JLabel(Labels.SHOP_AMOUNT + String.valueOf(entry.getValue())));
 	          }
 	          listpanel.revalidate();
-	          verticalBox.revalidate();
+	          product_scrollable_list.setViewportView(listpanel);
+	          product_scrollable_list.revalidate();
 	       }
 	}
 }

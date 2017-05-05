@@ -54,6 +54,10 @@ public class BookshopController{
 		return dao.getAllShops();
 	}
 	
+	public String[] getAllGenre(){
+		return dao.getAllGenre();
+	}
+	
 	public boolean validateUser(User user){
 		return dao.validateUser(user);
 	}
@@ -112,6 +116,18 @@ public class BookshopController{
 
 	public HashMap<Book, Integer> getBooksFromShop(String shopID){
 		return dao.getBooksFromShop(shopID);
+	}
+	
+	public HashMap<Product, Integer> getUserCart(User user){
+		return dao.getUserCart(user);
+	}
+	
+	public boolean DeleteFromUserCart(User user, Product what) {
+		return dao.DeleteFromUserCart(user, what);
+	}
+	
+	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
+		return dao.ModifyProductInUserCart(user, what, tohowmany);
 	}
 	
 	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {

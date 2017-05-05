@@ -89,6 +89,11 @@ public interface BookshopDAO {
 	 * @param book
 	 * @return
 	 */
+	
+	String[] getAllGenre();
+	
+	
+	
 	List<Product> searchBookByAttributes(Book book);
 	
 	/**
@@ -201,6 +206,7 @@ public interface BookshopDAO {
 	 * @param maxprice - maximum price of the {@link Book}
 	 * @return - list of {@link Book}s
 	 */
+
 	List<Book> getBooksByPriceRange(int minprice, int maxprice);
 
 	
@@ -213,4 +219,11 @@ public interface BookshopDAO {
 	 * This method returns the top 10 result of purchased books in the current month
 	 * */
 	List<Book> getBooksFromWeeklyTopList();
+
+
+
+	boolean DeleteFromUserCart(User user, Product what);
+
+	boolean ModifyProductInUserCart(User user, Product what, int tohowmany);
+
 }

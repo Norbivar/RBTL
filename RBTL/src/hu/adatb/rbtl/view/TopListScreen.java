@@ -1,25 +1,30 @@
 package hu.adatb.rbtl.view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import hu.adatb.rbtl.model.beans.Book;
 
-public class TopListScreen extends JPanel implements ActionListener {
+public class TopListScreen extends JPanel implements ActionListener, ItemListener {
 	private JPanel buttonpanel;
-	private JButton weekly_toplist_button, monthly_toplist_button, genre_toplist_button, back_button;
-	
+	private JButton weekly_toplist_button, monthly_toplist_button, back_button;
 	private JPanel resultpanel;
 	private List<Book> result = new ArrayList<Book>();
-	private JScrollPane scrollpane;
+	private JScrollPane scrollpane, genre_toplist_button;
+	private JComboBox genre_combobox;
 	
 	private BookshopGUI gui;
 	
@@ -34,29 +39,33 @@ public class TopListScreen extends JPanel implements ActionListener {
 		
 		weekly_toplist_button = new JButton(Labels.TOP_LIST_WEEKLY);
 		monthly_toplist_button = new JButton(Labels.TOP_LIST_MONTHLY);
-		genre_toplist_button = new JButton(Labels.TOP_LIST_BY_GENRE);
+		genre_toplist_button = new JScrollPane();
 		back_button = new JButton(Labels.TOP_LIST_BACK_BUTTON);
 		
 		weekly_toplist_button.addActionListener(this);
 		monthly_toplist_button.addActionListener(this);
-		genre_toplist_button.addActionListener(this);
 		back_button.addActionListener(this);
+		
+		
 		
 		buttonpanel.add(weekly_toplist_button);
 		buttonpanel.add(monthly_toplist_button);
 		buttonpanel.add(genre_toplist_button);
-		buttonpanel.add(back_button);
+	
+		add(buttonpanel );
 		
-		add(buttonpanel);
+		genre_combobox = new JComboBox<String>(this.gui.getController().getAllGenre());
+		add(genre_combobox);
+		
+		buttonpanel.add(back_button);
 		
 		resultpanel = new JPanel();
 		resultpanel.setLayout(new GridLayout(0, 1));
 		
 		scrollpane = new JScrollPane(resultpanel);
 		scrollpane.getVerticalScrollBar().setUnitIncrement(16);
-		add(scrollpane);
-		
-		
+		add(scrollpane , BorderLayout.CENTER);
+	    scrollpane.setBackground(Color.red);
 	}
 
 	@Override
@@ -83,5 +92,16 @@ public class TopListScreen extends JPanel implements ActionListener {
 		scrollpane.revalidate();
 	}
 
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED){
+			String item = String.valueOf(e.getItem());
+			
+			
+		}
+		
+	}
+	
+	
 	
 }
