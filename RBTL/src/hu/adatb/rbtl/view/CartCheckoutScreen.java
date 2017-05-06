@@ -28,17 +28,21 @@ public class CartCheckoutScreen extends JPanel{
 		DefaultTableModel dm = new DefaultTableModel();
 		dm.setColumnIdentifiers(new Object[] { Labels.CART_ID_AND_TITLE, Labels.CART_AMOUNT_OF_ITEM });
 		
+		int totalprice = 0;
 		for(Product tmp : cart.keySet())
 		{
+			int amount = cart.get(tmp).intValue();
 			JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
-			JLabel a2 = new JLabel(cart.get(tmp).intValue() + "");
-			JLabel a3 = new JLabel("$" + tmp.getPrice() * cart.get(tmp).intValue());
+			JLabel a2 = new JLabel(amount + "");
+			JLabel a3 = new JLabel("$" + tmp.getPrice() * amount);
 			Object[] row = { a1, a2, a3 };
 			dm.insertRow(dm.getRowCount(), row);
 			
+			totalprice += (amount * tmp.getPrice());
+			
 		}
-		String[] tmp = { Labels.CART_CHECKOUT_TOTAL, " ", ""};
-		dm.insertRow(dm.getRowCount(), tmp);
+		String[] lastLine = { Labels.CART_CHECKOUT_TOTAL, " ", "$" + totalprice};
+		dm.insertRow(dm.getRowCount(), lastLine);
 		table.setModel(dm);
 	}
 	
