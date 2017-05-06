@@ -554,9 +554,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new UserCartScreen(this, controller.getUserCart(controller.getLoggedinUser())));
 			revalidate();
 		} else if (e.getSource() == cart_checkout) {
-			getContentPane().removeAll();
-			getContentPane().add(new CartCheckoutScreen(this));
-			revalidate();
+			HandleCheckout();
 		} else if (e.getSource() == every_book_in_a_shop){
 			getContentPane().removeAll();
 			getContentPane().add(new BrowseProductsInShopScreen(this));
@@ -567,6 +565,12 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			revalidate();
 		}
 		
+	}
+	public void HandleCheckout()
+	{
+		getContentPane().removeAll();
+		getContentPane().add(new CartCheckoutScreen(this));
+		revalidate();
 	}
 
 }

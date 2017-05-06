@@ -82,6 +82,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
 	private final String DELETE_PRODUCT_FROM_USER_CART = "DELETE FROM kosar WHERE felhasznaloid = ? AND mibol = ?";
 	private final String UPDATE_PRODUCT_IN_USER_CART = "UPDATE mennyit WHERE felhasznaloid = ? AND mibol = ? SET mennyit = ?";
+	private final String ADD_PRODUCT_TO_USER_CART = "INSERT INTO kosar(felhasznaloid, mibol, mennyit, tipus) VALUES (?, ?, ?, ?)";
+	
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
 	
@@ -616,16 +618,20 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				switch(rs.getString(3)) 
 				{
 				case "k":
-					userCart.put(new Book(rs.getString(1)), rs.getInt(2));
+					Book b = getBookByID(rs.getString(2));
+					userCart.put(b, rs.getInt(3));
 					break;
 				case "f":
-					userCart.put(new Film(rs.getString(1)), rs.getInt(2));
+					Film f = getFilmByID(rs.getString(2));
+					userCart.put(f, rs.getInt(3));
 					break;
 				case "e":
-					userCart.put(new Ebook(rs.getString(1)), rs.getInt(2));
+					Ebook e = getEbookByID(rs.getString(2));
+					userCart.put(e, rs.getInt(3));
 					break;
 				case "z":
-					userCart.put(new Song(rs.getString(1)), rs.getInt(2));
+					Song s = getSongByID(rs.getString(2));
+					userCart.put(s, rs.getInt(3));
 					break;
 				default:
 					System.out.println("ERROR: default reached in getUserCart!");
@@ -914,8 +920,32 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		return ret;
 	}
 	
-	
-	
+	@Override
+	public boolean AddProductToUsercart(User user, Product what)
+	{
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(ADD_PRODUCT_TO_USER_CART);
+
+			pst.setInt(1, user.getId());
+			pst.setString(2, what.getId());
+			pst.setInt(3, 1);
+			if(what instanceof Book)
+				pst.setString(4, "k");
+			else if(what instanceof Ebook)
+				pst.setString(4, "e");
+			else if(what instanceof Film)
+				pst.setString(4, "f");
+			else if(what instanceof Song)
+				pst.setString(4, "z");
+			
+			boolean result = pst.execute();
+			return result;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
 
 

@@ -134,7 +134,7 @@ public interface BookshopDAO {
 	/**
 	 * Returns the specified user's cart in a List that can be displayed on the screen.
 	 * @param user
-	 * @return List of Products in the user's cart.
+	 * @return List of Products in the user's cart. ONLY id's are filled up.
 	 */
 	HashMap<Product, Integer> getUserCart(User user);
 	
@@ -164,10 +164,6 @@ public interface BookshopDAO {
 	 * @param id - ID of the ebook
 	 * @return {@link Ebook} object with the attributes of the ebook in the database
 	 */
-
-	
-	
-
 
 	public Ebook getEbookByID(String id);
 	/**
@@ -248,6 +244,8 @@ public interface BookshopDAO {
 	 * @return String, name of the genre
 	 */
 	String getGenreNameByID(String id);
+	
+	boolean AddProductToUsercart(User user, Product what);
 	
 	boolean DeleteFromUserCart(User user, Product what);
 

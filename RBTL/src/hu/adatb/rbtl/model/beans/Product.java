@@ -6,7 +6,7 @@ package hu.adatb.rbtl.model.beans;
  */
 public abstract class Product {
 	protected String id, title;
-
+	protected int price = 0;
 	public String getId() {
 		return id;
 	}
@@ -21,6 +21,14 @@ public abstract class Product {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
     @Override

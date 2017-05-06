@@ -9,7 +9,7 @@ import java.util.List;
 public class Book extends Product{
 
 	private String size, kotesNev, publisher, author;
-	private int numOfPages, price, publishYear, kotesID, kiadoID;
+	private int numOfPages, publishYear, kotesID, kiadoID;
 	private List<String> mufajok;
 	
 	public Book() {
@@ -61,14 +61,6 @@ public class Book extends Product{
 
 	public void setNumOfPages(int numOfPages) {
 		this.numOfPages = numOfPages;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public int getPublishYear() {

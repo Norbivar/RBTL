@@ -29,18 +29,15 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		super();
 		this.cart = cart;
 		this.gui = gui;
-		//TODO here: when you cann getUserCart, you get a map with <Product, Integer>. Product ONLY HAS id, every Title will show "TODO"!!!
-		
+
 		table = new JTable();
 		DefaultTableModel dm = new DefaultTableModel();
-		dm.setColumnIdentifiers(new Object[] { "Code", "Title", "Amount","Delete" });
+		dm.setColumnIdentifiers(new Object[] { Labels.CART_ID_AND_TITLE, Labels.CART_AMOUNT_OF_ITEM, Labels.CART_DELETE });
 		for(Product tmp : cart.keySet())
 		{
-			if(/*tmp instanceof Book*/ true)
-			{
 				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
 				JTextField a2 = new JTextField(cart.get(tmp).intValue());
-				SpecialJButton tmp2 = new SpecialJButton("Remove", tmp);
+				SpecialJButton tmp2 = new SpecialJButton(Labels.CART_DELETE, tmp);
 				tmp2.addActionListener(this);
 				
 				// Medzsik
@@ -62,16 +59,11 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
 					  }
 					});
-				
-				//
-				
 				Object[] row = { a1, a2, tmp2 };
-				
 				dm.insertRow(dm.getRowCount(), row);
-			}
 		}
 		table.setModel(dm);
-		checkout = new JButton("Checkout!");
+		checkout = new JButton(Labels.CART_CHECKOUT_MENUITEM);
 		add(checkout);
 		checkout.addActionListener(this);
 	}
@@ -90,14 +82,14 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 					if(gui.getController().DeleteFromUserCart(gui.getController().getLoggedinUser(), asd))
 						break;
 					else
-						System.out.println("VALAMI error!");
+						System.out.println("ERROR: Could not delete item from cart!");
 				}
 			}
 			table.updateUI();
 		}
 		else if(e.getSource() == checkout)
 		{
-			//TODO trigger controller checkout
+			gui.HandleCheckout();
 		}
 	}
 }
