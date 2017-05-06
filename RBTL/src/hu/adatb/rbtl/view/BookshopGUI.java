@@ -206,7 +206,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -242,7 +243,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -273,7 +275,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -304,7 +307,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ProductDetailScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -377,7 +381,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -412,7 +417,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			detailsButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -443,7 +449,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -474,7 +481,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getContentPane().removeAll();
+					//getContentPane().removeAll();
+					getContentPane().getComponent(getComponentCount()-1).setVisible(false);
 					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
 					revalidate();
 				}
@@ -527,7 +535,6 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().removeAll();
 			getContentPane().add(new EditProfileScreen(this));
 			revalidate();
-			
 		} else if (e.getSource() == search_products){	//If the user clicked on the 'Search products' menu item
 			getContentPane().removeAll();
 			getContentPane().add(new ProductSearchScreen(this));

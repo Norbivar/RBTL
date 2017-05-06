@@ -159,7 +159,8 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			System.out.println("kosárba");
 			//TODO kosárba helyezés
 		} else if (e.getSource() == back_arrow){
-			System.out.println("vissza");
+			gui.getContentPane().remove(getComponentCount()-1);
+			gui.getContentPane().getComponent(getComponentCount()-2).setVisible(true);
 		}
 	}
 
