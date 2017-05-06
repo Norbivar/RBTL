@@ -565,7 +565,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ret = new Film();
 			ret.setId(rs.getString(1));
-			ret.setTitle(rs.getString(2));
+			ret.setPrice(rs.getInt(2));
+			ret.setTitle(rs.getString(3));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -659,7 +660,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ret = new Song();
 			ret.setId(rs.getString(1));
-			ret.setTitle(rs.getString(2));
+			ret.setPrice(rs.getInt(2));
+			ret.setTitle(rs.getString(3));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -682,7 +684,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ret = new Ebook();
 			ret.setId(rs.getString(1));
-			ret.setTitle(rs.getString(2));
+			ret.setPrice(rs.getInt(2));
+			ret.setTitle(rs.getString(3));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
