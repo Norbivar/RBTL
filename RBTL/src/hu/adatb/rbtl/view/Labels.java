@@ -126,7 +126,8 @@ public class Labels {
 	public static final String TOP_LIST_BY_GENRE ="Top Books By Genre";
 	public static final String TOP_LIST_BACK_BUTTON ="BACK";
 	
-	
+	//SELECT SHOP WHERE YOU CAN FIND A SPECIFIC BOOK
+	public static final String SHOPSEARCH_SELECTBOOK = "Select";
 	
 	
 	//BROWSE SHOPS

@@ -219,9 +219,22 @@ public interface BookshopDAO {
 	 * This method returns the top 10 result of purchased books in the current month
 	 * */
 	List<Book> getBooksFromWeeklyTopList();
+	
+	/**
+	 * This method returns the shop where you can find the given {@link Book}
+	 * @param book - the book to find
+	 * @return - a {@link List} of {@link String}s, which contains the shops' data
+	 */
+	List<String> getShopOfBook(Book book);
 
-
-
+	
+	/**
+	 * This method return the address and name of the book with the given ID
+	 * @param boltID - ID of the shop
+	 * @return A String, which contains the address, then a ' | ' separator then the name
+	 */
+	String getShopAddressAndNameByID(int boltID);
+	
 	boolean DeleteFromUserCart(User user, Product what);
 
 	boolean ModifyProductInUserCart(User user, Product what, int tohowmany);

@@ -321,6 +321,175 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		}
 	}
 	
+	public JPanel displayProductInShopSearch(Product product){
+		if(product instanceof Book){
+			JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
+			
+			JLabel book_icon, label_title, label_author, label_publisher, label_price, label_publishYear;
+			JLabel title, author, publisher, price, publishYear;
+			
+			ret = new JPanel();
+			ret.setLayout(new FlowLayout());
+			
+			/* -----------------BOOK ICON PANEL-------------  */
+			icon_panel = new JPanel();
+			book_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/book_icon_smaller.png")));
+			icon_panel.add(book_icon);
+			/* ---------------------------------------------- */
+			
+			/* ------------BOOK LABELS PANEL --------------- */
+			labels_panel = new JPanel();
+			labels_panel.setLayout(new GridLayout(4, 1));
+			
+			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
+			label_author = new JLabel(Labels.PRODUCT_RESULT_AUTHOR);
+			label_publisher = new JLabel(Labels.PRODUCT_RESULT_PUBLISHER);
+			label_price = new JLabel(Labels.PRODUCT_RESULT_PRICE);
+			
+			labels_panel.add(label_title);
+			labels_panel.add(label_author);		
+			labels_panel.add(label_publisher);		
+			labels_panel.add(label_price);
+			/* -------------------------------------------------- */
+			
+			/* ---------------------------- VALUES PANEL -------------------- */
+			values_panel = new JPanel();
+			values_panel.setLayout(new GridLayout(4, 1));
+			
+			title = new JLabel(((Book) product).getTitle());
+			author = new JLabel(((Book) product).getAuthor());
+			publisher = new JLabel(((Book) product).getPublisher());
+			price = new JLabel(String.valueOf(((Book) product).getPrice()));
+			
+			values_panel.add(title);
+			values_panel.add(author);
+			values_panel.add(publisher);
+			values_panel.add(price);		
+			/* ----------------------------------------------------- */
+			
+			/* --------------- BUTTON PANEL -------------------*/
+			button_panel = new JPanel();
+			button_panel.setLayout(new GridLayout(3, 1));
+			
+			ProductDetailsButton detailsButton;
+			detailsButton = new ProductDetailsButton(Labels.SHOPSEARCH_SELECTBOOK);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
+			detailsButton.setProduct(product);
+			
+			
+			button_panel.add(new JLabel());	//�res hely az els� sorban
+			button_panel.add(detailsButton);
+			/* ------------------------------------------------ */
+			
+			ret.add(icon_panel);
+			ret.add(labels_panel);
+			ret.add(values_panel);
+			ret.add(button_panel);
+			
+			return ret;
+		} else if (product instanceof Film){
+			JPanel p;
+			JLabel film_icon, label_title, title;
+			
+			p = new JPanel();
+			p.setLayout(new FlowLayout());
+			
+			film_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/film_icon_smaller.png")));
+			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
+			title = new JLabel(((Film) product).getTitle());
+
+
+			ProductDetailsButton detailsButton;
+			detailsButton = new ProductDetailsButton(Labels.SHOPSEARCH_SELECTBOOK);
+			detailsButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
+			detailsButton.setProduct(product);
+			
+						
+			p.add(film_icon);
+			p.add(label_title);
+			p.add(title);
+			p.add(detailsButton);
+			
+			return p;
+		} else if (product instanceof Song){
+			JPanel p;
+			JLabel song_icon, label_title, title;
+			
+			p = new JPanel();
+			p.setLayout(new FlowLayout());
+			
+			song_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/song_icon_smaller.png")));
+			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
+			title = new JLabel(((Song) product).getTitle());
+			
+			ProductDetailsButton detailsButton;
+			detailsButton = new ProductDetailsButton(Labels.SHOPSEARCH_SELECTBOOK);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
+			detailsButton.setProduct(product);
+
+			
+			p.add(song_icon);
+			p.add(label_title);
+			p.add(title);
+			p.add(detailsButton);
+			
+			return p;
+		} else {	//ebook
+			JPanel p;
+			JLabel ebook_icon, label_title, title;
+			
+			p = new JPanel();
+			p.setLayout(new FlowLayout());
+			
+			ebook_icon = new JLabel(new ImageIcon(this.getClass().getResource("/images/ebook_icon_smaller.png")));
+			label_title = new JLabel(Labels.PRODUCT_RESULT_TITLE);
+			title = new JLabel(((Ebook) product).getTitle());
+			
+			ProductDetailsButton detailsButton;
+			detailsButton = new ProductDetailsButton(Labels.SHOPSEARCH_SELECTBOOK);
+			detailsButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					getContentPane().removeAll();
+					getContentPane().add(new ShopListScreen(BookshopGUI.this, detailsButton.getProduct()));
+					revalidate();
+				}
+			});
+			detailsButton.setProduct(product);
+
+			
+			p.add(ebook_icon);
+			p.add(label_title);
+			p.add(title);
+			p.add(detailsButton);
+			
+			return p;
+		}
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -368,13 +537,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new TopListScreen(this));
 			revalidate();
 		} else if (e.getSource() == cheap_products){
-
-			//TODO * �Olcs� k�nyvek� kilist�z�sa �rkateg�ri�nk�nt.
-
 			getContentPane().removeAll();
 			getContentPane().add(new CheapProductsScreen(this));
 			revalidate();
-
 		} else if (e.getSource() == popular_books){
 			//TODO * A legn�pszer�bb k�nyvek m�fajonk�nt.
 		} else if (e.getSource() == show_cart){
@@ -390,7 +555,9 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().add(new BrowseProductsInShopScreen(this));
 			revalidate();
 		} else if (e.getSource() == book_in_which_shop){
-			//TODO Egy adott k�nyv mely �ruh�zban kaphat�?
+			getContentPane().removeAll();
+			getContentPane().add(new ShopByBookScreen(this));
+			revalidate();
 		}
 		
 	}

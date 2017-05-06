@@ -34,7 +34,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		super();
 		this.gui = gui;
 		this.setLayout(new GridLayout(0, 1));
-		this.setOpaque(true);
+		//this.setOpaque(true);
 		
 		product_panel = new JPanel();
 		product_panel.setLayout(new FlowLayout());

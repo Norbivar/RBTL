@@ -149,4 +149,12 @@ public class BookshopController{
 		return dao.getBooksFromWeeklyTopList();
 	}
 	
+	public List<String> getShopOfBook(Book book){
+		return dao.getShopOfBook(book);
+	}
+	
+	public String getShopAddressAndNameByID(int boltID){
+		return dao.getShopAddressAndNameByID(boltID);
+	}
+	
 }

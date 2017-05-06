@@ -67,7 +67,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String GET_AUTHOR_BY_ID = "SELECT nev FROM szerzo WHERE szerzoid = ?";
 	private final String GET_AUTHORID_BY_ISBN = "SELECT szerzoid FROM szerzoje WHERE isbn LIKE ?";
 	
-	private final String GET_PUBLISHER_BY_ID = "SELECT kiadoid FROM kiado WHERE nev LIKE ?";
+	private final String GET_PUBLISHER_BY_ID = "SELECT nev FROM kiado WHERE kiadoid = ?";
 	
 	private final String GET_KOTES_BY_ID = "SELECT megnevezes FROM kotes WHERE kotesID = ?";
 	
@@ -85,7 +85,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
 	
-	
+	private final String GET_SHOPS_OF_BOOK = "SELECT boltID FROM keszlet WHERE ISBN LIKE ?";
+	private final String GET_SHOP_ADDRESS_AND_NAME_BY_ID = "SELECT cim, nev FROM bolt WHERE boltID = ?"; 
 	
 	
 	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv INNER JOIN havitoplista ON HAVITOPLISTA.ISBN = KONYV.ISBN AND HAVITOPLISTA.DARAB > 0";
@@ -368,6 +369,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
 				ret.add(tmp);
 			}
@@ -810,6 +812,46 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			e.printStackTrace();
 		}
 		
+		return ret;
+	}
+
+	@Override
+	public List<String> getShopOfBook(Book book) {
+		List<String> ret = new ArrayList<String>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_SHOPS_OF_BOOK);
+
+			pst.setString(1, book.getIsbn());
+			
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()){
+				ret.add(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	@Override
+	public String getShopAddressAndNameByID(int boltID) {
+		String ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_SHOP_ADDRESS_AND_NAME_BY_ID);
+
+			pst.setInt(1, boltID);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				ret = rs.getString(1) + " | " + rs.getString(2);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ret;
 	}
 	

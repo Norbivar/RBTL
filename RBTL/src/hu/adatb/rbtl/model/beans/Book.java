@@ -127,7 +127,4 @@ public class Book extends Product{
 		this.mufajok = mufajok;
 	}
 	
-	/*public String getId() {
-		return getIsbn();
-	}*/
 }
