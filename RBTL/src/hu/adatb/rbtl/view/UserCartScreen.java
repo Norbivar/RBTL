@@ -22,6 +22,7 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 
 	private BookshopGUI gui;
 	private JTable table; 
+	JButton checkout;
 	//private JLabel a;
 	HashMap<Product, Integer> cart;
 	public UserCartScreen(BookshopGUI gui, HashMap<Product, Integer> cart){
@@ -70,6 +71,9 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 			}
 		}
 		table.setModel(dm);
+		checkout = new JButton("Checkout!");
+		add(checkout);
+		checkout.addActionListener(this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -90,6 +94,10 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 				}
 			}
 			table.updateUI();
+		}
+		else if(e.getSource() == checkout)
+		{
+			//TODO trigger controller checkout
 		}
 	}
 }
