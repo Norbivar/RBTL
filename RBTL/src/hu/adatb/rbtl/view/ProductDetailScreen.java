@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,8 +23,8 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	private JPanel product_panel;
 	
 	private JPanel data_panel;
-	private JLabel isbn_label, title_label, oldalszam_label, kotes_label, meret_label, ar_label, kiado_label, kiadaseve_label, szerzo_label;
-	private JLabel isbn, title, oldalszam, kotes, meret, ar, kiado, kiadaseve, szerzo;
+	private JLabel isbn_label, title_label, oldalszam_label, kotes_label, meret_label, ar_label, kiado_label, kiadaseve_label, szerzo_label, genre_label;
+	private JLabel isbn, title, oldalszam, kotes, meret, ar, kiado, kiadaseve, szerzo, genre;
 	
 	private JPanel buy_panel;
 	private JLabel buy_icon, back_arrow;
@@ -54,6 +55,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			kiado_label = new JLabel(Labels.PRODUCT_KIADO);
 			kiadaseve_label = new JLabel(Labels.PRODUCT_KIADASEVE);
 			szerzo_label = new JLabel(Labels.PRODUCT_SZERZO);
+			genre_label = new JLabel(Labels.PRODUCT_GENRE);
 			
 			isbn = new JLabel(book.getIsbn());
 			title = new JLabel(book.getTitle());
@@ -63,13 +65,23 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			ar = new JLabel(String.valueOf(book.getPrice()));
 			kiado = new JLabel(book.getPublisher());
 			kiadaseve = new JLabel(String.valueOf(book.getPublishYear()));
-			szerzo = new JLabel(book.getAuthor());			
+			szerzo = new JLabel(book.getAuthor());
+			genre = new JLabel();
+			
+			List<String> mufajok = book.getMufajok();
+			for(int i = 0; i<mufajok.size(); i++){
+				genre.setText(genre.getText() + mufajok.get(i));
+			}
+			
 			
 			data_panel.add(isbn_label);
 			data_panel.add(isbn);
 			
 			data_panel.add(title_label);
 			data_panel.add(title);
+			
+			data_panel.add(genre_label);
+			data_panel.add(genre);
 			
 			data_panel.add(szerzo_label);
 			data_panel.add(szerzo);

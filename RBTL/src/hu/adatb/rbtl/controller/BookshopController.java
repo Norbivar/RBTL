@@ -157,4 +157,12 @@ public class BookshopController{
 		return dao.getShopAddressAndNameByID(boltID);
 	}
 	
+	public List<String> getGenresOfBookByISBN(String ISBN){
+		return dao.getBookGenresByISBN(ISBN);
+	}
+	
+	public String getNameOfGenreByID(String ID){
+		return dao.getGenreNameByID(ID);
+	}
+	
 }

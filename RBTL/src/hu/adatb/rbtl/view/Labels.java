@@ -96,6 +96,7 @@ public class Labels {
 	public static final String PRODUCT_KIADO = "Publisher:";
 	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
 	public static final String PRODUCT_SZERZO = "Author:";
+	public static final String PRODUCT_GENRE = "Genre(s):";
 	
 	//Edit Profile
 	public static final String EDIT_PROFILE_PANE_TITLE ="Edit Profile: ";

@@ -154,8 +154,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		if(product instanceof Book){
 			JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
 			
-			JLabel book_icon, label_title, label_author, label_publisher, label_price, label_publishYear;
-			JLabel title, author, publisher, price, publishYear;
+			JLabel book_icon, label_title, label_author, label_publisher, label_price;
+			JLabel title, author, publisher, price;
 			
 			ret = new JPanel();
 			ret.setLayout(new FlowLayout());
@@ -325,8 +325,8 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		if(product instanceof Book){
 			JPanel ret, icon_panel, labels_panel, values_panel, button_panel;
 			
-			JLabel book_icon, label_title, label_author, label_publisher, label_price, label_publishYear;
-			JLabel title, author, publisher, price, publishYear;
+			JLabel book_icon, label_title, label_author, label_publisher, label_price;
+			JLabel title, author, publisher, price;
 			
 			ret = new JPanel();
 			ret.setLayout(new FlowLayout());

@@ -229,11 +229,25 @@ public interface BookshopDAO {
 
 	
 	/**
-	 * This method return the address and name of the book with the given ID
+	 * This method returns the address and name of the book with the given ID
 	 * @param boltID - ID of the shop
 	 * @return A String, which contains the address, then a ' | ' separator then the name
 	 */
 	String getShopAddressAndNameByID(int boltID);
+	
+	/**
+	 * This method returns all the genres of the book with the given ISBN
+	 * @param ISBN - ISBN of the book
+	 * @return A List of Strings with the genre ID-s
+	 */
+	List<String> getBookGenresByISBN(String ISBN);
+	
+	/**
+	 * This method returns the name of the genre with the given ID
+	 * @param id - ID of the genre
+	 * @return String, name of the genre
+	 */
+	String getGenreNameByID(String id);
 	
 	boolean DeleteFromUserCart(User user, Product what);
 

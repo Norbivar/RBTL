@@ -88,6 +88,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String GET_SHOPS_OF_BOOK = "SELECT boltID FROM keszlet WHERE ISBN LIKE ?";
 	private final String GET_SHOP_ADDRESS_AND_NAME_BY_ID = "SELECT cim, nev FROM bolt WHERE boltID = ?"; 
 	
+	private final String GET_GENRES_OF_BOOK_ISBN = "SELECT mufajid FROM konyvmufajai WHERE ISBN LIKE ?";
+	private final String GET_GENRE_NAME_BY_ID = "SELECT neve FROM mufaj WHERE mufajid = ?";
 	
 	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv INNER JOIN havitoplista ON HAVITOPLISTA.ISBN = KONYV.ISBN AND HAVITOPLISTA.DARAB > 0";
 	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv INNER JOIN hetitoplista ON hetitoplista.ISBN = konyv.ISBN";
@@ -371,6 +373,13 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
 				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
+				List<String> mufajIDList = getBookGenresByISBN(tmp.getIsbn());
+				List<String> mufajNevList = new ArrayList<String>();
+				for(int i = 0; i<mufajIDList.size();i++){
+					mufajNevList.add(getGenreNameByID(mufajIDList.get(i)));
+				}
+				tmp.setMufajok(mufajNevList);
+				
 				ret.add(tmp);
 			}
 		} catch (SQLException e) {
@@ -489,6 +498,13 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			ret.setAuthor(getAuthorByID(getAuthorIDByISBN(ret.getIsbn())));
 			ret.setPublisher(getPublisherNameByID(String.valueOf(ret.getKiadoID())));
 			ret.setKotesNev(getKotesByID(String.valueOf(ret.getKotesID())));
+			
+			List<String> mufajIDList = getBookGenresByISBN(ret.getIsbn());
+			List<String> mufajNevList = new ArrayList<String>();
+			for(int i = 0; i<mufajIDList.size();i++){
+				mufajNevList.add(getGenreNameByID(mufajIDList.get(i)));
+			}
+			ret.setMufajok(mufajNevList);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -734,6 +750,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
 				ret.add(tmp);
 			}
@@ -764,6 +781,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
 				ret.add(tmp);
 
@@ -802,6 +820,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
 				ret.add(tmp);
 
@@ -854,6 +873,47 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		}
 		return ret;
 	}
+
+	@Override
+	public List<String> getBookGenresByISBN(String ISBN) {
+		List<String> ret = new ArrayList<String>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_GENRES_OF_BOOK_ISBN);
+
+			pst.setString(1, ISBN);
+			
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()){
+				ret.add(rs.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+
+	@Override
+	public String getGenreNameByID(String id) {
+		String ret = null;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_GENRE_NAME_BY_ID);
+
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				ret = rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
 	
 	
 }
