@@ -131,14 +131,11 @@ public class BookshopController{
 	}
 	
 	public String getShopIDFromAddressAndName(String shopAddress, String shopName) {
-
 		return dao.getShopIDFromAddressAndName(shopAddress, shopName);
-
 	}
 	
 	public List<Book> getBooksByPriceRange(int minprice, int maxprice) {
 		return dao.getBooksByPriceRange(minprice, maxprice);
-
 	}
 	
 	public List<Book> getBooksFromMonthlyTopList(){

@@ -403,7 +403,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			while(rs.next()){
 				Film tmp = new Film();
 				tmp.setId(rs.getString(1));
-				tmp.setTitle(rs.getString(2));
+				tmp.setPrice(rs.getInt(2));
+				tmp.setTitle(rs.getString(3));
 				ret.add(tmp);
 			}
 		} catch (SQLException e) {

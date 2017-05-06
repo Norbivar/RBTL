@@ -108,28 +108,46 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			Film film = gui.getController().getFilmByID(product.getId());
 			
 			title_label = new JLabel(Labels.PRODUCT_TITLE);
+			ar_label = new JLabel(Labels.PRODUCT_AR);
+			
 			title = new JLabel(film.getTitle());
+			ar = new JLabel(String.valueOf(product.getPrice()));
 			
 			data_panel.add(title_label);
 			data_panel.add(title);
+			
+			data_panel.add(ar_label);
+			data_panel.add(ar);
 			
 		} else if (product instanceof Song){
 			Song song = gui.getController().getSongByID(product.getId());
 			
 			title_label = new JLabel(Labels.PRODUCT_TITLE);
+			ar_label = new JLabel(Labels.PRODUCT_AR);
+			
 			title = new JLabel(song.getTitle());
+			ar = new JLabel(String.valueOf(product.getPrice()));
 			
 			data_panel.add(title_label);
 			data_panel.add(title);
+			
+			data_panel.add(ar_label);
+			data_panel.add(ar);
 			
 		} else {	//ebook
 			Ebook ebook = gui.getController().getEbookByID(product.getId());
 			
 			title_label = new JLabel(Labels.PRODUCT_TITLE);
+			ar_label = new JLabel(Labels.PRODUCT_AR);
+			
 			title = new JLabel(ebook.getTitle());
+			ar = new JLabel(String.valueOf(product.getPrice()));
 			
 			data_panel.add(title_label);
 			data_panel.add(title);
+			
+			data_panel.add(ar_label);
+			data_panel.add(ar);
 		}		
 		
 		buy_panel = new JPanel();
@@ -166,25 +184,21 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
