@@ -15,6 +15,7 @@ import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Film;
 import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.model.beans.Song;
+import hu.adatb.rbtl.view.dialogs.AddToCartDialog;
 
 public class ProductDetailScreen extends JPanel implements MouseListener{
 	
@@ -174,8 +175,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == buy_icon){
-			System.out.println("kosárba");
-			//TODO kosárba helyezés
+			new AddToCartDialog(gui, title.getText());
 		} else if (e.getSource() == back_arrow){
 			gui.getContentPane().remove(getComponentCount()-1);
 			gui.getContentPane().getComponent(getComponentCount()-2).setVisible(true);

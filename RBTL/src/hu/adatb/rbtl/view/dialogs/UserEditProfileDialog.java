@@ -28,6 +28,7 @@ public class UserEditProfileDialog extends JDialog implements ActionListener{
 		setTitle(Labels.USER_EDIT_DIALOG_TITLE);
 		setSize(400, 200);
 		setLocationRelativeTo(null);
+		setModal(true);
 		setResizable(false);
 		
 		labelpanel = new JPanel(new FlowLayout());

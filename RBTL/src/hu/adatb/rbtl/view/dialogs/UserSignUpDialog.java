@@ -39,6 +39,7 @@ public class UserSignUpDialog extends JDialog implements ActionListener{
 		setTitle(Labels.USER_SIGNUP_TITLE);
 		setSize(400, 200);
 		setLocationRelativeTo(null);
+		setModal(true);
 		setResizable(false);
 		
 		/*-----------Grid panel containing the labels and input fields-----------*/
