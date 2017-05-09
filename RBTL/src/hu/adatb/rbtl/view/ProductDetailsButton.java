@@ -13,7 +13,7 @@ public class ProductDetailsButton extends JButton{
 	}
 	
 	public ProductDetailsButton() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Product getProduct() {

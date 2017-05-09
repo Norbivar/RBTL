@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 
 import hu.adatb.rbtl.model.beans.Book;
 
-//TODO * „Olcsó könyvek” kilistázása árkategóriánként.
 public class CheapProductsScreen extends JPanel implements ActionListener{
 
 	private JPanel buttonpanel;

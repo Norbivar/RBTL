@@ -13,7 +13,7 @@ public class Book extends Product{
 	private List<String> mufajok;
 	
 	public Book() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**

@@ -11,7 +11,7 @@ public class User {
 	private boolean torzsvasarlo;
 	
 	public User() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	/**

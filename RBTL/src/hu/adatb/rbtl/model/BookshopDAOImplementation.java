@@ -132,7 +132,6 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	@Override
 	public boolean registerUser(User user) {
 		boolean success = false;
-		//TODO Trigger on inserting a new user, for setting the userID
 		
 		/*Ide kell a portforwarding meg stb, mint sqldevelopern�l
 		�s be kell �ll�tani a USERNAME, PASSWORD Stringeket tesztel�shez. 

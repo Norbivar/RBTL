@@ -15,7 +15,7 @@ public class Film extends Product{
 		this.id = id;
 	}
 	public Film() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public String getId() {

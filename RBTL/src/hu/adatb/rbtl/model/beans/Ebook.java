@@ -12,7 +12,7 @@ public class Ebook extends Product{
 	}
 
 	public Ebook() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Ebook(String id) {
