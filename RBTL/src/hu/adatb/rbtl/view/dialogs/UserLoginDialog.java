@@ -86,12 +86,11 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 			if(gui.getController().validateUser(user)) {
 				this.dispose();
 				gui.getController().setLoggedinUser(user);
+				gui.userLoggedIn(); 			//beállítjuk hogy már a bejelentkezett felhasználóknak szóló menüt lássa
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_LOGIN_SUCCESSFUL, 
 						Labels.USER_LOGIN_TITLE, 
 						JOptionPane.INFORMATION_MESSAGE);
-				gui.setJMenuBar(gui.getLoggedIN_menubar()); 	//beállítjuk hogy már a bejelentkezett felhasználóknak szóló menüt lássa
-				gui.revalidate();
 			} else {
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_LOGIN_FAILED, 
