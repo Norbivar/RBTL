@@ -32,8 +32,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 
 	private BookshopController controller;
 	
-	private JMenuBar mb;
+	/* LOGGED OUT MENUBAR */
+	private JMenuBar loggedOUT_menubar;
 	
+	/* --------------------------------- */
+	
+	/* LOGGED IN MENUBAR */
+	private JMenuBar loggedIN_menubar;
+	
+	/* --------------------------------- */
+	
+	/* MENUBAR ITEMS */
 	private JMenu file_menu;
 	private JMenuItem file_home, file_exit;
 	
@@ -48,6 +57,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	
 	private JMenu cart;
 	private JMenuItem show_cart, cart_checkout;
+	/* --------------------------------- */
 	
 	
 	public BookshopGUI(BookshopController controller) {
@@ -58,87 +68,11 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		setSize(800, 600);
 		setLocationRelativeTo(null);	//Place the jframe at the center of the screen
 		setResizable(false);
+
+		createLoggedInMenuBar();
+		createLoggedOutMenuBar();
 		
-		/*----------------MENUBAR----------------*/
-		mb = new JMenuBar();
-		
-		//FILE MENU
-		file_menu = new JMenu(Labels.FILE_MENU);
-		file_home = new JMenuItem(Labels.FILE_MENUITEM_HOME);
-		file_exit = new JMenuItem(Labels.FILE_MENUITEM_EXIT);
-		
-		file_home.addActionListener(this);
-		file_exit.addActionListener(this);
-		
-		file_menu.add(file_home);
-		file_menu.addSeparator();
-		file_menu.add(file_exit);
-		
-		//USER SETTINGS MENU
-		user_settings = new JMenu(Labels.USER_MENU);
-		user_register = new JMenuItem(Labels.USER_MENUITEM_REGISTER);
-		user_login = new JMenuItem(Labels.USER_MENUITEM_LOGIN);
-		user_logout = new JMenuItem(Labels.USER_MENUITEM_SIGNOUT);
-		user_editprofile = new JMenuItem(Labels.USER_MENUITEM_EDITPROFILE);
-		
-		user_register.addActionListener(this);
-		user_login.addActionListener(this);
-		user_logout.addActionListener(this);
-		user_editprofile.addActionListener(this);
-		
-		user_settings.add(user_register);
-		user_settings.add(user_login);
-		user_settings.add(user_editprofile);
-		user_settings.addSeparator();
-		user_settings.add(user_logout);
-		
-		//PRODUCTS MENU
-		products = new JMenu(Labels.PRODUCTS_MENU);
-		search_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_SEARCH);
-		product_toplist = new JMenuItem(Labels.PRODUCTS_MENUITEM_TOPLIST);
-		cheap_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_CHEAP);
-		popular_books = new JMenuItem(Labels.PRODUCTS_POPULAR_BOOKS);
-		
-		search_products.addActionListener(this);
-		product_toplist.addActionListener(this);
-		cheap_products.addActionListener(this);
-		popular_books.addActionListener(this);
-		
-		products.add(search_products);
-		products.add(product_toplist);
-		products.add(cheap_products);
-		
-		//SHOPS MENU
-		shops = new JMenu(Labels.SHOP_MENU);
-		every_book_in_a_shop = new JMenuItem(Labels.SHOP_MENUITEM_BROWSE);
-		book_in_which_shop = new JMenuItem(Labels.SHOP_MENUITEMS_SEARCH);
-		
-		every_book_in_a_shop.addActionListener(this);
-		book_in_which_shop.addActionListener(this);
-		
-		shops.add(every_book_in_a_shop);
-		shops.add(book_in_which_shop);
-		
-		//CART MENU
-		cart = new JMenu(Labels.CART_MENU);
-		show_cart = new JMenuItem(Labels.SHOW_CART_MENUITEM);
-		cart_checkout = new JMenuItem(Labels.CART_CHECKOUT_MENUITEM);
-		
-		show_cart.addActionListener(this);
-		cart_checkout.addActionListener(this);
-		
-		cart.add(show_cart);
-		cart.add(cart_checkout);
-		
-		
-		/* ----------- */
-		mb.add(file_menu);
-		mb.add(user_settings);
-		mb.add(products);
-		mb.add(shops);
-		mb.add(cart);
-		
-		setJMenuBar(mb);
+		setJMenuBar(loggedOUT_menubar);
 		/*------------------------------------------------*/
 		
 		getContentPane().add(new WelcomeScreen());		
@@ -323,6 +257,150 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			
 			return p;
 		}
+	}
+	
+	/**
+	 * This method generates the menubar what everybody can see
+	 */
+	private void createLoggedOutMenuBar(){
+		loggedOUT_menubar = new JMenuBar();		
+		//FILE MENU
+		file_menu = new JMenu(Labels.FILE_MENU);
+		file_home = new JMenuItem(Labels.FILE_MENUITEM_HOME);
+		file_exit = new JMenuItem(Labels.FILE_MENUITEM_EXIT);
+		
+		file_home.addActionListener(this);
+		file_exit.addActionListener(this);
+		
+		file_menu.add(file_home);
+		file_menu.addSeparator();
+		file_menu.add(file_exit);
+		
+		//USER SETTINGS MENU
+		user_settings = new JMenu(Labels.USER_MENU);
+		user_register = new JMenuItem(Labels.USER_MENUITEM_REGISTER);
+		user_login = new JMenuItem(Labels.USER_MENUITEM_LOGIN);
+		
+		user_register.addActionListener(this);
+		user_login.addActionListener(this);
+		
+		user_settings.add(user_register);
+		user_settings.add(user_login);
+		
+		//PRODUCTS MENU
+		products = new JMenu(Labels.PRODUCTS_MENU);
+		search_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_SEARCH);
+		product_toplist = new JMenuItem(Labels.PRODUCTS_MENUITEM_TOPLIST);
+		cheap_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_CHEAP);
+		popular_books = new JMenuItem(Labels.PRODUCTS_POPULAR_BOOKS);
+		
+		search_products.addActionListener(this);
+		product_toplist.addActionListener(this);
+		cheap_products.addActionListener(this);
+		popular_books.addActionListener(this);
+		
+		products.add(search_products);
+		products.add(product_toplist);
+		products.add(cheap_products);
+		
+		//SHOPS MENU
+		shops = new JMenu(Labels.SHOP_MENU);
+		every_book_in_a_shop = new JMenuItem(Labels.SHOP_MENUITEM_BROWSE);
+		book_in_which_shop = new JMenuItem(Labels.SHOP_MENUITEMS_SEARCH);
+		
+		every_book_in_a_shop.addActionListener(this);
+		book_in_which_shop.addActionListener(this);
+		
+		shops.add(every_book_in_a_shop);
+		shops.add(book_in_which_shop);
+		
+		/* ----------- */
+		loggedOUT_menubar.add(file_menu);
+		loggedOUT_menubar.add(user_settings);
+		loggedOUT_menubar.add(products);
+		loggedOUT_menubar.add(shops);		
+	}
+	
+	/**
+	 * This method generates the menubar what only logged in users can see
+	 */
+	private void createLoggedInMenuBar(){
+		loggedIN_menubar = new JMenuBar();
+		
+		//FILE MENU
+		file_menu = new JMenu(Labels.FILE_MENU);
+		file_home = new JMenuItem(Labels.FILE_MENUITEM_HOME);
+		file_exit = new JMenuItem(Labels.FILE_MENUITEM_EXIT);
+		
+		file_home.addActionListener(this);
+		file_exit.addActionListener(this);
+		
+		file_menu.add(file_home);
+		file_menu.addSeparator();
+		file_menu.add(file_exit);
+		
+		//USER SETTINGS MENU
+		user_settings = new JMenu(Labels.USER_MENU);
+		user_register = new JMenuItem(Labels.USER_MENUITEM_REGISTER);
+		user_login = new JMenuItem(Labels.USER_MENUITEM_LOGIN);
+		user_logout = new JMenuItem(Labels.USER_MENUITEM_SIGNOUT);
+		user_editprofile = new JMenuItem(Labels.USER_MENUITEM_EDITPROFILE);
+		
+		user_register.addActionListener(this);
+		user_login.addActionListener(this);
+		user_logout.addActionListener(this);
+		user_editprofile.addActionListener(this);
+		
+		user_settings.add(user_register);
+		user_settings.add(user_login);
+		user_settings.add(user_editprofile);
+		user_settings.addSeparator();
+		user_settings.add(user_logout);
+		
+		//PRODUCTS MENU
+		products = new JMenu(Labels.PRODUCTS_MENU);
+		search_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_SEARCH);
+		product_toplist = new JMenuItem(Labels.PRODUCTS_MENUITEM_TOPLIST);
+		cheap_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_CHEAP);
+		popular_books = new JMenuItem(Labels.PRODUCTS_POPULAR_BOOKS);
+		
+		search_products.addActionListener(this);
+		product_toplist.addActionListener(this);
+		cheap_products.addActionListener(this);
+		popular_books.addActionListener(this);
+		
+		products.add(search_products);
+		products.add(product_toplist);
+		products.add(cheap_products);
+		
+		//SHOPS MENU
+		shops = new JMenu(Labels.SHOP_MENU);
+		every_book_in_a_shop = new JMenuItem(Labels.SHOP_MENUITEM_BROWSE);
+		book_in_which_shop = new JMenuItem(Labels.SHOP_MENUITEMS_SEARCH);
+		
+		every_book_in_a_shop.addActionListener(this);
+		book_in_which_shop.addActionListener(this);
+		
+		shops.add(every_book_in_a_shop);
+		shops.add(book_in_which_shop);
+		
+		//CART MENU
+		cart = new JMenu(Labels.CART_MENU);
+		show_cart = new JMenuItem(Labels.SHOW_CART_MENUITEM);
+		cart_checkout = new JMenuItem(Labels.CART_CHECKOUT_MENUITEM);
+		
+		show_cart.addActionListener(this);
+		cart_checkout.addActionListener(this);
+		
+		cart.add(show_cart);
+		cart.add(cart_checkout);		
+		
+		/* ----------- */
+		loggedIN_menubar.add(file_menu);
+		loggedIN_menubar.add(user_settings);
+		loggedIN_menubar.add(products);
+		loggedIN_menubar.add(shops);
+		loggedIN_menubar.add(cart);
 	}
 	
 	public JPanel displayProductInShopSearch(Product product){
@@ -519,17 +597,19 @@ public class BookshopGUI extends JFrame implements ActionListener{
 				new UserLoginDialog(this);
 			}			
 		} else if(e.getSource() == user_logout){		//If the user clicked on the 'Sign out' menu item
-			if (controller.getLoggedinUser() == null){
+			if (controller.getLoggedinUser() == null){	//sikertelen kijelentkezés
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_ERROR, 
 						Labels.USER_SIGNOUT_TITLE, 
 						JOptionPane.ERROR_MESSAGE);
-			} else {
-				controller.setLoggedinUser(null); // TODO: frissï¿½teni a grafikus elemeket hogy eltï¿½njenek ha valaminek el kell
+			} else {									//sikeres kijelentkezés
+				controller.setLoggedinUser(null); 			
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_SIGNOUT_SUCCESSFUL, 
 						Labels.USER_SIGNOUT_TITLE, 
 						JOptionPane.INFORMATION_MESSAGE);
+				setJMenuBar(loggedOUT_menubar);			//beállítjuk hogy már csak a rendes menüt lássa, felhasználói opciók nélkül
+				revalidate();
 			}
 		} else if (e.getSource() == user_editprofile){	//If the user clicked on the 'Edit profile' menu item
 			getContentPane().removeAll();
@@ -572,5 +652,14 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		getContentPane().add(new CartCheckoutScreen(this));
 		revalidate();
 	}
+
+	public JMenuBar getLoggedOUT_menubar() {
+		return loggedOUT_menubar;
+	}
+
+	public JMenuBar getLoggedIN_menubar() {
+		return loggedIN_menubar;
+	}
+
 
 }
