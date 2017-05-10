@@ -126,6 +126,10 @@ public class BookshopController{
 		return dao.DeleteFromUserCart(user, what);
 	}
 	
+	public boolean AddProductToUsercart(User user, Product what, int howmany) {
+		return dao.AddProductToUsercart(user, what, howmany);
+	}
+	
 	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
 		return dao.ModifyProductInUserCart(user, what, tohowmany);
 	}

@@ -245,7 +245,7 @@ public interface BookshopDAO {
 	 */
 	String getGenreNameByID(String id);
 	
-	boolean AddProductToUsercart(User user, Product what);
+	boolean AddProductToUsercart(User user, Product what, int howmany);
 	
 	boolean DeleteFromUserCart(User user, Product what);
 

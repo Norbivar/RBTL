@@ -31,7 +31,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	private JLabel buy_icon, back_arrow;
 	
 	private JPanel offers_panel;
-	
+	private Product daProduct;
 	public ProductDetailScreen(BookshopGUI gui, Product product){
 		super();
 		this.gui = gui;
@@ -43,6 +43,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		
 		data_panel = new JPanel();
 		data_panel.setLayout(new GridLayout(0, 2));
+		daProduct = product;
 		
 		if(product instanceof Book){
 			Book book = gui.getController().getBookByID(((Book) product).getIsbn());
@@ -175,7 +176,7 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == buy_icon){
-			new AddToCartDialog(gui, title.getText());
+			new AddToCartDialog(gui, daProduct);
 		} else if (e.getSource() == back_arrow){
 			gui.getContentPane().remove(getComponentCount()-1);
 			gui.getContentPane().getComponent(getComponentCount()-2).setVisible(true);

@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
+import hu.adatb.rbtl.model.beans.Product;
 import hu.adatb.rbtl.view.BookshopGUI;
 import hu.adatb.rbtl.view.Labels;
 
@@ -23,10 +24,11 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 	private JLabel productname;
 	private JSpinner quantity_spinner;
 	private JButton okButton, cancelButton;
-	
-	public AddToCartDialog(BookshopGUI gui, String productName){
+	private Product daProduct;
+	public AddToCartDialog(BookshopGUI gui, Product product){
 		super();
 		this.gui = gui;
+		daProduct = product;
 		
 		setLayout(new BorderLayout());
 		setTitle(Labels.ADD_TO_CART_TITLE);
@@ -43,7 +45,7 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 		productname_label = new JLabel(Labels.ADD_TO_CART_NAME);
 		quantity_label = new JLabel(Labels.ADD_TO_CART_QUANTITY);
 		
-		productname = new JLabel(productName);
+		productname = new JLabel(product.getTitle());
 		quantity_spinner = new JSpinner();
 		
 		productpanel.add(productname_label);
@@ -76,7 +78,7 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == okButton){
-			//TODO kosárba helyezés
+			gui.getController().AddProductToUsercart(gui.getController().getLoggedinUser(), daProduct, (int)quantity_spinner.getValue());
 		} else if (e.getSource() == cancelButton){
 			dispose();
 		}

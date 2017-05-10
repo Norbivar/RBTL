@@ -924,14 +924,14 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	}
 	
 	@Override
-	public boolean AddProductToUsercart(User user, Product what)
+	public boolean AddProductToUsercart(User user, Product what, int howmany)
 	{
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(ADD_PRODUCT_TO_USER_CART);
 
 			pst.setInt(1, user.getId());
 			pst.setString(2, what.getId());
-			pst.setInt(3, 1);
+			pst.setInt(3, howmany);
 			if(what instanceof Book)
 				pst.setString(4, "k");
 			else if(what instanceof Ebook)
