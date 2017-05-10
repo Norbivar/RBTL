@@ -616,7 +616,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			ResultSet rs = pst.executeQuery();
 			
 			while(rs.next()){
-				switch(rs.getString(3)) 
+				switch(rs.getString(4)) 
 				{
 				case "k":
 					Book b = getBookByID(rs.getString(2));
