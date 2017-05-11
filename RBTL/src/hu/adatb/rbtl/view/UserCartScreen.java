@@ -61,12 +61,8 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
 					  }
 					});
-				Vector v = new Vector();
-				v.add(a1);
-				v.add(a2);
-				v.add(tmp2);
-
-				dm.insertRow(dm.getRowCount(), v);
+				//TODO: Fuck Java and reimplement this in gridlayout
+				//dm.insertRow(dm.getRowCount(), v);
 		}
 		table.setModel(dm);
 		add(table);
