@@ -85,7 +85,8 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 		} else if (e.getSource() == okbutton) {		//The ok button was clicked
 			User user = new User("", input_email.getText(), String.valueOf(input_password.getPassword()));
 			if(gui.getController().validateUser(user)) {
-				this.dispose();
+				this.dispose();				
+				user = gui.getController().getUserByEmailAndPassWord(input_email.getText(), String.valueOf(input_password.getPassword()));
 				gui.getController().setLoggedinUser(user);
 				gui.userLoggedIn(); 			//beállítjuk hogy már a bejelentkezett felhasználóknak szóló menüt lássa
 				JOptionPane.showMessageDialog(this, 

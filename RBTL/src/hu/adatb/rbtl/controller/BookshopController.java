@@ -166,4 +166,8 @@ public class BookshopController{
 		return dao.getGenreNameByID(ID);
 	}
 	
+	public User getUserByEmailAndPassWord(String email, String password){
+		return dao.getUserByEmailAndPassWord(email, password);
+	}
+	
 }

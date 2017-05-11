@@ -251,4 +251,12 @@ public interface BookshopDAO {
 
 	boolean ModifyProductInUserCart(User user, Product what, int tohowmany);
 
+	/**
+	 * The method returns the user identified by the given email and password
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	User getUserByEmailAndPassWord(String email, String password);
+
 }

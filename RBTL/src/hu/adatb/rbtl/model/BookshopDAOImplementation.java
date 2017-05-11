@@ -33,6 +33,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	*/
 	private final String REGISTER_USER = "INSERT INTO felhasznalo (nev, torzsvasarlo, email, jelszo) VALUES (?, ?, ?, ?)";
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
+	private final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
 	private final String UPDATE_USER_NAME_EDIT_PROFILE1 ="UPDATE felhasznalo  SET nev = ";
 	private final String UPDATE_USER_NAME_EDIT_PROFILE2 = " WHERE email LIKE ";
@@ -169,6 +170,31 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			e.printStackTrace();	
 		}		
 		return valid;
+	}
+	
+	@Override
+	public User getUserByEmailAndPassWord(String email, String password){
+		User usr = new User();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD);
+
+			pst.setString(1, email);
+			pst.setString(2, password);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				usr.setId(rs.getInt(1));
+				usr.setName(rs.getString(2));
+				usr.setTorzsvasarlo(rs.getInt(3) == 1 ? true : false);
+				usr.setEmail(rs.getString(4));
+				usr.setPassword(rs.getString(5));				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();	
+		}		
+		return usr;
 	}
 	
 	@Override

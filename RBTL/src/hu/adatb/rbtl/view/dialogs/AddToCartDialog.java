@@ -25,6 +25,7 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 	private JSpinner quantity_spinner;
 	private JButton okButton, cancelButton;
 	private Product daProduct;
+	
 	public AddToCartDialog(BookshopGUI gui, Product product){
 		super();
 		this.gui = gui;
@@ -78,7 +79,12 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == okButton){
-			gui.getController().AddProductToUsercart(gui.getController().getLoggedinUser(), daProduct, (int)quantity_spinner.getValue());
+			if (gui.getController().AddProductToUsercart(gui.getController().getLoggedinUser(), daProduct, (int) quantity_spinner.getValue())){
+				//sikerült
+			} else {
+				//nem
+			}
+			
 		} else if (e.getSource() == cancelButton){
 			dispose();
 		}
