@@ -640,7 +640,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			pst.setInt(1, user.getId());
 			
 			ResultSet rs = pst.executeQuery();
-			
+			//asdasd
 			while(rs.next()){
 				switch(rs.getString(3)) 
 				{
