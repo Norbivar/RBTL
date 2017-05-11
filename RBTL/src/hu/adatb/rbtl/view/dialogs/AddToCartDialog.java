@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
@@ -81,8 +82,16 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 		if (e.getSource() == okButton){
 			if (gui.getController().AddProductToUsercart(gui.getController().getLoggedinUser(), daProduct, (int) quantity_spinner.getValue())){
 				//sikerült
+				JOptionPane.showMessageDialog(this, 
+						Labels.ADD_TO_CART_SUCCESSFUL, 
+						Labels.ADD_TO_CART_TITLE, 
+						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				//nem
+				//nem sikerült
+				JOptionPane.showMessageDialog(this, 
+						Labels.ADD_TO_CART_FAIL, 
+						Labels.ADD_TO_CART_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
 			}
 			
 		} else if (e.getSource() == cancelButton){
