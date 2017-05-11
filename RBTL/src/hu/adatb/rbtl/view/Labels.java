@@ -149,6 +149,9 @@ public class Labels {
 	public static final String ADD_TO_CART_QUANTITY = "Quantity:";
 	public static final String ADD_TO_CART_OK = "OK";
 	public static final String ADD_TO_CART_CANCEL = "Cancel";
+	public static final String ADD_TO_CART_SUCCESSFUL = "The product has been added to your cart succesfully!";
+	public static final String ADD_TO_CART_FAIL = "An error occured. Please try again.";
+	
 
 	public static final String CART_ID_AND_TITLE = "Code and Title";
 	public static final String CART_AMOUNT_OF_ITEM = "Amount";
