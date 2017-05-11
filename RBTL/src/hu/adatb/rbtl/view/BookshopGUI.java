@@ -552,7 +552,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			//TODO * A legn�pszer�bb k�nyvek m�fajonk�nt.
 		} else if (e.getSource() == show_cart){
 			getContentPane().removeAll();
-			getContentPane().add(new UserCartScreen(this, controller.getUserCart(controller.getLoggedinUser())));
+			getContentPane().add(new UserCartScreen(this));
 			revalidate();
 		} else if (e.getSource() == cart_checkout) {
 			HandleCheckout();

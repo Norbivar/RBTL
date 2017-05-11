@@ -25,9 +25,9 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	JButton checkout;
 	//private JLabel a;
 	HashMap<Product, Integer> cart;
-	public UserCartScreen(BookshopGUI gui, HashMap<Product, Integer> cart){
+	public UserCartScreen(BookshopGUI gui){
 		super();
-		this.cart = cart;
+		this.cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
 		this.gui = gui;
 
 		table = new JTable();
@@ -63,6 +63,7 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 				dm.insertRow(dm.getRowCount(), row);
 		}
 		table.setModel(dm);
+		add(table);
 		checkout = new JButton(Labels.CART_CHECKOUT_MENUITEM);
 		add(checkout);
 		checkout.addActionListener(this);

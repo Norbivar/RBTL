@@ -23,6 +23,7 @@ public class CartCheckoutScreen extends JPanel{
 	public CartCheckoutScreen(BookshopGUI gui) {
 		super();
 		this.gui = gui;
+		this.cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
 		
 		table = new JTable();
 		DefaultTableModel dm = new DefaultTableModel();
@@ -44,6 +45,8 @@ public class CartCheckoutScreen extends JPanel{
 		String[] lastLine = { Labels.CART_CHECKOUT_TOTAL, " ", "$" + totalprice};
 		dm.insertRow(dm.getRowCount(), lastLine);
 		table.setModel(dm);
+		add(table);
+		add(new JLabel("TODO: select address to ship to/shop to shipto xd"));
 	}
 	
 }
