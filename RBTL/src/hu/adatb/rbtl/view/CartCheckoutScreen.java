@@ -36,14 +36,15 @@ public class CartCheckoutScreen extends JPanel{
 			JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
 			JLabel a2 = new JLabel(amount + "");
 			JLabel a3 = new JLabel("$" + tmp.getPrice() * amount);
-			Object[] row = { a1, a2, a3 };
+			Object[] row = new Object[] { a1, a2, a3 }; // error prone
 			dm.insertRow(dm.getRowCount(), row);
 			
 			totalprice += (amount * tmp.getPrice());
 			
 		}
-		String[] lastLine = { Labels.CART_CHECKOUT_TOTAL, " ", "$" + totalprice};
+		String[] lastLine = { Labels.CART_CHECKOUT_TOTAL, " ", "$" + totalprice}; // error prone
 		dm.insertRow(dm.getRowCount(), lastLine);
+		
 		table.setModel(dm);
 		add(table);
 		add(new JLabel("TODO: select address to ship to/shop to shipto xd"));

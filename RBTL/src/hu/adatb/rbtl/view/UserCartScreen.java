@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		dm.setColumnIdentifiers(new Object[] { Labels.CART_ID_AND_TITLE, Labels.CART_AMOUNT_OF_ITEM, Labels.CART_DELETE });
 		for(Product tmp : cart.keySet())
 		{
+				System.out.println("DEBUG: talaltam cuccot a cartodban!");
 				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
 				JTextField a2 = new JTextField(cart.get(tmp).intValue());
 				SpecialJButton tmp2 = new SpecialJButton(Labels.CART_DELETE, tmp);
@@ -59,8 +61,12 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
 					  }
 					});
-				Object[] row = { a1, a2, tmp2 };
-				dm.insertRow(dm.getRowCount(), row);
+				Vector v = new Vector();
+				v.add(a1);
+				v.add(a2);
+				v.add(tmp2);
+
+				dm.insertRow(dm.getRowCount(), v);
 		}
 		table.setModel(dm);
 		add(table);
