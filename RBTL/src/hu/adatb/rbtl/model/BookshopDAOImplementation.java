@@ -642,23 +642,23 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			ResultSet rs = pst.executeQuery();
 			
 			while(rs.next()){
-				switch(rs.getString(4)) 
+				switch(rs.getString(3)) 
 				{
 				case "k":
-					Book b = getBookByID(rs.getString(2));
-					userCart.put(b, rs.getInt(3));
+					Book b = getBookByID(rs.getString(1));
+					userCart.put(b, rs.getInt(2));
 					break;
 				case "f":
-					Film f = getFilmByID(rs.getString(2));
-					userCart.put(f, rs.getInt(3));
+					Film f = getFilmByID(rs.getString(1));
+					userCart.put(f, rs.getInt(2));
 					break;
 				case "e":
-					Ebook e = getEbookByID(rs.getString(2));
-					userCart.put(e, rs.getInt(3));
+					Ebook e = getEbookByID(rs.getString(1));
+					userCart.put(e, rs.getInt(2));
 					break;
 				case "z":
-					Song s = getSongByID(rs.getString(2));
-					userCart.put(s, rs.getInt(3));
+					Song s = getSongByID(rs.getString(1));
+					userCart.put(s, rs.getInt(2));
 					break;
 				default:
 					System.out.println("ERROR: default reached in getUserCart!");
