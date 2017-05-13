@@ -2,6 +2,7 @@ package hu.adatb.rbtl.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,12 +10,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+
 
 import hu.adatb.rbtl.model.beans.Book;
 
@@ -25,6 +30,7 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 	private List<Book> result = new ArrayList<Book>();
 	private JScrollPane scrollpane, genre_toplist_button;
 	private JComboBox genre_combobox;
+	private GridLayout layout = new GridLayout(1,5);
 	
 	private BookshopGUI gui;
 	
@@ -33,7 +39,7 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 		this.gui = gui;
 		
 		gui.setTitle(Labels.TOP_LIST_TITLE);
-		gui.setLayout(new GridLayout(0, 1));
+		//gui.setLayout(new GridLayout(0, 1));
 		buttonpanel = new JPanel();
 		buttonpanel.setLayout(new FlowLayout());
 		
@@ -60,26 +66,53 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 		buttonpanel.add(back_button);
 		
 		resultpanel = new JPanel();
-		resultpanel.setLayout(new GridLayout(0, 1));
+		resultpanel.setLayout(layout);
+		
+		//resultpanel.setBackground(Color.RED);
 		
 		scrollpane = new JScrollPane(resultpanel);
+
 		scrollpane.getVerticalScrollBar().setUnitIncrement(16);
-		add(scrollpane , BorderLayout.CENTER);
+		gui.add(scrollpane, BorderLayout.CENTER);
+		scrollpane.setBounds(5, 40, 800, 800);
 	    scrollpane.setBackground(Color.red);
+	    
+	    layout.setHgap(10);
+	    layout.setVgap(10);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		resultpanel.removeAll();
+		int j=2;
 		if(e.getSource() == back_button){
 			gui.getContentPane().removeAll();
 			gui.getContentPane().add(new WelcomeScreen());
 			gui.getContentPane().revalidate();
+			
+			
 		}else if(e.getSource()  == weekly_toplist_button){
-			result = gui.getController().getBooksFromWeeklyTopList();
-			for(int i = 0; i<result.size(); i++){
-				resultpanel.add(gui.displayProductInList(result.get(i)));
+			Iterator<Book> it = gui.getController().getBooksFromWeeklyTopList().iterator();
+			resultpanel.add(new JLabel("ISBN"));
+			resultpanel.add(new JLabel("Title"));
+			resultpanel.add(new JLabel("Publisher"));
+			resultpanel.add(new JLabel("Author"));
+			resultpanel.add(new JLabel("Price"));
+			
+			
+			
+			
+			while(it.hasNext()){
+				layout.setRows(++j);
+				Book b = it.next();
+				resultpanel.add(new JLabel(b.getIsbn()));
+				resultpanel.add(new JLabel(b.getTitle()));
+				resultpanel.add(new JLabel(b.getPublisher()));
+				resultpanel.add(new JLabel(b.getAuthor()));
+				resultpanel.add(new JLabel(b.getPrice()+""));
+			
 			}
+			
 		}else if(e.getSource() == monthly_toplist_button){
 			result = gui.getController().getBooksFromMonthlyTopList();
 			for(int i = 0; i<result.size(); i++){
