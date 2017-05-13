@@ -807,21 +807,13 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			while(rs.next()){
 				Book tmp = new Book();
 				tmp.setIsbn(rs.getString(1));
-				System.out.println(rs.getString(1));
 				tmp.setTitle(rs.getString(2));
-				System.out.println(rs.getString(2));
 				tmp.setNumOfPages(rs.getInt(3));
-				System.out.println(rs.getString(3));
 				tmp.setKotesID(rs.getInt(4));
-				System.out.println(rs.getString(4));
 				tmp.setSize(rs.getString(5));
-				System.out.println(rs.getString(5));
 				tmp.setPrice(rs.getInt(6));
-				System.out.println(rs.getString(6));
 				tmp.setKiadoID(rs.getInt(7));
-				System.out.println(rs.getString(7));
-				tmp.setPublishYear(rs.getInt(8));
-				System.out.println(rs.getString(8));
+
 				
 				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
@@ -848,27 +840,19 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ResultSet rs = pst.executeQuery();
 			
+
 			
 				while(rs.next()){
 					Book tmp = new Book();
-					
-					System.out.println(rs.getString("ISBN"));
+
 					tmp.setIsbn(rs.getString(1));
-					System.out.println(rs.getString(1));
 					tmp.setTitle(rs.getString(2));
-					System.out.println(rs.getString(2));
 					tmp.setNumOfPages(rs.getInt(3));
-					System.out.println(rs.getString(3));
 					tmp.setKotesID(rs.getInt(4));
-					System.out.println(rs.getString(4));
 					tmp.setSize(rs.getString(5));
-					System.out.println(rs.getString(5));
 					tmp.setPrice(rs.getInt(6));
-					System.out.println(rs.getString(6));
 					tmp.setKiadoID(rs.getInt(7));
-					System.out.println(rs.getString(7));
-					 tmp.setPublishYear(rs.getInt(8));
-					 System.out.println(rs.getString(8));
+					tmp.setPublishYear(rs.getInt(8));
 					
 					tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
 					tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
@@ -878,6 +862,28 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 					
 				}
+
+			while(rs.next()){
+				Book tmp = new Book();
+				
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));		
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
+				
+				ret.add(tmp);
+
+				
+			}
+
 			
 		}catch(SQLException e){
 			e.printStackTrace();
