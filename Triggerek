@@ -1,0 +1,3 @@
+1.: Trigger a készletek figyelésére: ha valamiből N alá esik akkor valami message.
+2.: Trigger a vásárlások lebonyolítására: checkout-on kivonni a készletekből.
+3.: Trigger számla készítésére?
