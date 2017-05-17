@@ -1105,11 +1105,19 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			osszesProduct.addAll(getAllPurchasedProductsOfUser(osszesVasarlasID.get(i)));
 		}
 		
+		System.out.println(osszesProduct.size());
+		
 		if(osszesProduct.size() >= 3){
 			for(int i = 0; i<3; i++){
 				ret.add(osszesProduct.get(i));
 			}
+		} else {
+			for(int i = 0; i<osszesProduct.size(); i++){
+				ret.add(osszesProduct.get(i));
+			}
 		}
+		
+		
 		
 		return ret;
 	}
