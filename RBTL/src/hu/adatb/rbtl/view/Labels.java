@@ -161,4 +161,5 @@ public class Labels {
 	public static final String CART_DELETE = "Delete From Cart";
 	
 	public static final String CART_CHECKOUT_TOTAL = "Total price:";
+	public static final String CART_CHECKOUT_DISCOUT = "Regular customer discount:";
 }
