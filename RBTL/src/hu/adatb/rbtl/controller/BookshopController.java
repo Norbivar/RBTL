@@ -22,22 +22,6 @@ public class BookshopController{
 	private BookshopDAO dao = new BookshopDAOImplementation();
 	private User loggedInUser = null;
 	
-	public boolean addBook(Book book){
-		return dao.addBook(book);
-	}
-	
-	public boolean addEbook(Ebook ebook){
-		return dao.addEbook(ebook);
-	}
-	
-	public boolean addFilm(Film film){
-		return dao.addFilm(film);
-	}
-	
-	public boolean addSong(Song song){
-		return dao.addSong(song);
-	}
-	
 	public boolean registerUser(User user){
 		return dao.registerUser(user);
 	}
@@ -168,6 +152,14 @@ public class BookshopController{
 	
 	public User getUserByEmailAndPassWord(String email, String password){
 		return dao.getUserByEmailAndPassWord(email, password);
+	}
+	
+	public List<Product> getOffersForProduct(Product product){
+		return dao.getOffersForProduct(product);
+	}
+
+	public List<Book> getNewestBooks() {
+		return dao.listNewestBooks();
 	}
 	
 }

@@ -96,6 +96,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	private final String GET_BOOKS_BY_MONTHLY_TOP_LIST = "SELECT * FROM konyv INNER JOIN havitoplista ON havitoplista.ISBN = konyv.ISBN";
 	private final String GET_BOOKS_BY_WEEKLY_TOP_LIST ="SELECT * FROM konyv INNER JOIN hetitoplista ON hetitoplista.ISBN = konyv.ISBN";
+	
+	private final String GET_NEWEST_BOOKS = "SELECT * FROM konyv WHERE ROWNUM <= 5 ORDER BY kiadaseve DESC";
 
 	
 	public BookshopDAOImplementation() {
@@ -105,30 +107,6 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			System.out.println("Failed to load Oracle JDBC drviver");
 			e.printStackTrace();
 		}
-	}
- 
-	@Override
-	public boolean addBook(Book book) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addEbook(Ebook ebook) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addFilm(Film film) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addSong(Song song) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -997,6 +975,45 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<Product> getOffersForProduct(Product product) {
+		List<Product> ret = new ArrayList<Product>();
+		return ret;
+	}
+
+	@Override
+	public List<Book> listNewestBooks() {
+		List<Book> ret = new ArrayList<Book>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			//PreparedStatement pst = conn.prepareStatement(GET_NEWEST_BOOKS);
+			Statement st = conn.createStatement();
+
+			ResultSet rs = st.executeQuery(GET_NEWEST_BOOKS);
+			while (rs.next()){
+				Book tmp = new Book();
+				
+				tmp.setIsbn(rs.getString(1));
+				tmp.setTitle(rs.getString(2));		
+				tmp.setNumOfPages(rs.getInt(3));
+				tmp.setKotesID(rs.getInt(4));
+				tmp.setSize(rs.getString(5));
+				tmp.setPrice(rs.getInt(6));
+				tmp.setKiadoID(rs.getInt(7));
+				tmp.setPublishYear(rs.getInt(8));
+				
+				tmp.setAuthor(getAuthorByID(getAuthorIDByISBN(tmp.getIsbn())));
+				tmp.setKotesNev(getKotesByID(String.valueOf(tmp.getKotesID())));
+				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
+				
+				ret.add(tmp);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 }
 

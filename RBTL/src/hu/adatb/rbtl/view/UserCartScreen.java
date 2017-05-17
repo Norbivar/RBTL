@@ -5,19 +5,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
-import hu.adatb.rbtl.model.beans.Book;
-import hu.adatb.rbtl.model.beans.Ebook;
 import hu.adatb.rbtl.model.beans.Product;
 //TODO: updating
 public class UserCartScreen extends JPanel  implements ActionListener { // I seriously doubt this will work but hey...

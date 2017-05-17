@@ -36,6 +36,7 @@ public class Labels {
 	public static final String PRODUCTS_MENUITEM_TOPLIST = "Product toplists";
 	public static final String PRODUCTS_MENUITEM_CHEAP = "Cheap products";
 	public static final String PRODUCTS_POPULAR_BOOKS = "Popular books";
+	public static final String PRODUCTS_NEWEST_BOOKS = "Newest books";
 	
 	//Sign up
 	public static final String USER_SIGNUP_TITLE = "Sign up";
@@ -97,6 +98,7 @@ public class Labels {
 	public static final String PRODUCT_KIADASEVE = "Year of publishing:";
 	public static final String PRODUCT_SZERZO = "Author:";
 	public static final String PRODUCT_GENRE = "Genre(s):";
+	public static final String PRODUCT_OFFERS = "People who bought this product also bought:";
 	
 	//Edit Profile
 	public static final String EDIT_PROFILE_PANE_TITLE ="Edit Profile: ";
