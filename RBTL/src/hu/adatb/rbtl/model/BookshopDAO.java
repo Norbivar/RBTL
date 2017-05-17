@@ -27,6 +27,11 @@ public interface BookshopDAO {
 	boolean validateUser(User user);
 	
 	/**
+	 * This method is for inserting an address
+	 * */
+	boolean updateAddress(User user, String address);
+	
+	/**
 	 * This method returns all the available bindings in the database
 	 */
 	boolean validateUserEditProfile(String user,  String password);

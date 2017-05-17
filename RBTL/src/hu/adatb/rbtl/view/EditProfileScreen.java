@@ -122,17 +122,30 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 						// pwd1 and pwd2 are the same
 						if(input_new_password_1.getText().equals(input_new_password_2.getText())){
 							if(gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText())){
-								System.out.println("jelszo megvaltoztatva");
+								JOptionPane.showMessageDialog(this, 
+										Labels.EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD, 
+										Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
+										JOptionPane.ERROR_MESSAGE);
 							}
 						//pwd1 and pwd2 are not the same
 						}else {
 							//EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
 							JOptionPane.showMessageDialog(this, 
-									Labels.EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD, 
+									Labels.EDIT_PROFILE_PASSWORD_UPDATED, 
 									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
 									JOptionPane.ERROR_MESSAGE);
 						}
-					}					
+					}
+					
+					if(!input_address.getText().equals("")){
+						if(gui.getController().updateAddress(user , input_address.getText())){
+							JOptionPane.showMessageDialog(this, 
+									Labels.EDIT_PROFILE_ADDRESS_INSERTED, 
+									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
+									JOptionPane.ERROR_MESSAGE);
+							
+						}
+					}
 				}				
 			}
 		}	

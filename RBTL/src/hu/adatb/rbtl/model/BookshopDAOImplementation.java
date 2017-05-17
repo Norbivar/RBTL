@@ -37,6 +37,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
 	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo SET nev = ? WHERE felhasznaloid LIKE ? ";
 	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE ="UPDATE felhasznalo SET jelszo = ? WHERE felhasznaloid LIKE ?";
+	private final String EDIT_PROFILE_INSERT_ADDRESS ="INSERT INTO lakcim VALUES( ? , ? )";
 	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
@@ -182,6 +183,25 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			e.printStackTrace();	
 		}		
 		return usr;
+	}
+	
+	@Override
+	public boolean updateAddress(User user, String address){
+		boolean valid = false;
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(EDIT_PROFILE_INSERT_ADDRESS);
+			
+			pst.setInt(1, user.getId());
+			pst.setString(2, address);
+			
+			pst.executeQuery();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return valid;
 	}
 	
 	@Override

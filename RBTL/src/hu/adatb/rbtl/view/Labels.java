@@ -123,6 +123,8 @@ public class Labels {
 	public static final String EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD ="Enter the same passwords for changing it.";
 	public static final String EDIT_PROFILE_PASSWORD_DIALOG_OKBUTTON ="OK";
 	public static final String EDIT_PROFILE_PASSWORD_DIALOG_CANCELBUTTON ="Cancel";
+	public static final String EDIT_PROFILE_PASSWORD_UPDATED ="You have updated your password!";
+	public static final String EDIT_PROFILE_ADDRESS_INSERTED ="You have added a new address!";
 	
 	//Top List Screen
 	public static final String TOP_LIST_TITLE ="Top Lists";

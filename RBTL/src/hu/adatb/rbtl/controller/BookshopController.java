@@ -85,6 +85,10 @@ public class BookshopController{
 	public Ebook getEbookByID(String id){
 		return dao.getEbookByID(id);
 	}
+	
+	public boolean updateAddress(User user, String address){
+		return dao.updateAddress(user, address);
+	}
 
 	public boolean validateUserEditProfile(String user,  String password){
 		return dao.validateUserEditProfile(user, password);
