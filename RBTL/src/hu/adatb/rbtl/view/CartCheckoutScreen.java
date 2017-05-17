@@ -1,5 +1,7 @@
 package hu.adatb.rbtl.view;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.HashMap;
 
 import javax.swing.JLabel;
@@ -24,7 +26,7 @@ public class CartCheckoutScreen extends JPanel{
 		super();
 		this.gui = gui;
 		this.cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
-		
+		setLayout(new BorderLayout());
 		table = new JTable();
 		DefaultTableModel dm = new DefaultTableModel() {
 
@@ -59,8 +61,11 @@ public class CartCheckoutScreen extends JPanel{
 		table.getColumnModel().getColumn(2).setPreferredWidth(30);
 		
 		table.setModel(dm);
-		add(table);
-		add(new JLabel("TODO: select address to ship to/shop to shipto xd"));
+		add(BorderLayout.CENTER, table);
+		JPanel south = new JPanel();
+		south.setLayout(new GridLayout(2,1));
+
+		add(BorderLayout.SOUTH, south);
 	}
 	
 }
