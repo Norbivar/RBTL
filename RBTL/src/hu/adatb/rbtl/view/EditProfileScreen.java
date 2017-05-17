@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,9 +21,9 @@ import hu.adatb.rbtl.view.dialogs.UserEditProfileDialog;
 
 public class EditProfileScreen extends JPanel implements ActionListener {
 	private BookshopGUI gui;
-	private JLabel label_user_email, panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
+	private JLabel label_user_email, panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email, label_address;
 	private JPanel gridpanel, buttonpanel;
-	private JTextField input_user_email,input_user_name,input_current_password, input_new_password_1, input_new_password_2;
+	private JTextField input_user_email,input_user_name,input_current_password, input_new_password_1, input_new_password_2, input_address;
 	private JButton okbutton, cancelbutton;
 	
 	public EditProfileScreen(BookshopGUI gui){
@@ -37,19 +38,21 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		
 		
 		/*----------------------------Grid panel----------------------------*/
-		gridpanel = new JPanel(new GridLayout(5, 2));
+		gridpanel = new JPanel(new GridLayout(6, 2));
 		
 		label_user_email = new JLabel(Labels.EDIT_PROFILE_USER_EMAIL);
 		label_user_name = new JLabel(Labels.EDIT_PROFILE_USER_NAME);
 		label_current_password = new JLabel(Labels.EDIT_PROFILE_CURRENT_PASSWORD);
 		label_new_password1 = new JLabel(Labels.EDIT_PROFILE_NEW_PASSWORD1);
 		label_new_password2 = new JLabel(Labels.EDIT_PROFILE_NEW_PASSWORD2);
+		label_address = new JLabel(Labels.EDIT_PROFILE_ADDRESS);
 		
 		input_user_email = new JTextField();
 		input_user_name = new JTextField();
 		input_new_password_1 = new JPasswordField();
 		input_new_password_2 = new JPasswordField();
 		input_current_password  = new JPasswordField();
+		input_address = new JTextField();
 		
 		gridpanel.add(label_user_email);
 		gridpanel.add(input_user_email);
@@ -66,6 +69,9 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		
 		gridpanel.add(label_new_password2);
 		gridpanel.add(input_new_password_2);
+		
+		gridpanel.add(label_address);
+		gridpanel.add(input_address);
 		
 		add(gridpanel, BorderLayout.CENTER);
 		/*-------------------------------------------------------------------*/
@@ -98,14 +104,20 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			//user.setEmail(input_email.getText());
 			
 			if((input_current_password.getText().equals("") || input_user_email.getText().equals(""))){
-				UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
+				//UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
+				JOptionPane.showMessageDialog(this, 
+						Labels.USER_EDIT_ENTER_CURRENT_PASSWORD, 
+						Labels.USER_EDIT_DIALOG_TITLE, 
+						JOptionPane.ERROR_MESSAGE);
 				
 			}else {
 				if(gui.getController().validateUserEditProfile(input_user_email.getText(), input_current_password.getText())){
 					
 					//the user has typed in a new user name
 					if(!(input_user_name.getText().equals(""))){
-						gui.getController().updateUserNameEditProfile(user, input_user_name.getText());
+						if(gui.getController().updateUserNameEditProfile(user, input_user_name.getText())){
+							System.out.println("nev megvaltoztatva");
+						}
 					}
 					
 					//the user has typed in a new password

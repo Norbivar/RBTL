@@ -35,7 +35,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
-	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo  SET nev = ? WHERE email LIKE ? ";
+	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo SET nev = ? WHERE email LIKE ? ";
 	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = '";
 	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 ="' WHERE email LIKE '";
 	
@@ -195,9 +195,15 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ResultSet rs = pst.executeQuery();
 			
-			if(password.equals(rs.next())){
-				valid = true;
+			if (rs.next()){
+				if(password.equals(rs.getString(1))){
+					valid = true;
+				}
 			}
+			
+			/*if(password.equals(rs.next())){
+				valid = true;
+			}*/
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -210,7 +216,10 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	public boolean updateUserNameEditProfile(User user, String username){
 		boolean validate= false;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE + username + UPDATE_USER_NAME_EDIT_PROFILE + user.getEmail());
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE);
+			
+			pst.setString(1, username);
+			pst.setString(2, user.getEmail());
 			
 			validate = pst.executeUpdate() == 1;
 			
