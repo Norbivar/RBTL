@@ -166,4 +166,19 @@ public class BookshopController{
 		return dao.listNewestBooks();
 	}
 	
+	public boolean refreshUserData() {
+		if(loggedInUser != null) {
+			User tmp = getUserByEmailAndPassWord(loggedInUser.getName(), loggedInUser.getPassword());
+			if(tmp != null) {
+				loggedInUser.setId(tmp.getId());
+				loggedInUser.setName(tmp.getName());
+				loggedInUser.setEmail(tmp.getEmail());
+				loggedInUser.setPassword(tmp.getPassword());
+				loggedInUser.setTorzsvasarlo(tmp.isTorzsvasarlo());
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
