@@ -102,17 +102,14 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			User user = gui.getController().getLoggedinUser();
 			//user.setName(input_account.getText());
 			//user.setEmail(input_email.getText());
-			
 			if((input_current_password.getText().equals("") || input_user_email.getText().equals(""))){
 				//UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_EDIT_ENTER_CURRENT_PASSWORD, 
 						Labels.USER_EDIT_DIALOG_TITLE, 
-						JOptionPane.ERROR_MESSAGE);
-				
+						JOptionPane.ERROR_MESSAGE);				
 			}else {
 				if(gui.getController().validateUserEditProfile(input_user_email.getText(), input_current_password.getText())){
-					
 					//the user has typed in a new user name
 					if(!(input_user_name.getText().equals(""))){
 						if(gui.getController().updateUserNameEditProfile(user, input_user_name.getText())){
@@ -121,27 +118,24 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 					}
 					
 					//the user has typed in a new password
-					if(!(input_new_password_1.equals("") || input_new_password_2.equals(""))){
+					if(!(input_new_password_1.getText().equals("") || input_new_password_2.getText().equals(""))){						
 						// pwd1 and pwd2 are the same
 						if(input_new_password_1.getText().equals(input_new_password_2.getText())){
 							if(gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText())){
 								System.out.println("jelszo megvaltoztatva");
 							}
-							
-							//pwd1 and pwd2 are not the same
+						//pwd1 and pwd2 are not the same
 						}else {
-							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
+							//EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
+							JOptionPane.showMessageDialog(this, 
+									Labels.EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD, 
+									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
+									JOptionPane.ERROR_MESSAGE);
 						}
-					}
-					
-				}
-				
-				
+					}					
+				}				
 			}
-		}
-		
-	}
-	
-	
-	}
+		}	
+	}	
+}
 
