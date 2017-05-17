@@ -99,6 +99,10 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	private final String GET_NEWEST_BOOKS = "SELECT * FROM konyv WHERE ROWNUM <= 5 ORDER BY kiadaseve DESC";
 
+	private final String GET_VASARLASID_FROM_PRODUCT = "SELECT vasarlasid FROM rendelt WHERE mibol LIKE ?";
+	private final String GET_USER_FROM_VASARLAS = "SELECT felhasznaloid FROM vasarlas WHERE vasarlasid = ?";
+	private final String GET_ALL_PURCHASE_OF_USER = "SELECT vasarlasid FROM vasarlas WHERE felhasznaloid = ?";
+	private final String GET_PURCHASED_PRODUCTS_OF_USER = "SELECT mibol FROM rendelt WHERE vasarlasid = ?";
 	
 	public BookshopDAOImplementation() {
 		try {
@@ -579,6 +583,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		
 		return ret;
 	}
+	
 	@Override
 	public boolean DeleteFromUserCart(User user, Product what) {
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -594,6 +599,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		}
 		return false;
 	}
+	
 	@Override
 	public boolean ModifyProductInUserCart(User user, Product what,  int tohowmany) {
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
@@ -609,6 +615,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		}
 		return false;
 	}
+	
 	@Override
 	public HashMap<Product, Integer> getUserCart(User user) {
 		HashMap<Product, Integer> userCart = new HashMap<Product, Integer>();
@@ -977,9 +984,106 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		return false;
 	}
 
+	public int getVasarlasIdFromProduct(Product product){
+		int ret = 0;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_VASARLASID_FROM_PRODUCT);
+
+			//pst.setInt(1, Integer.parseInt(product.getId()));
+			pst.setString(1, product.getId());
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				ret = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	public int getUserIdFromVasarlasId(int vasarlasID){
+		int ret = 0;
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_USER_FROM_VASARLAS);
+
+			pst.setInt(1, vasarlasID);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				ret = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	public List<Integer> getAllPurchaseIdOfUser(int userID){
+		List<Integer> ret = new ArrayList<Integer>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_ALL_PURCHASE_OF_USER);
+
+			pst.setInt(1, userID);
+			
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()){
+				ret.add(rs.getInt(1));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	public List<Product> getAllPurchasedProductsOfUser(int vasarlasID){
+		List<Product> ret = new ArrayList<Product>();
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_PURCHASED_PRODUCTS_OF_USER);
+
+			pst.setInt(1, vasarlasID);
+			
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()){
+				Book tmp = getBookByID(rs.getString(1));
+				ret.add(tmp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public List<Product> getOffersForProduct(Product product) {
 		List<Product> ret = new ArrayList<Product>();
+		
+		int vasarlasID = getVasarlasIdFromProduct(product);
+		int userID = getUserIdFromVasarlasId(vasarlasID);
+		List<Integer> osszesVasarlasID = getAllPurchaseIdOfUser(userID);
+		List<Product> osszesProduct = new ArrayList<Product>();
+		for(int i = 0; i<osszesVasarlasID.size(); i++){
+			osszesProduct.addAll(getAllPurchasedProductsOfUser(osszesVasarlasID.get(i)));
+		}
+		
+		if(osszesProduct.size() >= 3){
+			for(int i = 0; i<3; i++){
+				ret.add(osszesProduct.get(i));
+			}
+		}
+		
 		return ret;
 	}
 
