@@ -162,7 +162,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	@Override
 	public User getUserByEmailAndPassWord(String email, String password){
-		User usr = new User();
+		User usr = null;
 		
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD);
@@ -172,6 +172,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()){
+				usr = new User();
 				usr.setId(rs.getInt(1));
 				usr.setName(rs.getString(2));
 				usr.setTorzsvasarlo(rs.getInt(3) == 1 ? true : false);
