@@ -20,8 +20,8 @@ import hu.adatb.rbtl.model.beans.User;
 public class BookshopDAOImplementation implements BookshopDAO {
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	private final String USERNAME = "h662400";
-	private final String PASSWORD = "cbforever11";
+	private final String USERNAME = "";
+	private final String PASSWORD = "";
 	
 	/* Ide trigger kell a besz�r�shoz, hogy az id j� legyen. Pl ez j�:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
@@ -35,8 +35,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
-	private final String UPDATE_USER_NAME_EDIT_PROFILE1 ="UPDATE felhasznalo  SET nev = ";
-	private final String UPDATE_USER_NAME_EDIT_PROFILE2 = " WHERE email LIKE ";
+	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo  SET nev = ? WHERE email LIKE ? ";
 	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = '";
 	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 ="' WHERE email LIKE '";
 	
@@ -187,12 +186,12 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	}
 	
 	@Override
-	public boolean validateUserEditProfile(User user, String password){
+	public boolean validateUserEditProfile(String user, String password){
 		boolean valid = false;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(VALIDATE_USER_EDIT_PROFILE);
 			
-			pst.setString(1, user.getEmail());
+			pst.setString(1, user);
 			
 			ResultSet rs = pst.executeQuery();
 			
@@ -211,7 +210,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	public boolean updateUserNameEditProfile(User user, String username){
 		boolean validate= false;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE1 + username + UPDATE_USER_NAME_EDIT_PROFILE2 + user.getEmail());
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE + username + UPDATE_USER_NAME_EDIT_PROFILE + user.getEmail());
 			
 			validate = pst.executeUpdate() == 1;
 			

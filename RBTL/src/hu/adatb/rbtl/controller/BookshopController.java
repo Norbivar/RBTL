@@ -86,7 +86,7 @@ public class BookshopController{
 		return dao.getEbookByID(id);
 	}
 
-	public boolean validateUserEditProfile(User user,  String password){
+	public boolean validateUserEditProfile(String user,  String password){
 		return dao.validateUserEditProfile(user, password);
 	}
 	

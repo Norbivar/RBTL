@@ -20,9 +20,9 @@ import hu.adatb.rbtl.view.dialogs.UserEditProfileDialog;
 
 public class EditProfileScreen extends JPanel implements ActionListener {
 	private BookshopGUI gui;
-	private JLabel  panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
+	private JLabel label_user_email, panel_title,label_new_password1,label_new_password2,label_current_password, label_user_name, label_email;
 	private JPanel gridpanel, buttonpanel;
-	private JTextField input_user_name,input_current_password, input_new_password_1, input_new_password_2;
+	private JTextField input_user_email,input_user_name,input_current_password, input_new_password_1, input_new_password_2;
 	private JButton okbutton, cancelbutton;
 	
 	public EditProfileScreen(BookshopGUI gui){
@@ -37,18 +37,22 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 		
 		
 		/*----------------------------Grid panel----------------------------*/
-		gridpanel = new JPanel(new GridLayout(4, 2));
+		gridpanel = new JPanel(new GridLayout(5, 2));
 		
+		label_user_email = new JLabel(Labels.EDIT_PROFILE_USER_EMAIL);
 		label_user_name = new JLabel(Labels.EDIT_PROFILE_USER_NAME);
 		label_current_password = new JLabel(Labels.EDIT_PROFILE_CURRENT_PASSWORD);
 		label_new_password1 = new JLabel(Labels.EDIT_PROFILE_NEW_PASSWORD1);
 		label_new_password2 = new JLabel(Labels.EDIT_PROFILE_NEW_PASSWORD2);
 		
-		
+		input_user_email = new JTextField();
 		input_user_name = new JTextField();
 		input_new_password_1 = new JPasswordField();
 		input_new_password_2 = new JPasswordField();
 		input_current_password  = new JPasswordField();
+		
+		gridpanel.add(label_user_email);
+		gridpanel.add(input_user_email);
 		
 		gridpanel.add(label_user_name );
 		gridpanel.add(input_user_name);
@@ -93,11 +97,11 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			//user.setName(input_account.getText());
 			//user.setEmail(input_email.getText());
 			
-			if((input_current_password.getText().equals(""))){
+			if((input_current_password.getText().equals("") || input_user_email.getText().equals(""))){
 				UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
 				
 			}else {
-				if(gui.getController().validateUserEditProfile(user, input_current_password.getText())){
+				if(gui.getController().validateUserEditProfile(input_user_email.getText(), input_current_password.getText())){
 					
 					//the user has typed in a new user name
 					if(!(input_user_name.getText().equals(""))){

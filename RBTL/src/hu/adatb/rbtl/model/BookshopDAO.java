@@ -29,7 +29,7 @@ public interface BookshopDAO {
 	/**
 	 * This method returns all the available bindings in the database
 	 */
-	boolean validateUserEditProfile(User user,  String password);
+	boolean validateUserEditProfile(String user,  String password);
 	/*
 	 * This method returns if the user has the correct password in the database
 	 * */

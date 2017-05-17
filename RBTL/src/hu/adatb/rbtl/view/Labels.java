@@ -101,6 +101,7 @@ public class Labels {
 	public static final String PRODUCT_OFFERS = "People who bought this product also bought:";
 	
 	//Edit Profile
+	public static final String EDIT_PROFILE_USER_EMAIL = "Email: ";
 	public static final String EDIT_PROFILE_PANE_TITLE ="Edit Profile: ";
 	public static final String EDIT_PROFILE_USER_NAME ="User Name: ";
 	public static final String EDIT_PROFILE_EMAIL="Email: ";
