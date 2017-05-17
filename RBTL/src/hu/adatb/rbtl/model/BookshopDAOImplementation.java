@@ -20,8 +20,8 @@ import hu.adatb.rbtl.model.beans.User;
 public class BookshopDAOImplementation implements BookshopDAO {
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	private final String USERNAME = "h662400";
-	private final String PASSWORD = "cbforever11";
+	private final String USERNAME = "";
+	private final String PASSWORD = "";
 	
 	/* Ide trigger kell a besz�r�shoz, hogy az id j� legyen. Pl ez j�:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
@@ -1106,11 +1106,19 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			osszesProduct.addAll(getAllPurchasedProductsOfUser(osszesVasarlasID.get(i)));
 		}
 		
+		System.out.println(osszesProduct.size());
+		
 		if(osszesProduct.size() >= 3){
 			for(int i = 0; i<3; i++){
 				ret.add(osszesProduct.get(i));
 			}
+		} else {
+			for(int i = 0; i<osszesProduct.size(); i++){
+				ret.add(osszesProduct.get(i));
+			}
 		}
+		
+		
 		
 		return ret;
 	}

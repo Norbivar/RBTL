@@ -170,7 +170,11 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		
 		product_panel.add(back_arrow);
 		product_panel.add(data_panel);
-		product_panel.add(buy_panel);
+		
+		if(!(gui.getController().getLoggedinUser() == null)){
+			product_panel.add(buy_panel);
+		}
+		
 		
 		add(product_panel);
 		
@@ -198,6 +202,8 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		
 		offers = gui.getController().getOffersForProduct(daProduct);
 		
+		System.out.println(offers.size());
+		
 		if(offers.size() == 1){
 			first_title = new JLabel(offers.get(0).getTitle());
 			first_offer.add(first_title);
@@ -224,11 +230,14 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			third_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
 		}
 		
+		all_offers_flow.add(first_offer);
+		all_offers_flow.add(second_offer);
+		all_offers_flow.add(third_offer);
 		
 		
-		offers_panel.add(first_offer);
+		/*offers_panel.add(first_offer);
 		offers_panel.add(second_offer);
-		offers_panel.add(third_offer);
+		offers_panel.add(third_offer);*/
 		
 		offers_panel.add(all_offers_flow, BorderLayout.CENTER);
 		add(offers_panel);

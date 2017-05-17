@@ -30,7 +30,7 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 	private List<Book> result = new ArrayList<Book>();
 	private JScrollPane scrollpane, genre_toplist_scroll;
 	private JComboBox genre_combobox;
-	private GridLayout layout = new GridLayout(1,5);
+	private GridLayout layout = new GridLayout(0,1);
 	private BookshopGUI gui;
 	
 	public TopListScreen(BookshopGUI gui){
