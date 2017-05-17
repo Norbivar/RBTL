@@ -30,6 +30,10 @@ public class Labels {
 	public static final String CART_MENU = "Cart";
 	public static final String SHOW_CART_MENUITEM = "Show cart";
 	public static final String CART_CHECKOUT_MENUITEM = "Checkout";
+	public static final String CART_CHECKOUT_GO_CHECKOUT = "Order it!";
+	
+	public static final String CHECKOUT_TITLE = "Order sent!";
+	public static final String CHECKOUT_DESC = "The company has received your order and doing it's best to satisfy it!";
 	
 	public static final String PRODUCTS_MENU = "Products";
 	public static final String PRODUCTS_MENUITEM_SEARCH = "Search products";
@@ -163,7 +167,9 @@ public class Labels {
 	public static final String CART_AMOUNT_OF_ITEM = "Amount";
 	public static final String CART_COST_OF_SAME_ITEMS = "Cost of certain Items";
 	public static final String CART_DELETE = "Delete From Cart";
+	public static final String CART_EMPTY = "Your Cart is Empty!";
 	
 	public static final String CART_CHECKOUT_TOTAL = "Total price:";
 	public static final String CART_CHECKOUT_DISCOUT = "Regular customer discount:";
+	public static final String CART_CHECKOUT_NO_SHIPPING = "Take order up in Store";
 }

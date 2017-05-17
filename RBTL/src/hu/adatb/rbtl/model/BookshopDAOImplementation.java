@@ -18,8 +18,8 @@ import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
 public class BookshopDAOImplementation implements BookshopDAO {
+	//private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
-	
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
@@ -87,9 +87,14 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 	private final String GET_USER_CART = "SELECT mibol, mennyit, tipus FROM kosar WHERE felhasznaloid = ?";
 	private final String DELETE_PRODUCT_FROM_USER_CART = "DELETE FROM kosar WHERE felhasznaloid = ? AND mibol = ?";
-	private final String UPDATE_PRODUCT_IN_USER_CART = "UPDATE mennyit WHERE felhasznaloid = ? AND mibol = ? SET mennyit = ?";
+	private final String UPDATE_PRODUCT_IN_USER_CART = "UPDATE kosar SET mennyit = ? WHERE felhasznaloid = ? AND mibol = ?";
+	private final String UPDATE_GIVE_PRODUCT_IN_USER_CART = "UPDATE kosar SET mennyit = mennyit + ? WHERE felhasznaloid = ? AND mibol = ?";
 	private final String ADD_PRODUCT_TO_USER_CART = "INSERT INTO kosar(felhasznaloid, mibol, mennyit, tipus) VALUES (?, ?, ?, ?)";
 	
+	private final String HANDLE_FINAL_CHECKOUT_FOR = "INSERT INTO vasarlas(felhasznaloid, boltbanvesziat, szallitasicim) VALUES (?, ?, ?)";
+	
+	private final String GET_USER_ADRESSES = "SELECT cim FROM lakcim WHERE felhasznaloid = ?";
+	private final String ADD_USER_ADRESSES = "INSERT INTO lakcim (felhasznaloid, cim) VALUES (?, ?)";
 	
 	private final String GET_BOOKS_BY_PRICE_RANGE = "SELECT * FROM konyv WHERE ar >= ? AND ar <= ?";
 	
@@ -626,10 +631,11 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	public boolean DeleteFromUserCart(User user, Product what) {
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(DELETE_PRODUCT_FROM_USER_CART);
-			//System.out.println("DEBUG: Deleting from " +user.getId(), + " ");
+			System.out.println("DEBUG: Deleting from " + user.getId() + " " + what.getId());
 			pst.setInt(1, user.getId());
 			pst.setString(2, what.getId());
-			if(pst.execute())
+			pst.execute();
+			if(pst.getUpdateCount() == 1)
 				return true;		
 		}
 		catch (SQLException e) {
@@ -643,9 +649,10 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(UPDATE_PRODUCT_IN_USER_CART);
 
-			pst.setInt(1, user.getId());
-			pst.setString(2, what.getId());
-			pst.setInt(3, tohowmany);
+			pst.setInt(1, tohowmany);
+			pst.setInt(2, user.getId());
+			pst.setString(3, what.getId());
+
 			if(pst.executeUpdate() == 1)
 				return true;
 		} catch (SQLException e) {
@@ -1035,9 +1042,19 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			else if(what instanceof Song)
 				pst.setString(4, "z");
 			
-			boolean result = pst.execute();
-			return result;
-			
+			pst.execute();
+			if(pst.getUpdateCount() == 1)
+				return true;
+			else {
+				pst = conn.prepareStatement(UPDATE_GIVE_PRODUCT_IN_USER_CART);
+				pst.setInt(1, howmany);
+				pst.setInt(2, user.getId());
+				pst.setString(3, what.getId());
+				
+				pst.execute();
+				if(pst.getUpdateCount() == 1)
+					return true;
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1186,6 +1203,60 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+	public List<String> getAllAddressesForUser(User user) {
+		List<String> ret = new ArrayList<String>();
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(GET_USER_ADRESSES);
+			
+			pst.setInt(1, user.getId());
+
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()){
+				ret.add(rs.getString(0));
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	public boolean HandleFinalCheckout(User user, boolean boltban, String cim) {
+		//HANDLE_FINAL_CHECKOUT_FOR = "INSERT INTO vasarlas(felhasznaloid, boltbanvesziat, szallitasicim) VALUES (?, ?, ?)
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(HANDLE_FINAL_CHECKOUT_FOR);
+			
+			pst.setInt(1, user.getId());
+			pst.setInt(2, boltban ? 1 : 0);
+			pst.setString(3, cim);
+
+			pst.execute();
+			if(pst.getUpdateCount() == 1) {
+				return true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	public boolean AddAddressForUser(String address, User user) {
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			PreparedStatement pst = conn.prepareStatement(ADD_USER_ADRESSES);
+			
+			pst.setInt(1, user.getId());
+			pst.setString(2, address);
+
+			pst.execute();
+			if(pst.getUpdateCount() == 1) {
+				return true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
 

@@ -1,6 +1,7 @@
 package hu.adatb.rbtl.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +10,13 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -23,48 +30,51 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	HashMap<Product, Integer> cart;
 	public void Refresh()
 	{
+		cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
 		this.removeAll();
 		int rows = cart.keySet().size();
+		if(rows == 0) {
+			add(new JLabel(Labels.CART_EMPTY), BorderLayout.CENTER);
+			return;
+		}
 		setLayout(new BorderLayout());
-		//layout();.
-		JPanel centerpanel = new JPanel();
-		centerpanel.setLayout(new GridLayout(rows+1, 3));
-		add(centerpanel, BorderLayout.CENTER);
-		centerpanel.add(new JLabel(Labels.CART_ID_AND_TITLE));
-		centerpanel.add(new JLabel(Labels.CART_AMOUNT_OF_ITEM));
-		centerpanel.add(new JLabel(Labels.CART_DELETE));
+	
+		JPanel listpanel = new JPanel();
+		GridLayout gl = new GridLayout(rows+1, 3);
+		listpanel.setMinimumSize(new Dimension(10,10));
+		listpanel.setPreferredSize(new Dimension(10,10));
+		listpanel.setMaximumSize(new Dimension(10,10));
+		gl.setHgap(10);
+		gl.setVgap(10);
+		listpanel.setLayout(gl);
+		
+		JScrollPane scrollpane = new JScrollPane(listpanel);
+		scrollpane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		add(scrollpane, BorderLayout.CENTER);
+		listpanel.add(new JLabel(Labels.CART_ID_AND_TITLE));
+		listpanel.add(new JLabel(Labels.CART_AMOUNT_OF_ITEM));
+		listpanel.add(new JLabel(Labels.CART_DELETE));
 		
 		for(Product tmp : cart.keySet())
 		{
 				//System.out.println("DEBUG: talaltam cuccot a cartodban!");
-				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
-				JTextField a2 = new JTextField();
-				a2.setText(cart.get(tmp).intValue() +"");
+				JLabel a1 = new JLabel(tmp.getId() + "  |  " + tmp.getTitle());
+				JSpinner a2 = new JSpinner();
+				a2.setValue(cart.get(tmp).intValue());
 				SpecialJButton tmp2 = new SpecialJButton(Labels.CART_DELETE, tmp);
 				tmp2.addActionListener(this);
 				
-				// Medzsik
-				a2.getDocument().addDocumentListener(new DocumentListener() {
-					  public void changedUpdate(DocumentEvent e) {
-						  doIt();
-					  }
-					  public void removeUpdate(DocumentEvent e) {
-						  doIt();
-					  }
-					  public void insertUpdate(DocumentEvent e) {
-						  doIt();
-					  }
-
-					  public void doIt() {
-					     if (Integer.parseInt(a2.getText())<=0){
-					    	 a2.setText("1");
-					     }
-					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
-					  }
-					});
-				centerpanel.add(a1);
-				centerpanel.add(a2);
-				centerpanel.add(tmp2);
+				   a2.addChangeListener(new ChangeListener() {
+				        @Override
+				        public void stateChanged(ChangeEvent e) {
+				        	if(!gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), (int)a2.getValue()))
+				        		Refresh(); // if not successful -> revert back
+				        }
+				    });			   
+				   listpanel.add(a1);
+				   listpanel.add(a2);
+				   listpanel.add(tmp2);
 		}
 		
 		checkout = new JButton(Labels.CART_CHECKOUT_MENUITEM);
@@ -74,9 +84,7 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	
 	public UserCartScreen(BookshopGUI gui){
 		super();
-		this.cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
 		this.gui = gui;
-
 		Refresh();
 	}
 	@Override
@@ -89,9 +97,9 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 			{
 				if(gui.getController().DeleteFromUserCart(gui.getController().getLoggedinUser(), asd))
 					Refresh();
-				else System.out.println("DEBUG: No item to delete IN CART found!");
+				//else System.out.println("DEBUG: No item to delete IN CART found!");
 			}
-			else System.out.println("DEBUG: No item to delete was found!");
+			//else System.out.println("DEBUG: No item to delete was found!");
 			this.revalidate();
 		}
 		else if(e.getSource() == checkout)

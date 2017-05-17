@@ -498,13 +498,15 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			return p;
 		}
 	}
-	
+	public void handleWelcomeScreen() {
+		getContentPane().removeAll();
+		getContentPane().add(new WelcomeScreen());
+		revalidate();
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == file_home){					//If the user clicked on the 'Home' menu item
-			getContentPane().removeAll();
-			getContentPane().add(new WelcomeScreen());
-			revalidate();
+			handleWelcomeScreen();
 		} else if (e.getSource() == file_exit) {		//If the user clicked on the 'Exit' menu item
 			System.exit(0);
 		} else if (e.getSource() == user_register){ 	//If the user clicked on the 'Sign up' menu item

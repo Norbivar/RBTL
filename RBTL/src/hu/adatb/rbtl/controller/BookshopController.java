@@ -170,6 +170,14 @@ public class BookshopController{
 		return dao.listNewestBooks();
 	}
 	
+	public List<String> getAllAddressesForUser(User user) {
+		return dao.getAllAddressesForUser(user);
+	}
+	
+	public boolean HandleFinalCheckout(User user, boolean boltban, String cim) {
+		return dao.HandleFinalCheckout(user, boltban, cim);
+	}
+	
 	public boolean refreshUserData() {
 		if(loggedInUser != null) {
 			User tmp = getUserByEmailAndPassWord(loggedInUser.getName(), loggedInUser.getPassword());
@@ -184,5 +192,7 @@ public class BookshopController{
 		}
 		return false;
 	}
-	
+	public boolean AddAddressForUser(String address, User user) {
+		return dao.AddAddressForUser(address, user);
+	}
 }

@@ -232,6 +232,8 @@ public interface BookshopDAO {
 	boolean DeleteFromUserCart(User user, Product what);
 
 	boolean ModifyProductInUserCart(User user, Product what, int tohowmany);
+	
+	List<String> getAllAddressesForUser(User user);
 
 	/**
 	 * The method returns the user identified by the given email and password
@@ -249,4 +251,8 @@ public interface BookshopDAO {
 	List<Product> getOffersForProduct(Product product);
 
 	List<Book> listNewestBooks();
+	
+	boolean HandleFinalCheckout(User user, boolean boltban, String cim);
+	
+	boolean AddAddressForUser(String address, User user);
 }

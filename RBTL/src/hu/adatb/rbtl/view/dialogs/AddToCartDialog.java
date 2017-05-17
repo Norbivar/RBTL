@@ -86,6 +86,7 @@ public class AddToCartDialog extends JDialog implements ActionListener{
 						Labels.ADD_TO_CART_SUCCESSFUL, 
 						Labels.ADD_TO_CART_TITLE, 
 						JOptionPane.INFORMATION_MESSAGE);
+				dispose();
 			} else {
 				//nem sikerült
 				JOptionPane.showMessageDialog(this, 

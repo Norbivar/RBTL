@@ -100,6 +100,17 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			gui.getContentPane().revalidate();
 		}else if(e.getSource() == okbutton){
 			User user = gui.getController().getLoggedinUser();
+			
+			//Norbi:
+			if(input_address.getText() != null && !input_address.getText().equals("")) {
+				if(gui.getController().AddAddressForUser(input_address.getText(), gui.getController().getLoggedinUser())) {
+					JOptionPane.showMessageDialog(this, 
+							"Address successfully added!", 
+							"Address", 
+							JOptionPane.INFORMATION_MESSAGE);		
+				}
+			}
+			
 			//user.setName(input_account.getText());
 			//user.setEmail(input_email.getText());
 			if((input_current_password.getText().equals("") || input_user_email.getText().equals(""))){

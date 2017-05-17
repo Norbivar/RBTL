@@ -78,10 +78,14 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 			genre = new JLabel();
 			
 			List<String> mufajok = book.getMufajok();
-			for(int i = 0; i<mufajok.size(); i++){
-				genre.setText(genre.getText() + mufajok.get(i));
+			if(mufajok.size() == 1) {
+				genre.setText(mufajok.get(0));
 			}
-			
+			else {
+				for(int i = 0; i<mufajok.size(); i++){
+					genre.setText(genre.getText() + ", "+ mufajok.get(i));
+				}
+			}
 			
 			data_panel.add(isbn_label);
 			data_panel.add(isbn);
