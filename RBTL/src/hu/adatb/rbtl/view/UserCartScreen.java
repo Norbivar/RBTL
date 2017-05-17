@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.view;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,11 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 	{
 		this.removeAll();
 		int rows = cart.keySet().size();
-		setLayout(new GridLayout(3, rows+1));
+		setLayout(new BorderLayout());
+		//layout();.
+		JPanel centerpanel = new JPanel();
+		centerpanel.setLayout(new GridLayout(3, rows+1));
+		add(centerpanel, BorderLayout.CENTER);
 		add(new JLabel(Labels.CART_ID_AND_TITLE));
 		add(new JLabel(Labels.CART_AMOUNT_OF_ITEM));
 		add(new JLabel(Labels.CART_DELETE));
@@ -38,7 +43,8 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		{
 				//System.out.println("DEBUG: talaltam cuccot a cartodban!");
 				JLabel a1 = new JLabel(tmp.getId() + " " + tmp.getTitle());
-				JTextField a2 = new JTextField(cart.get(tmp).intValue());
+				JTextField a2 = new JTextField();
+				a2.setText(cart.get(tmp).intValue() +"");
 				SpecialJButton tmp2 = new SpecialJButton(Labels.CART_DELETE, tmp);
 				tmp2.addActionListener(this);
 				
