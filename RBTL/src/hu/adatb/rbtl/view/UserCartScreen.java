@@ -28,11 +28,11 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 		setLayout(new BorderLayout());
 		//layout();.
 		JPanel centerpanel = new JPanel();
-		centerpanel.setLayout(new GridLayout(3, rows+1));
+		centerpanel.setLayout(new GridLayout(rows+1, 3));
 		add(centerpanel, BorderLayout.CENTER);
-		add(new JLabel(Labels.CART_ID_AND_TITLE));
-		add(new JLabel(Labels.CART_AMOUNT_OF_ITEM));
-		add(new JLabel(Labels.CART_DELETE));
+		centerpanel.add(new JLabel(Labels.CART_ID_AND_TITLE));
+		centerpanel.add(new JLabel(Labels.CART_AMOUNT_OF_ITEM));
+		centerpanel.add(new JLabel(Labels.CART_DELETE));
 		
 		for(Product tmp : cart.keySet())
 		{
@@ -62,13 +62,13 @@ public class UserCartScreen extends JPanel  implements ActionListener { // I ser
 					     gui.getController().ModifyProductInUserCart(gui.getController().getLoggedinUser(), tmp2.getP(), Integer.parseInt(a2.getText()));
 					  }
 					});
-				add(a1);
-				add(a2);
-				add(tmp2);
+				centerpanel.add(a1);
+				centerpanel.add(a2);
+				centerpanel.add(tmp2);
 		}
 		
 		checkout = new JButton(Labels.CART_CHECKOUT_MENUITEM);
-		add(checkout);
+		add(checkout, BorderLayout.SOUTH);
 		checkout.addActionListener(this);
 	}
 	

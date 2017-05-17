@@ -626,7 +626,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	public boolean DeleteFromUserCart(User user, Product what) {
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
 			PreparedStatement pst = conn.prepareStatement(DELETE_PRODUCT_FROM_USER_CART);
-
+			//System.out.println("DEBUG: Deleting from " +user.getId(), + " ");
 			pst.setInt(1, user.getId());
 			pst.setString(2, what.getId());
 			if(pst.execute())
