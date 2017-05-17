@@ -20,8 +20,8 @@ import hu.adatb.rbtl.model.beans.User;
 public class BookshopDAOImplementation implements BookshopDAO {
 	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	
-	private final String USERNAME = "";
-	private final String PASSWORD = "";
+	private final String USERNAME = "h662400";
+	private final String PASSWORD = "cbforever11";
 	
 	/* Ide trigger kell a besz�r�shoz, hogy az id j� legyen. Pl ez j�:
 	  	CREATE OR REPLACE TRIGGER db_ujfelhasznalo
@@ -51,6 +51,12 @@ public class BookshopDAOImplementation implements BookshopDAO {
 						+ "JOIN mufaj "
 						+ "JOIN konyvmufajai ON mufaj.mufajid = konyvmufajai.MUFAJID"
 						+ "WHERE szerzoje.ISBN = KONYV.ISBN AND mufaj.mufajid = ";
+	
+	private final String GET_BOOKS_BY_GENRE_TOP_LIST = "SELECT konyv.ISBN, konyv.CIM, konyv.OLDALSZAM, konyv.KOTESID, konyv.MERET, konyv.AR, konyv.KIADOID, konyv.KIADASEVE" 
+			+ " FROM konyv, konyvmufajai, mufaj"
+			+ " WHERE konyv.ISBN = konyvmufajai.ISBN AND"
+			+ " konyvmufajai.MUFAJID = mufaj.MUFAJID AND"
+			+ " mufaj.NEVE LIKE ? ";
 	
 	/*private final String SEARCH_BOOK = "SELECT * FROM konyv "
 			+ "WHERE isbn LIKE ? OR "
@@ -862,7 +868,27 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	
 					
 				}
-
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return ret;
+	}
+	
+	//GET_BOOKS_BY_GENRE
+	public List<Book> getBooksByGenreTopList(String genre){
+		List<Book> ret = new ArrayList<Book>();
+		
+		
+		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
+			
+			PreparedStatement pst = conn.prepareStatement(GET_BOOKS_BY_GENRE_TOP_LIST);
+			
+			pst.setString(1, genre);
+			
+			ResultSet rs = pst.executeQuery();
+			
 			while(rs.next()){
 				Book tmp = new Book();
 				
@@ -880,17 +906,19 @@ public class BookshopDAOImplementation implements BookshopDAO {
 				tmp.setPublisher(getPublisherNameByID(String.valueOf(tmp.getKiadoID())));
 				
 				ret.add(tmp);
-
+				
 				
 			}
 
+				
+			}catch(SQLException e){
+				e.printStackTrace();
 			
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
+			}
 		
 		return ret;
 	}
+	
 
 	@Override
 	public List<String> getShopOfBook(Book book) {

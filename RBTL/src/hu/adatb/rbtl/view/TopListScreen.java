@@ -25,13 +25,12 @@ import hu.adatb.rbtl.model.beans.Book;
 
 public class TopListScreen extends JPanel implements ActionListener, ItemListener {
 	private JPanel buttonpanel;
-	private JButton weekly_toplist_button, monthly_toplist_button, back_button;
+	private JButton weekly_toplist_button, monthly_toplist_button, back_button, list_genre;
 	private JPanel resultpanel;
 	private List<Book> result = new ArrayList<Book>();
-	private JScrollPane scrollpane, genre_toplist_button;
+	private JScrollPane scrollpane, genre_toplist_scroll;
 	private JComboBox genre_combobox;
 	private GridLayout layout = new GridLayout(1,5);
-	
 	private BookshopGUI gui;
 	
 	public TopListScreen(BookshopGUI gui){
@@ -45,20 +44,23 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 		
 		weekly_toplist_button = new JButton(Labels.TOP_LIST_WEEKLY);
 		monthly_toplist_button = new JButton(Labels.TOP_LIST_MONTHLY);
-		genre_toplist_button = new JScrollPane();
+		genre_toplist_scroll = new JScrollPane();
 		back_button = new JButton(Labels.TOP_LIST_BACK_BUTTON);
+		list_genre = new JButton(Labels.TOP_LIST_BY_GENRE);
 		
 		weekly_toplist_button.addActionListener(this);
 		monthly_toplist_button.addActionListener(this);
 		back_button.addActionListener(this);
+		list_genre.addActionListener(this);
 		
 		
 		
 		buttonpanel.add(weekly_toplist_button);
 		buttonpanel.add(monthly_toplist_button);
-		buttonpanel.add(genre_toplist_button);
+		buttonpanel.add(genre_toplist_scroll);
+		buttonpanel.add(list_genre);
 	
-		add(buttonpanel );
+		add(buttonpanel);
 		
 		genre_combobox = new JComboBox<String>(this.gui.getController().getAllGenre());
 		add(genre_combobox);
@@ -102,8 +104,13 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 			for(int i = 0; i<result.size(); i++){
 				resultpanel.add(gui.displayProductInList(result.get(i)));
 			}
-		}else if(e.getSource() == genre_toplist_button){
-			
+		}else if(e.getSource() == list_genre){
+			String genre = String.valueOf(genre_combobox.getSelectedItem().toString());
+			System.out.println(genre);
+			result = gui.getController().getBooksByGenreTopList(genre);
+			for(int i = 0; i<result.size();i++){
+				resultpanel.add(gui.displayProductInList(result.get(i)));
+			}
 		}
 		resultpanel.revalidate();
 		scrollpane.revalidate();
@@ -112,13 +119,9 @@ public class TopListScreen extends JPanel implements ActionListener, ItemListene
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED){
-			String item = String.valueOf(e.getItem());
-			
 			
 		}
 		
 	}
-	
-	
-	
+
 }

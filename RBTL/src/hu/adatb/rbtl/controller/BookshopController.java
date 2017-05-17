@@ -150,6 +150,10 @@ public class BookshopController{
 		return dao.getBooksFromWeeklyTopList();
 	}
 	
+	public List<Book> getBooksByGenreTopList(String genre){
+		return dao.getBooksByGenreTopList(genre);
+	}
+	
 	public List<String> getShopOfBook(Book book){
 		return dao.getShopOfBook(book);
 	}

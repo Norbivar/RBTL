@@ -217,6 +217,11 @@ public interface BookshopDAO {
 	List<Book> getBooksFromWeeklyTopList();
 	
 	/**
+	 * This method returns the books by genre...
+	 * */
+	List<Book> getBooksByGenreTopList(String genre);
+	
+	/**
 	 * This method returns the shop where you can find the given {@link Book}
 	 * @param book - the book to find
 	 * @return - a {@link List} of {@link String}s, which contains the shops' data
