@@ -1,5 +1,6 @@
 package hu.adatb.rbtl.view;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import hu.adatb.rbtl.model.beans.Book;
 import hu.adatb.rbtl.model.beans.Ebook;
@@ -30,8 +32,13 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 	private JPanel buy_panel;
 	private JLabel buy_icon, back_arrow;
 	
-	private JPanel offers_panel;
+	private JPanel offers_panel, all_offers_flow, first_offer, second_offer, third_offer;
+	private JLabel offers_title, first_title, second_title, third_title;
+	private Product firstOffer, secondOffer, thirdOffer;
+	private List<Product> offers;
+	
 	private Product daProduct;
+	
 	public ProductDetailScreen(BookshopGUI gui, Product product){
 		super();
 		this.gui = gui;
@@ -168,8 +175,62 @@ public class ProductDetailScreen extends JPanel implements MouseListener{
 		add(product_panel);
 		
 		/* ------------------------------------- */
+		//TODO Egy könyv adatlapjánál azon könyveket is kilistázni, amelyeket megvettek azok a vásárlók, 
+		//amelyek az aktuális könyvet megvették.
 		offers_panel = new JPanel();
-		//TODO Egy könyv adatlapjánál azon könyveket is kilistázni, amelyeket megvettek azok a vásárlók, amelyek az aktuális könyvet megvették.
+		offers_panel.setLayout(new BorderLayout());
+		
+		offers_title = new JLabel(Labels.PRODUCT_OFFERS, SwingConstants.CENTER);
+		offers_panel.add(offers_title, BorderLayout.NORTH);
+		
+		
+		all_offers_flow = new JPanel();
+		all_offers_flow.setLayout(new FlowLayout());
+		
+		
+		first_offer = new JPanel();
+		second_offer = new JPanel();
+		third_offer = new JPanel();
+
+		first_offer.setLayout(new GridLayout(2, 1));
+		second_offer.setLayout(new GridLayout(2, 1));
+		third_offer.setLayout(new GridLayout(2, 1));
+		
+		offers = gui.getController().getOffersForProduct(daProduct);
+		
+		if(offers.size() == 1){
+			first_title = new JLabel(offers.get(0).getTitle());
+			first_offer.add(first_title);
+			first_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+		} else if (offers.size() == 2){
+			first_title = new JLabel(offers.get(0).getTitle());
+			first_offer.add(first_title);
+			first_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+			
+			second_title = new JLabel(offers.get(1).getTitle());
+			second_offer.add(second_title);
+			second_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+		} else if (offers.size()>2){
+			first_title = new JLabel(offers.get(0).getTitle());
+			first_offer.add(first_title);
+			first_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+			
+			second_title = new JLabel(offers.get(1).getTitle());
+			second_offer.add(second_title);
+			second_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+			
+			third_title = new JLabel(offers.get(2).getTitle());
+			third_offer.add(third_title);
+			third_offer.add(new ProductDetailsButton(Labels.PRODUCT_DETAILS_BUTTON, daProduct));
+		}
+		
+		
+		
+		offers_panel.add(first_offer);
+		offers_panel.add(second_offer);
+		offers_panel.add(third_offer);
+		
+		offers_panel.add(all_offers_flow, BorderLayout.CENTER);
 		add(offers_panel);
 	}
 

@@ -44,7 +44,7 @@ public class BookshopGUI extends JFrame implements ActionListener{
 	private JMenuItem user_register, user_login, user_logout, user_editprofile;
 	
 	private JMenu products;
-	private JMenuItem search_products, product_toplist, cheap_products, popular_books;
+	private JMenuItem search_products, product_toplist, cheap_products, popular_books, newest_books;
 	
 	private JMenu shops;
 	private JMenuItem every_book_in_a_shop, book_in_which_shop;
@@ -100,16 +100,17 @@ public class BookshopGUI extends JFrame implements ActionListener{
 		search_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_SEARCH);
 		product_toplist = new JMenuItem(Labels.PRODUCTS_MENUITEM_TOPLIST);
 		cheap_products = new JMenuItem(Labels.PRODUCTS_MENUITEM_CHEAP);
-		popular_books = new JMenuItem(Labels.PRODUCTS_POPULAR_BOOKS);
+		newest_books = new JMenuItem(Labels.PRODUCTS_NEWEST_BOOKS);
 		
 		search_products.addActionListener(this);
 		product_toplist.addActionListener(this);
 		cheap_products.addActionListener(this);
-		popular_books.addActionListener(this);
+		newest_books.addActionListener(this);
 		
 		products.add(search_products);
 		products.add(product_toplist);
 		products.add(cheap_products);
+		products.add(newest_books);
 		
 		//SHOPS MENU
 		shops = new JMenu(Labels.SHOP_MENU);
@@ -548,8 +549,10 @@ public class BookshopGUI extends JFrame implements ActionListener{
 			getContentPane().removeAll();
 			getContentPane().add(new CheapProductsScreen(this));
 			revalidate();
-		} else if (e.getSource() == popular_books){
-			//TODO * A legn�pszer�bb k�nyvek m�fajonk�nt.
+		} else if (e.getSource() == newest_books){
+			getContentPane().removeAll();
+			getContentPane().add(new NewestBooksScreen(this));
+			revalidate();
 		} else if (e.getSource() == show_cart){
 			getContentPane().removeAll();
 			getContentPane().add(new UserCartScreen(this));

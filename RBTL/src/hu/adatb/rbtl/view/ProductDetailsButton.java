@@ -12,6 +12,11 @@ public class ProductDetailsButton extends JButton{
 		super(string);
 	}
 	
+	public ProductDetailsButton(String string, Product product){
+		super(string);
+		this.product = product;
+	}
+	
 	public ProductDetailsButton() {
 		
 	}

@@ -26,7 +26,13 @@ public class CartCheckoutScreen extends JPanel{
 		this.cart = gui.getController().getUserCart(gui.getController().getLoggedinUser());
 		
 		table = new JTable();
-		DefaultTableModel dm = new DefaultTableModel();
+		DefaultTableModel dm = new DefaultTableModel() {
+
+		    @Override
+		    public boolean isCellEditable(int row, int column) {
+		       return false;
+		    }
+		};
 		dm.setColumnIdentifiers(new Object[] { Labels.CART_ID_AND_TITLE, Labels.CART_AMOUNT_OF_ITEM, Labels.CART_COST_OF_SAME_ITEMS });
 		
 		int totalprice = 0;
@@ -39,8 +45,18 @@ public class CartCheckoutScreen extends JPanel{
 			totalprice += (amount * tmp.getPrice());
 			
 		}
+		if(gui.getController().getLoggedinUser().isTorzsvasarlo() == true) {
+			int discount = totalprice / 10;
+			String[] DiscountLine = { Labels.CART_CHECKOUT_DISCOUT, " ", "- $" + discount}; 
+			dm.insertRow(dm.getRowCount(), DiscountLine);
+			totalprice -= discount;
+		}		
 		String[] lastLine = { Labels.CART_CHECKOUT_TOTAL, " ", "$" + totalprice}; 
 		dm.insertRow(dm.getRowCount(), lastLine);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(120);
+		table.getColumnModel().getColumn(1).setPreferredWidth(30);
+		table.getColumnModel().getColumn(2).setPreferredWidth(30);
 		
 		table.setModel(dm);
 		add(table);

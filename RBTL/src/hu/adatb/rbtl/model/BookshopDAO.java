@@ -13,34 +13,6 @@ import hu.adatb.rbtl.model.beans.User;
 public interface BookshopDAO {
 
 	/**
-	 * This method is for adding a new {@link Book} to the database
-	 * @param book - The {@link Book} which we want to add
-	 * @return true if it was successful, otherwise false
-	 */
-	boolean addBook(Book book);
-	
-	/**
-	 * This method is for adding a new {@link Ebook} to the database
-	 * @param ebook - The {@link Ebook} which we want to add
-	 * @return true if it was successful, otherwise false
-	 */
-	boolean addEbook(Ebook ebook);
-	
-	/**
-	 * This method is for adding a new {@link Film} to the database
-	 * @param film - The {@link Film} which we want to add
-	 * @return true if it was successful, otherwise false
-	 */
-	boolean addFilm(Film film);
-	
-	/**
-	 * This method is for adding a new {@link Song} to the database
-	 * @param song - The {@link Song} which we want to add
-	 * @return true if it was successful, otherwise false
-	 */
-	boolean addSong(Song song);
-	
-	/**
 	 * This method is for adding a new {@link User} to the database
 	 * @param user - The {@link User} which we want to add
 	 * @return true if it was successful, otherwise false
@@ -263,5 +235,13 @@ public interface BookshopDAO {
 	 * @return
 	 */
 	User getUserByEmailAndPassWord(String email, String password);
+	
+	/**
+	 * This method returns a list of products, which contains offers for the given one.
+	 * @param product
+	 * @return
+	 */
+	List<Product> getOffersForProduct(Product product);
 
+	List<Book> listNewestBooks();
 }
