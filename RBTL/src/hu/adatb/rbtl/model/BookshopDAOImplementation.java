@@ -35,9 +35,8 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	private final String VALIDATE_USER = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM felhasznalo WHERE email LIKE ? AND jelszo LIKE ?";
 	private final String VALIDATE_USER_EDIT_PROFILE ="SELECT jelszo FROM felhasznalo WHERE email LIKE ?";
-	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo SET nev = ? WHERE email LIKE ? ";
-	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE1 ="UPDATE felhasznalo  SET jelszo = '";
-	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE2 ="' WHERE email LIKE '";
+	private final String UPDATE_USER_NAME_EDIT_PROFILE ="UPDATE felhasznalo SET nev = ? WHERE felhasznaloid LIKE ? ";
+	private final String UPDATE_USER_PASSWORD_EDIT_PROFILE ="UPDATE felhasznalo SET jelszo = ? WHERE felhasznaloid LIKE ?";
 	
 	private final String GET_ALL_BINDIGS = "SELECT megnevezes FROM kotes";
 	private final String GET_ALL_AUTHORS = "SELECT nev FROM szerzo";
@@ -219,7 +218,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_NAME_EDIT_PROFILE);
 			
 			pst.setString(1, username);
-			pst.setString(2, user.getEmail());
+			pst.setInt(2, user.getId());
 			
 			validate = pst.executeUpdate() == 1;
 			
@@ -233,7 +232,11 @@ public class BookshopDAOImplementation implements BookshopDAO {
 	public boolean updatePasswordEditProfile(User user, String password){
 		boolean validate = false;
 		try(Connection conn = DriverManager.getConnection(CONNECTION_STRING, USERNAME, PASSWORD)){
-			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_PASSWORD_EDIT_PROFILE1 + password + UPDATE_USER_PASSWORD_EDIT_PROFILE2 + user.getEmail()+ "'");
+			PreparedStatement pst = conn.prepareStatement(UPDATE_USER_PASSWORD_EDIT_PROFILE);
+			
+			pst.setString(1, password);
+			pst.setInt(2, user.getId());
+			
 			
 			validate = pst.executeUpdate() == 1;
 			

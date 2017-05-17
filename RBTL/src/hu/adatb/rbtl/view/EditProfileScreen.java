@@ -99,7 +99,7 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			gui.getContentPane().add(new WelcomeScreen());
 			gui.getContentPane().revalidate();
 		}else if(e.getSource() == okbutton){
-			User user = new User();
+			User user = gui.getController().getLoggedinUser();
 			//user.setName(input_account.getText());
 			//user.setEmail(input_email.getText());
 			
@@ -121,13 +121,15 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 					}
 					
 					//the user has typed in a new password
-					if(!(input_new_password_1.equals("") && input_new_password_2.equals(""))){
+					if(!(input_new_password_1.equals("") || input_new_password_2.equals(""))){
 						// pwd1 and pwd2 are the same
 						if(input_new_password_1.getText().equals(input_new_password_2.getText())){
-							gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText());
+							if(gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText())){
+								System.out.println("jelszo megvaltoztatva");
+							}
 							
 							//pwd1 and pwd2 are not the same
-						}else if(!(input_new_password_1.getText().equals(input_new_password_2.getText()))){
+						}else {
 							EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
 						}
 					}
