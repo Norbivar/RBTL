@@ -91,6 +91,7 @@ public class CartCheckoutScreen extends JPanel implements ActionListener{
 		rendelo.addActionListener(this);
 		south.add(rendelo);
 		add(BorderLayout.SOUTH, south);
+		RefreshComboBox(dropdown, false);
 	}
     @Override
     public void actionPerformed(ActionEvent e) {

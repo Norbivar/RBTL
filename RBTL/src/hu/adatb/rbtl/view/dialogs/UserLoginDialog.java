@@ -93,6 +93,7 @@ public class UserLoginDialog extends JDialog implements ActionListener{
 						Labels.USER_LOGIN_SUCCESSFUL, 
 						Labels.USER_LOGIN_TITLE, 
 						JOptionPane.INFORMATION_MESSAGE);
+				gui.setTitle(Labels.MAIN_TITLE + " | " + gui.getController().getLoggedinUser().getName());
 			} else {
 				JOptionPane.showMessageDialog(this, 
 						Labels.USER_LOGIN_FAILED, 

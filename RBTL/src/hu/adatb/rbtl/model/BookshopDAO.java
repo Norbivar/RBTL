@@ -255,4 +255,6 @@ public interface BookshopDAO {
 	boolean HandleFinalCheckout(User user, boolean boltban, String cim);
 	
 	boolean AddAddressForUser(String address, User user);
+	
+	boolean DeleteAddressFromUser(String address, User user);
 }

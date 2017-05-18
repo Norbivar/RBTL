@@ -119,7 +119,7 @@ public class Labels {
 	public static final String USER_EDIT_DIALOG_OKBUTTON ="OK";
 	public static final String USER_EDIT_DIALOG_CANCELBUTTON ="Cancel";
 	public static final String USER_EDIT_DIALOG_TITLE = "Enter Your Current Password";
-	public static final String USER_EDIT_ENTER_CURRENT_PASSWORD ="You must enter your current password";
+	public static final String USER_EDIT_ENTER_CURRENT_PASSWORD ="You must enter your email and current password to change ANY data!";
 
 	public static final String EDIT_PROFILE_CANCELBUTTON ="Cancel";
 

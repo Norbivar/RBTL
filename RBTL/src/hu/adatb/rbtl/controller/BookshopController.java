@@ -195,4 +195,7 @@ public class BookshopController{
 	public boolean AddAddressForUser(String address, User user) {
 		return dao.AddAddressForUser(address, user);
 	}
+	public boolean DeleteAddressFromUser(String address, User user) {
+		return dao.DeleteAddressFromUser(address, user);
+	}
 }

@@ -100,65 +100,59 @@ public class EditProfileScreen extends JPanel implements ActionListener {
 			gui.getContentPane().revalidate();
 		}else if(e.getSource() == okbutton){
 			User user = gui.getController().getLoggedinUser();
+
+			if(input_current_password.getText().equals(gui.getController().getLoggedinUser().getPassword()))
+			{
+				//Norbi:
+				// address adding
+				if(input_address.getText() != null && !input_address.getText().equals("")) {
+					if(gui.getController().AddAddressForUser(input_address.getText(), gui.getController().getLoggedinUser())) {
+						JOptionPane.showMessageDialog(this, 
+								"Address successfully added!", 
+								"Address", 
+								JOptionPane.INFORMATION_MESSAGE);		
+					}
+				}			
 			
-			//Norbi:
-			if(input_address.getText() != null && !input_address.getText().equals("")) {
-				if(gui.getController().AddAddressForUser(input_address.getText(), gui.getController().getLoggedinUser())) {
-					JOptionPane.showMessageDialog(this, 
-							"Address successfully added!", 
-							"Address", 
-							JOptionPane.INFORMATION_MESSAGE);		
+				//username change
+				if(!input_user_name.getText().equals("")) {
+					if(gui.getController().updateUserNameEditProfile(user, input_user_name.getText())){
+						System.out.println("nev megvaltoztatva");
+					}
+					else
+						JOptionPane.showMessageDialog(this, 
+								"Username change was unsuccessful sadly!", 
+								"Username Change", 
+								JOptionPane.ERROR_MESSAGE);		
+				}
+				if(!input_new_password_1.getText().equals("")) {
+				//password change:
+					if(input_new_password_2.getText().equals(input_new_password_1.getText())) {
+						if(gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText())){
+							JOptionPane.showMessageDialog(this, 
+									Labels.EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD, 
+									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+						else
+							JOptionPane.showMessageDialog(this, 
+									"We encountered an error!", 
+									"Password Change", 
+									JOptionPane.ERROR_MESSAGE);
+					}
+					else
+						JOptionPane.showMessageDialog(this, 
+								"New passwords do not match or simply left blank!", 
+								"Password Change", 
+								JOptionPane.ERROR_MESSAGE);	
 				}
 			}
-			
-			//user.setName(input_account.getText());
-			//user.setEmail(input_email.getText());
-			if((input_current_password.getText().equals("") || input_user_email.getText().equals(""))){
-				//UserEditProfileDialog dialog = new UserEditProfileDialog(gui);
+			else
 				JOptionPane.showMessageDialog(this, 
-						Labels.USER_EDIT_ENTER_CURRENT_PASSWORD, 
-						Labels.USER_EDIT_DIALOG_TITLE, 
-						JOptionPane.ERROR_MESSAGE);				
-			}else {
-				if(gui.getController().validateUserEditProfile(input_user_email.getText(), input_current_password.getText())){
-					//the user has typed in a new user name
-					if(!(input_user_name.getText().equals(""))){
-						if(gui.getController().updateUserNameEditProfile(user, input_user_name.getText())){
-							System.out.println("nev megvaltoztatva");
-						}
-					}
-					
-					//the user has typed in a new password
-					if(!(input_new_password_1.getText().equals("") || input_new_password_2.getText().equals(""))){						
-						// pwd1 and pwd2 are the same
-						if(input_new_password_1.getText().equals(input_new_password_2.getText())){
-							if(gui.getController().updatePasswordEditProfile(user, input_new_password_1.getText())){
-								JOptionPane.showMessageDialog(this, 
-										Labels.EDIT_PROFILE_PASSWORD_DIALOG_PASSWORD, 
-										Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
-										JOptionPane.ERROR_MESSAGE);
-							}
-						//pwd1 and pwd2 are not the same
-						}else {
-							//EditProfilePasswordDialog editProfilePasswordDialog = new EditProfilePasswordDialog(gui);
-							JOptionPane.showMessageDialog(this, 
-									Labels.EDIT_PROFILE_PASSWORD_UPDATED, 
-									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-					
-					if(!input_address.getText().equals("")){
-						if(gui.getController().updateAddress(user , input_address.getText())){
-							JOptionPane.showMessageDialog(this, 
-									Labels.EDIT_PROFILE_ADDRESS_INSERTED, 
-									Labels.EDIT_PROFILE_PASSWORD_DIALOG_TITLE, 
-									JOptionPane.ERROR_MESSAGE);
-							
-						}
-					}
-				}				
-			}
+						"Your current password always needs to be typed in to allow editing!", 
+						"Editing failed!", 
+						JOptionPane.ERROR_MESSAGE);	
+			gui.getController().refreshUserData();
 		}	
 	}	
 }

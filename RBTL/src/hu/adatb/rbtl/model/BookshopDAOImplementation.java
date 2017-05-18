@@ -18,8 +18,8 @@ import hu.adatb.rbtl.model.beans.Song;
 import hu.adatb.rbtl.model.beans.User;
 
 public class BookshopDAOImplementation implements BookshopDAO {
-	//private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
-	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
+	private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
+	//private final String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:4000:kabinet";
 	private final String USERNAME = "";
 	private final String PASSWORD = "";
 	
@@ -1213,7 +1213,7 @@ public class BookshopDAOImplementation implements BookshopDAO {
 
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()){
-				ret.add(rs.getString(0));
+				ret.add(rs.getString(1));
 			}
 		}
 		catch (SQLException e) {
@@ -1256,6 +1256,9 @@ public class BookshopDAOImplementation implements BookshopDAO {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+	public boolean DeleteAddressFromUser(String address, User user) {
 		return false;
 	}
 }
